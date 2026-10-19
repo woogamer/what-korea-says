@@ -1,0 +1,4581 @@
+{
+ "kappa": 8.0,
+ "kappa_note": "AI prior counts as this many real respondents (empirical Bayes, Gallup bank)",
+ "questions": [
+  {
+   "id": "g24-0",
+   "question_ko": "가장 좋아하는 한국음식은 무엇입니까?",
+   "question_en": "What is your favorite Korean food?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "비빔밥",
+     "en": "Bibimbap",
+     "pct": 14.3,
+     "alias_ko": [],
+     "reality_ko": "비빔밥"
+    },
+    {
+     "ko": "삼겹살",
+     "en": "Samgyeopsal",
+     "pct": 13.5,
+     "alias_ko": [],
+     "reality_ko": "삼겹살"
+    },
+    {
+     "ko": "김치찌개",
+     "en": "Kimchi stew",
+     "pct": 13.3,
+     "alias_ko": [],
+     "reality_ko": "김치찌개"
+    },
+    {
+     "ko": "불고기",
+     "en": "Bulgogi",
+     "pct": 10.4,
+     "alias_ko": [],
+     "reality_ko": "불고기"
+    },
+    {
+     "ko": "떡볶이",
+     "en": "Tteokbokki",
+     "pct": 8.4,
+     "alias_ko": [],
+     "reality_ko": "떡볶이"
+    },
+    {
+     "ko": "갈비",
+     "en": "Galbi",
+     "pct": 7.0,
+     "alias_ko": [],
+     "reality_ko": "갈비"
+    },
+    {
+     "ko": "된장찌개",
+     "en": "Doenjang stew",
+     "pct": 4.9,
+     "alias_ko": [],
+     "reality_ko": "된장찌개"
+    },
+    {
+     "ko": "순두부찌개",
+     "en": "Sundubu stew",
+     "pct": 4.6,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "잡채",
+     "en": "Japchae",
+     "pct": 4.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "냉면",
+     "en": "Naengmyeon",
+     "pct": 4.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "순대",
+     "en": "Sundae",
+     "pct": 2.8,
+     "alias_ko": [
+      "순대국"
+     ]
+    },
+    {
+     "ko": "파전",
+     "en": "Pajeon",
+     "pct": 2.8,
+     "alias_ko": [
+      "해물파전"
+     ]
+    },
+    {
+     "ko": "김밥",
+     "en": "Gimbap",
+     "pct": 2.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "치킨",
+     "en": "Chicken",
+     "pct": 2.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "라면",
+     "en": "Ramen",
+     "pct": 2.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "제육볶음",
+     "en": "Jeyuk bokkeum",
+     "pct": 1.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "닭갈비",
+     "en": "Dakgalbi",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1480",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "김치찌개",
+      "en": "Kimchi stew",
+      "pct": 14.0
+     },
+     {
+      "ko": "불고기",
+      "en": "Bulgogi",
+      "pct": 11.0
+     },
+     {
+      "ko": "된장찌개",
+      "en": "Doenjang stew",
+      "pct": 10.0
+     },
+     {
+      "ko": "김치",
+      "en": "Kimchi",
+      "pct": 9.0
+     },
+     {
+      "ko": "비빔밥",
+      "en": "Bibimbap",
+      "pct": 6.0
+     },
+     {
+      "ko": "잡채",
+      "en": "Japchae",
+      "pct": 4.8
+     },
+     {
+      "ko": "삼겹살",
+      "en": "Samgyeopsal",
+      "pct": 4.5
+     },
+     {
+      "ko": "갈비",
+      "en": "Galbi",
+      "pct": 4.2
+     },
+     {
+      "ko": "떡볶이",
+      "en": "Tteokbokki",
+      "pct": 3.3
+     },
+     {
+      "ko": "갈비찜",
+      "en": "Galbijjim",
+      "pct": 3.3
+     },
+     {
+      "ko": "청국장",
+      "en": "Cheonggukjang",
+      "pct": 3.1
+     },
+     {
+      "ko": "김밥",
+      "en": "Kimbap",
+      "pct": 1.7
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24-1",
+   "question_ko": "가장 좋아하는 중국음식은 무엇입니까?",
+   "question_en": "What is your favorite Chinese food?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "짜장면",
+     "en": "Jajangmyeon",
+     "pct": 29.9,
+     "alias_ko": [],
+     "reality_ko": "짜장면"
+    },
+    {
+     "ko": "탕수육",
+     "en": "Tangsuyuk",
+     "pct": 19.5,
+     "alias_ko": [],
+     "reality_ko": "탕수육"
+    },
+    {
+     "ko": "짬뽕",
+     "en": "Jjambbong",
+     "pct": 14.8,
+     "alias_ko": [],
+     "reality_ko": "짬뽕"
+    },
+    {
+     "ko": "만두",
+     "en": "Mandu",
+     "pct": 6.6,
+     "alias_ko": [
+      "군만두",
+      "물만두"
+     ],
+     "reality_ko": null
+    },
+    {
+     "ko": "볶음밥",
+     "en": "Bokkeumbap",
+     "pct": 4.4,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "유산슬",
+     "en": "Yusanseul",
+     "pct": 4.0,
+     "alias_ko": [],
+     "reality_ko": "유산슬"
+    },
+    {
+     "ko": "마파두부",
+     "en": "Mapadubu",
+     "pct": 3.2,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "깐풍기",
+     "en": "Ganpunggi",
+     "pct": 3.1,
+     "alias_ko": [],
+     "reality_ko": "깐풍기"
+    },
+    {
+     "ko": "마라탕",
+     "en": "Malatang",
+     "pct": 3.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "딤섬",
+     "en": "Dimsum",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "팔보채",
+     "en": "Palbochae",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "라조기",
+     "en": "Rajogi",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "훠궈",
+     "en": "Huo Guo",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "북경오리",
+     "en": "Beijing Duck",
+     "pct": 1.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "궁중 치킨",
+     "en": "Gungjung Chicken",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "어향가지",
+     "en": "Eohyang Gaji",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "소룡포",
+     "en": "Sorongpo",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "춘권",
+     "en": "Chungkwon",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1480",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "짜장면",
+      "en": "Jjajangmyeon",
+      "pct": 38.0
+     },
+     {
+      "ko": "짬뽕",
+      "en": "Jjamppong",
+      "pct": 19.0
+     },
+     {
+      "ko": "마라탕",
+      "en": "Mala Tang",
+      "pct": 4.5
+     },
+     {
+      "ko": "팔보채",
+      "en": "Palbochae",
+      "pct": 4.5
+     },
+     {
+      "ko": "양장피",
+      "en": "Yangjangpi",
+      "pct": 3.0
+     },
+     {
+      "ko": "깐풍기",
+      "en": "Ganpunggi",
+      "pct": 2.4
+     },
+     {
+      "ko": "유산슬",
+      "en": "Yusanseul",
+      "pct": 2.0
+     },
+     {
+      "ko": "우동",
+      "en": "Udon",
+      "pct": 0.9
+     },
+     {
+      "ko": "꿔바로우",
+      "en": "Kkwabaegu",
+      "pct": 0.8
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": [
+    "탕수육"
+   ]
+  },
+  {
+   "id": "g24-2",
+   "question_ko": "가장 좋아하는 과일주스는 무엇입니까?",
+   "question_en": "What is your favorite fruit juice?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "사과 주스",
+     "en": "Apple juice",
+     "pct": 20.5,
+     "alias_ko": [],
+     "reality_ko": "사과주스"
+    },
+    {
+     "ko": "오렌지 주스",
+     "en": "Orange juice",
+     "pct": 18.4,
+     "alias_ko": [],
+     "reality_ko": "오렌지주스"
+    },
+    {
+     "ko": "포도 주스",
+     "en": "Grape juice",
+     "pct": 12.8,
+     "alias_ko": [],
+     "reality_ko": "포도주스"
+    },
+    {
+     "ko": "딸기 주스",
+     "en": "Strawberry juice",
+     "pct": 10.0,
+     "alias_ko": [],
+     "reality_ko": "딸기주스"
+    },
+    {
+     "ko": "복숭아 주스",
+     "en": "Peach juice",
+     "pct": 8.1,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "망고 주스",
+     "en": "Mango juice",
+     "pct": 6.4,
+     "alias_ko": [],
+     "reality_ko": "망고주스"
+    },
+    {
+     "ko": "파인애플 주스",
+     "en": "Pineapple juice",
+     "pct": 5.7,
+     "alias_ko": [],
+     "reality_ko": "파인애플주스"
+    },
+    {
+     "ko": "키위 주스",
+     "en": "Kiwi juice",
+     "pct": 3.9,
+     "alias_ko": [],
+     "reality_ko": "키위주스"
+    },
+    {
+     "ko": "수박 주스",
+     "en": "Watermelon juice",
+     "pct": 3.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "복합과일주스",
+     "en": "Mixed fruit juice",
+     "pct": 2.1,
+     "alias_ko": [
+      "복합 과일주스",
+      "혼합과일주스"
+     ]
+    },
+    {
+     "ko": "자두 주스",
+     "en": "Plum juice",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "레몬 주스",
+     "en": "Lemon juice",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "블루베리 주스",
+     "en": "Blueberry juice",
+     "pct": 1.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "배 주스",
+     "en": "Pear juice",
+     "pct": 1.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "석류 주스",
+     "en": "Pomegranate juice",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "토마토 주스",
+     "en": "Tomato juice",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "복숭아망고 혼합주스",
+     "en": "Peach mango mixed juice",
+     "pct": 0.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "자몽 주스",
+     "en": "Grapefruit juice",
+     "pct": 0.4,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타"
+   ],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1480",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "오렌지주스",
+      "en": "Orange juice",
+      "pct": 19.0
+     },
+     {
+      "ko": "딸기주스",
+      "en": "Strawberry juice",
+      "pct": 17.0
+     },
+     {
+      "ko": "사과주스",
+      "en": "Apple juice",
+      "pct": 15.0
+     },
+     {
+      "ko": "포도주스",
+      "en": "Grape juice",
+      "pct": 8.0
+     },
+     {
+      "ko": "망고주스",
+      "en": "Mango juice",
+      "pct": 8.0
+     },
+     {
+      "ko": "토마토주스",
+      "en": "Tomato juice",
+      "pct": 6.0
+     },
+     {
+      "ko": "키위주스",
+      "en": "Kiwi juice",
+      "pct": 4.3
+     },
+     {
+      "ko": "바나나주스",
+      "en": "Banana juice",
+      "pct": 4.0
+     },
+     {
+      "ko": "자몽주스",
+      "en": "Grapefruit juice",
+      "pct": 3.9
+     },
+     {
+      "ko": "수박주스",
+      "en": "Watermelon juice",
+      "pct": 3.9
+     },
+     {
+      "ko": "파인애플주스",
+      "en": "Pineapple juice",
+      "pct": 1.7
+     },
+     {
+      "ko": "배주스",
+      "en": "Pear juice",
+      "pct": 1.6
+     },
+     {
+      "ko": "감귤주스",
+      "en": "Tangerine juice",
+      "pct": 1.4
+     },
+     {
+      "ko": "레몬주스",
+      "en": "Lemon juice",
+      "pct": 1.1
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24-3",
+   "question_ko": "가장 즐겨하는 취미는 무엇입니까?",
+   "question_en": "What is your favorite hobby?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "스마트폰 사용/인터넷 서핑",
+     "en": "Smartphone use / Internet surfing",
+     "pct": 20.3,
+     "alias_ko": [
+      "스마트폰/인터넷 사용",
+      "스마트폰 사용 및 SNS"
+     ],
+     "reality_ko": null
+    },
+    {
+     "ko": "TV 시청 및 스트리밍 영상 시청",
+     "en": "TV viewing and streaming video watching",
+     "pct": 17.5,
+     "alias_ko": [
+      "TV/드라마 시청",
+      "TV 시청/드라마 시청"
+     ],
+     "reality_ko": "영상시청(TV·유튜브·OTT)"
+    },
+    {
+     "ko": "독서",
+     "en": "Reading",
+     "pct": 13.5,
+     "alias_ko": [
+      "독서 (책 읽기)"
+     ],
+     "reality_ko": "독서"
+    },
+    {
+     "ko": "게임",
+     "en": "Gaming",
+     "pct": 12.6,
+     "alias_ko": [
+      "게임 (모바일/PC/콘솔)"
+     ],
+     "reality_ko": "게임"
+    },
+    {
+     "ko": "운동/헬스",
+     "en": "Exercise / Fitness",
+     "pct": 10.3,
+     "alias_ko": [
+      "운동 및 헬스 (조깅, 헬스장, 요가 등)",
+      "운동"
+     ],
+     "reality_ko": "운동/헬스"
+    },
+    {
+     "ko": "요리/베이킹",
+     "en": "Cooking / Baking",
+     "pct": 8.5,
+     "alias_ko": [
+      "요리 및 베이킹"
+     ],
+     "reality_ko": "요리/베이킹"
+    },
+    {
+     "ko": "음악 감상",
+     "en": "Music listening",
+     "pct": 5.5,
+     "alias_ko": [
+      "음악 감상/악기 연주"
+     ],
+     "reality_ko": "음악감상"
+    },
+    {
+     "ko": "사진 촬영",
+     "en": "Photography",
+     "pct": 4.5,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "여행",
+     "en": "Travel",
+     "pct": 4.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "등산/하이킹",
+     "en": "Hiking / Trekking",
+     "pct": 2.8,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1481",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "게임",
+      "en": "Gaming",
+      "pct": 9.0
+     },
+     {
+      "ko": "운동/헬스",
+      "en": "Exercise/Fitness",
+      "pct": 7.0
+     },
+     {
+      "ko": "등산",
+      "en": "Hiking",
+      "pct": 7.0
+     },
+     {
+      "ko": "영상시청(TV·유튜브·OTT)",
+      "en": "Watching videos (TV/YouTube/OTT)",
+      "pct": 6.0
+     },
+     {
+      "ko": "걷기",
+      "en": "Walking",
+      "pct": 4.8
+     },
+     {
+      "ko": "음악감상",
+      "en": "Listening to music",
+      "pct": 4.4
+     },
+     {
+      "ko": "독서",
+      "en": "Reading",
+      "pct": 4.2
+     },
+     {
+      "ko": "골프",
+      "en": "Golf",
+      "pct": 4.1
+     },
+     {
+      "ko": "낚시",
+      "en": "Fishing",
+      "pct": 3.6
+     },
+     {
+      "ko": "여행",
+      "en": "Travel",
+      "pct": 3.2
+     },
+     {
+      "ko": "축구",
+      "en": "Soccer",
+      "pct": 3.0
+     },
+     {
+      "ko": "영화감상",
+      "en": "Movie watching",
+      "pct": 2.6
+     },
+     {
+      "ko": "원예",
+      "en": "Gardening",
+      "pct": 2.3
+     },
+     {
+      "ko": "요리/베이킹",
+      "en": "Cooking/Baking",
+      "pct": 2.1
+     },
+     {
+      "ko": "바둑",
+      "en": "Go (board game)",
+      "pct": 2.0
+     },
+     {
+      "ko": "사이클",
+      "en": "Cycling",
+      "pct": 1.9
+     },
+     {
+      "ko": "뜨개질",
+      "en": "Knitting",
+      "pct": 1.8
+     },
+     {
+      "ko": "당구",
+      "en": "Billiards",
+      "pct": 1.7
+     },
+     {
+      "ko": "노래부르기",
+      "en": "Singing",
+      "pct": 1.6
+     },
+     {
+      "ko": "그림그리기",
+      "en": "Drawing/Painting",
+      "pct": 1.5
+     },
+     {
+      "ko": "수영",
+      "en": "Swimming",
+      "pct": 1.4
+     },
+     {
+      "ko": "바느질/십자수",
+      "en": "Sewing/Cross-stitch",
+      "pct": 1.1
+     },
+     {
+      "ko": "요가",
+      "en": "Yoga",
+      "pct": 1.1
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24-4",
+   "question_ko": "직접 하는 운동/스포츠 중에서 가장 즐겨하는 운동은 무엇입니까?",
+   "question_en": "What exercise or sport do you enjoy doing the most?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "걷기",
+     "en": "Walking",
+     "pct": 24.7,
+     "alias_ko": [],
+     "reality_ko": "걷기"
+    },
+    {
+     "ko": "조깅/달리기",
+     "en": "Jogging/Running",
+     "pct": 14.7,
+     "alias_ko": [
+      "조깅"
+     ],
+     "reality_ko": "달리기"
+    },
+    {
+     "ko": "자전거 타기",
+     "en": "Cycling",
+     "pct": 10.6,
+     "alias_ko": [],
+     "reality_ko": "사이클"
+    },
+    {
+     "ko": "수영",
+     "en": "Swimming",
+     "pct": 8.4,
+     "alias_ko": [],
+     "reality_ko": "수영"
+    },
+    {
+     "ko": "배드민턴",
+     "en": "Badminton",
+     "pct": 6.6,
+     "alias_ko": [],
+     "reality_ko": "배드민턴"
+    },
+    {
+     "ko": "요가/필라테스",
+     "en": "Yoga/Pilates",
+     "pct": 5.9,
+     "alias_ko": [],
+     "reality_ko": "필라테스"
+    },
+    {
+     "ko": "축구/풋살",
+     "en": "Soccer/Futsal",
+     "pct": 5.5,
+     "alias_ko": [
+      "축구"
+     ],
+     "reality_ko": "축구"
+    },
+    {
+     "ko": "헬스/웨이트 트레이닝",
+     "en": "Gym/Weight Training",
+     "pct": 4.8,
+     "alias_ko": [
+      "헬스"
+     ],
+     "reality_ko": "헬스"
+    },
+    {
+     "ko": "농구",
+     "en": "Basketball",
+     "pct": 4.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "탁구",
+     "en": "Table Tennis",
+     "pct": 4.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "등산",
+     "en": "Hiking",
+     "pct": 3.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "댄스",
+     "en": "Dance",
+     "pct": 3.3,
+     "alias_ko": [
+      "댄스/K-pop 댄스"
+     ]
+    },
+    {
+     "ko": "태권도",
+     "en": "Taekwondo",
+     "pct": 0.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "클라이밍/볼더링",
+     "en": "Climbing/Bouldering",
+     "pct": 0.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "집에서 하는 스트레칭",
+     "en": "Stretching at Home",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "볼링",
+     "en": "Bowling",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1481",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "걷기",
+      "en": "Walking",
+      "pct": 14.0
+     },
+     {
+      "ko": "축구",
+      "en": "Soccer",
+      "pct": 11.0
+     },
+     {
+      "ko": "헬스",
+      "en": "Fitness",
+      "pct": 6.3
+     },
+     {
+      "ko": "골프",
+      "en": "Golf",
+      "pct": 6.2
+     },
+     {
+      "ko": "등산",
+      "en": "Hiking",
+      "pct": 5.8
+     },
+     {
+      "ko": "배드민턴",
+      "en": "Badminton",
+      "pct": 3.9
+     },
+     {
+      "ko": "요가",
+      "en": "Yoga",
+      "pct": 3.9
+     },
+     {
+      "ko": "수영",
+      "en": "Swimming",
+      "pct": 3.8
+     },
+     {
+      "ko": "달리기",
+      "en": "Running",
+      "pct": 3.4
+     },
+     {
+      "ko": "야구",
+      "en": "Baseball",
+      "pct": 2.7
+     },
+     {
+      "ko": "농구",
+      "en": "Basketball",
+      "pct": 2.6
+     },
+     {
+      "ko": "사이클",
+      "en": "Cycling",
+      "pct": 2.5
+     },
+     {
+      "ko": "당구",
+      "en": "Billiards",
+      "pct": 2.1
+     },
+     {
+      "ko": "탁구",
+      "en": "Table Tennis",
+      "pct": 2.0
+     },
+     {
+      "ko": "테니스",
+      "en": "Tennis",
+      "pct": 1.6
+     },
+     {
+      "ko": "필라테스",
+      "en": "Pilates",
+      "pct": 1.4
+     },
+     {
+      "ko": "볼링",
+      "en": "Bowling",
+      "pct": 1.3
+     },
+     {
+      "ko": "줄넘기",
+      "en": "Jump Rope",
+      "pct": 1.0
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24-5",
+   "question_ko": "가장 함께하고 싶은 반려동물은 무엇입니까?",
+   "question_en": "Which pet would you most like to have?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "개",
+     "en": "Dog",
+     "pct": 36.0,
+     "alias_ko": [
+      "강아지"
+     ],
+     "reality_ko": "개"
+    },
+    {
+     "ko": "고양이",
+     "en": "Cat",
+     "pct": 28.7,
+     "alias_ko": [],
+     "reality_ko": "고양이"
+    },
+    {
+     "ko": "토끼",
+     "en": "Rabbit",
+     "pct": 8.3,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "햄스터",
+     "en": "Hamster",
+     "pct": 6.6,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "새 (앵무새, 금강앵무 등)",
+     "en": "Bird (parrot, macaw)",
+     "pct": 5.2,
+     "alias_ko": [
+      "새 (앵무새, 금丝雀 등)",
+      "새"
+     ],
+     "reality_ko": "새"
+    },
+    {
+     "ko": "물고기 (관상어)",
+     "en": "Fish (ornamental)",
+     "pct": 4.9,
+     "alias_ko": [
+      "물고기",
+      "물고기 (어항)"
+     ],
+     "reality_ko": "물고기"
+    },
+    {
+     "ko": "거북이",
+     "en": "Turtle",
+     "pct": 3.1,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "기니피그",
+     "en": "Guinea pig",
+     "pct": 2.1,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "페럿",
+     "en": "Ferret",
+     "pct": 1.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "고슴도치",
+     "en": "Hedgehog",
+     "pct": 1.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "도마뱀",
+     "en": "Lizard",
+     "pct": 0.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "뱀",
+     "en": "Snake",
+     "pct": 0.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "미니 pig",
+     "en": "Mini pig",
+     "pct": 0.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "설탕 글라이더",
+     "en": "Sugar glider",
+     "pct": 0.3,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타",
+    "기타 이국적 동물"
+   ],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "개",
+      "en": "Dog",
+      "pct": 79.5
+     },
+     {
+      "ko": "고양이",
+      "en": "Cat",
+      "pct": 15.4
+     },
+     {
+      "ko": "새",
+      "en": "Bird",
+      "pct": 2.6
+     },
+     {
+      "ko": "물고기",
+      "en": "Fish",
+      "pct": 0.8
+     }
+    ],
+    "none_pct": 22,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24-6",
+   "question_ko": "가장 좋아하는 계절은 무엇입니까?",
+   "question_en": "What is your favorite season?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "봄",
+     "en": "Spring",
+     "pct": 33.8,
+     "alias_ko": [
+      "벚꽃이 피는 봄",
+      "벚꽃 피는 시기",
+      "따뜻한 봄",
+      "서늘한 봄"
+     ],
+     "reality_ko": "봄"
+    },
+    {
+     "ko": "가을",
+     "en": "Autumn",
+     "pct": 27.8,
+     "alias_ko": [
+      "선선한 가을",
+      "시원한 가을"
+     ],
+     "reality_ko": "가을"
+    },
+    {
+     "ko": "여름",
+     "en": "Summer",
+     "pct": 22.0,
+     "alias_ko": [
+      "더운 여름"
+     ],
+     "reality_ko": "여름"
+    },
+    {
+     "ko": "겨울",
+     "en": "Winter",
+     "pct": 14.6,
+     "alias_ko": [
+      "눈 오는 겨울"
+     ],
+     "reality_ko": "겨울"
+    },
+    {
+     "ko": "쌀쌀한 가을",
+     "en": "Rainy season",
+     "pct": 0.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "장마철",
+     "en": "March",
+     "pct": 0.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "3월",
+     "en": "April",
+     "pct": 0.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "4월",
+     "en": "May",
+     "pct": 0.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "5월",
+     "en": "June",
+     "pct": 0.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "6월",
+     "en": "July",
+     "pct": 0.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "7월",
+     "en": "August",
+     "pct": 0.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "8월",
+     "en": "September",
+     "pct": 0.1,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 4,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "봄",
+      "en": "Spring",
+      "pct": 40.0
+     },
+     {
+      "ko": "가을",
+      "en": "Autumn",
+      "pct": 35.0
+     },
+     {
+      "ko": "여름",
+      "en": "Summer",
+      "pct": 13.0
+     },
+     {
+      "ko": "겨울",
+      "en": "Winter",
+      "pct": 12.0
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24-7",
+   "question_ko": "가장 좋아하는 꽃은 무엇입니까?",
+   "question_en": "What is your favorite flower?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "장미",
+     "en": "Rose",
+     "pct": 20.5,
+     "alias_ko": [],
+     "reality_ko": "장미"
+    },
+    {
+     "ko": "벚꽃",
+     "en": "Cherry blossom",
+     "pct": 14.4,
+     "alias_ko": [],
+     "reality_ko": "벚꽃"
+    },
+    {
+     "ko": "백합",
+     "en": "Lily",
+     "pct": 10.0,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "튤립",
+     "en": "Tulip",
+     "pct": 9.4,
+     "alias_ko": [],
+     "reality_ko": "튤립"
+    },
+    {
+     "ko": "해바라기",
+     "en": "Sunflower",
+     "pct": 7.9,
+     "alias_ko": [],
+     "reality_ko": "해바라기"
+    },
+    {
+     "ko": "수국",
+     "en": "Hydrangea",
+     "pct": 4.7,
+     "alias_ko": [],
+     "reality_ko": "수국"
+    },
+    {
+     "ko": "국화",
+     "en": "Chrysanthemum",
+     "pct": 4.0,
+     "alias_ko": [],
+     "reality_ko": "국화"
+    },
+    {
+     "ko": "작약",
+     "en": "Peony",
+     "pct": 3.9,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "난초",
+     "en": "Orchid",
+     "pct": 3.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "카네이션",
+     "en": "Carnation",
+     "pct": 3.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "수선화",
+     "en": "Daffodil",
+     "pct": 3.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "동백",
+     "en": "Camellia",
+     "pct": 2.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "라벤더",
+     "en": "Lavender",
+     "pct": 2.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "진달래",
+     "en": "Azalea",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "개나리",
+     "en": "Forsythia",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "매화",
+     "en": "Plum blossom",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "민들레",
+     "en": "Dandelion",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "붓꽃",
+     "en": "Iris",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "제비꽃",
+     "en": "Violet",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "무궁화",
+     "en": "Mugunghwa",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "장미",
+      "en": "Rose",
+      "pct": 23.0
+     },
+     {
+      "ko": "벚꽃",
+      "en": "Cherry blossom",
+      "pct": 10.0
+     },
+     {
+      "ko": "프리지어",
+      "en": "Freesia",
+      "pct": 5.0
+     },
+     {
+      "ko": "튤립",
+      "en": "Tulip",
+      "pct": 5.0
+     },
+     {
+      "ko": "개나리",
+      "en": "Forsythia",
+      "pct": 4.0
+     },
+     {
+      "ko": "국화",
+      "en": "Chrysanthemum",
+      "pct": 4.0
+     },
+     {
+      "ko": "코스모스",
+      "en": "Cosmos",
+      "pct": 4.0
+     },
+     {
+      "ko": "진달래",
+      "en": "Azalea",
+      "pct": 4.0
+     },
+     {
+      "ko": "안개꽃",
+      "en": "Baby's breath",
+      "pct": 4.0
+     },
+     {
+      "ko": "목련",
+      "en": "Magnolia",
+      "pct": 3.2
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": [
+    "수국",
+    "수선화",
+    "해바라기",
+    "라일락",
+    "무궁화",
+    "동백",
+    "철쭉",
+    "매화",
+    "유채꽃",
+    "아카시아꽃"
+   ]
+  },
+  {
+   "id": "g24-8",
+   "question_ko": "가장 좋아하는 나무는 무엇입니까?",
+   "question_en": "What is your favorite tree?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "소나무",
+     "en": "Pine",
+     "pct": 19.0,
+     "alias_ko": [],
+     "reality_ko": "소나무"
+    },
+    {
+     "ko": "은행나무",
+     "en": "Ginkgo",
+     "pct": 16.8,
+     "alias_ko": [],
+     "reality_ko": "은행나무"
+    },
+    {
+     "ko": "벚꽃나무",
+     "en": "Cherry blossom",
+     "pct": 15.7,
+     "alias_ko": [],
+     "reality_ko": "벚나무"
+    },
+    {
+     "ko": "단풍나무",
+     "en": "Maple",
+     "pct": 11.9,
+     "alias_ko": [],
+     "reality_ko": "단풍나무"
+    },
+    {
+     "ko": "감나무",
+     "en": "Persimmon",
+     "pct": 6.0,
+     "alias_ko": [],
+     "reality_ko": "감나무"
+    },
+    {
+     "ko": "느티나무",
+     "en": "Zelkova",
+     "pct": 5.3,
+     "alias_ko": [],
+     "reality_ko": "느티나무"
+    },
+    {
+     "ko": "배나무",
+     "en": "Pear",
+     "pct": 4.9,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "대나무",
+     "en": "Bamboo",
+     "pct": 3.0,
+     "alias_ko": [],
+     "reality_ko": "대나무"
+    },
+    {
+     "ko": "사과나무",
+     "en": "Apple",
+     "pct": 2.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "밤나무",
+     "en": "Chestnut",
+     "pct": 2.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "팽나무",
+     "en": "Poplar",
+     "pct": 2.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "자작나무",
+     "en": "Birch",
+     "pct": 2.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "대추나무",
+     "en": "Jujube",
+     "pct": 2.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "호두나무",
+     "en": "Walnut",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "참나무",
+     "en": "Oak",
+     "pct": 1.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "편백나무",
+     "en": "Cypress",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "자두나무",
+     "en": "Plum",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "복숭아나무",
+     "en": "Peach",
+     "pct": 0.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "측백나무",
+     "en": "Arborvitae",
+     "pct": 0.3,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "소나무",
+      "en": "Pine",
+      "pct": 36.0
+     },
+     {
+      "ko": "벚나무",
+      "en": "Cherry blossom tree",
+      "pct": 7.3
+     },
+     {
+      "ko": "단풍나무",
+      "en": "Maple tree",
+      "pct": 6.6
+     },
+     {
+      "ko": "은행나무",
+      "en": "Ginkgo tree",
+      "pct": 5.4
+     },
+     {
+      "ko": "느티나무",
+      "en": "Zelkova tree",
+      "pct": 3.0
+     },
+     {
+      "ko": "버드나무",
+      "en": "Willow tree",
+      "pct": 3.0
+     },
+     {
+      "ko": "동백나무",
+      "en": "Camellia tree",
+      "pct": 2.0
+     },
+     {
+      "ko": "대나무",
+      "en": "Bamboo",
+      "pct": 2.0
+     },
+     {
+      "ko": "편백나무",
+      "en": "Cypress tree",
+      "pct": 2.0
+     },
+     {
+      "ko": "감나무",
+      "en": "Persimmon tree",
+      "pct": 2.0
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": [
+    "아카시아나무",
+    "향나무",
+    "사철나무",
+    "참나무",
+    "자작나무",
+    "사과나무",
+    "전나무",
+    "잣나무"
+   ]
+  },
+  {
+   "id": "g24-9",
+   "question_ko": "가장 좋아하는 산은 무엇입니까?",
+   "question_en": "What is your favorite mountain?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "설악산",
+     "en": "Seoraksan",
+     "pct": 24.1,
+     "alias_ko": [
+      "Seoraksan"
+     ],
+     "reality_ko": "설악산"
+    },
+    {
+     "ko": "지리산",
+     "en": "Jirisan",
+     "pct": 19.9,
+     "alias_ko": [
+      "Jirisan"
+     ],
+     "reality_ko": "지리산"
+    },
+    {
+     "ko": "북한산",
+     "en": "Bukhansan",
+     "pct": 14.8,
+     "alias_ko": [
+      "Bukhansan"
+     ],
+     "reality_ko": "북한산"
+    },
+    {
+     "ko": "태백산",
+     "en": "Taebaeksan",
+     "pct": 7.6,
+     "alias_ko": [
+      "Taebaeksan"
+     ],
+     "reality_ko": "태백산"
+    },
+    {
+     "ko": "한라산",
+     "en": "Hallasan",
+     "pct": 7.3,
+     "alias_ko": [
+      "Hallasan"
+     ],
+     "reality_ko": "한라산"
+    },
+    {
+     "ko": "덕유산",
+     "en": "Deogyusan",
+     "pct": 5.5,
+     "alias_ko": [
+      "Deogyusan"
+     ],
+     "reality_ko": "덕유산"
+    },
+    {
+     "ko": "오대산",
+     "en": "Odaesan",
+     "pct": 3.8,
+     "alias_ko": [],
+     "reality_ko": "오대산"
+    },
+    {
+     "ko": "소백산",
+     "en": "Sobaeksan",
+     "pct": 3.8,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "팔공산",
+     "en": "Palgongsan",
+     "pct": 3.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "치악산",
+     "en": "Chiaksan",
+     "pct": 2.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "계룡산",
+     "en": "Gyeryongsan",
+     "pct": 2.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "금강산",
+     "en": "Geumgangsan",
+     "pct": 1.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "가야산",
+     "en": "Gayasan",
+     "pct": 1.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "속리산",
+     "en": "Songnisan",
+     "pct": 1.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "설악산",
+      "en": "Seoraksan",
+      "pct": 22.0
+     },
+     {
+      "ko": "한라산",
+      "en": "Hallasan",
+      "pct": 20.0
+     },
+     {
+      "ko": "지리산",
+      "en": "Jirisan",
+      "pct": 18.0
+     },
+     {
+      "ko": "북한산",
+      "en": "Bukhansan",
+      "pct": 4.0
+     },
+     {
+      "ko": "백두산",
+      "en": "Baekdusan",
+      "pct": 3.1
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": [
+    "내장산",
+    "계룡산",
+    "덕유산",
+    "도봉산",
+    "관악산",
+    "무등산",
+    "태백산",
+    "치악산",
+    "오대산"
+   ]
+  },
+  {
+   "id": "g24-10",
+   "question_ko": "만약 개를 기른다면 어떤 개를 가장 길러보고 싶습니까?",
+   "question_en": "If you were to raise a dog, which breed would you most want to have?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "말티즈",
+     "en": "Maltese",
+     "pct": 14.6,
+     "alias_ko": [],
+     "reality_ko": "몰티즈"
+    },
+    {
+     "ko": "포메라니안",
+     "en": "Pomeranian",
+     "pct": 11.7,
+     "alias_ko": [],
+     "reality_ko": "포메라니안"
+    },
+    {
+     "ko": "토이 푸들",
+     "en": "Toy Poodle",
+     "pct": 10.9,
+     "alias_ko": [],
+     "reality_ko": "푸들"
+    },
+    {
+     "ko": "시츄",
+     "en": "Shih Tzu",
+     "pct": 10.1,
+     "alias_ko": [
+      "시추"
+     ],
+     "reality_ko": "시츄"
+    },
+    {
+     "ko": "프렌치 불독",
+     "en": "French Bulldog",
+     "pct": 7.7,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "골든 리트리버",
+     "en": "Golden Retriever",
+     "pct": 7.7,
+     "alias_ko": [],
+     "reality_ko": "리트리버"
+    },
+    {
+     "ko": "래브라도 리트리버",
+     "en": "Labrador Retriever",
+     "pct": 6.5,
+     "alias_ko": [],
+     "reality_ko": "리트리버"
+    },
+    {
+     "ko": "시베리안 허스키",
+     "en": "Siberian Husky",
+     "pct": 6.1,
+     "alias_ko": [],
+     "reality_ko": "시베리안허스키"
+    },
+    {
+     "ko": "코기",
+     "en": "Corgi",
+     "pct": 5.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "믹스견/구조견",
+     "en": "Mixed Breed / Rescue Dog",
+     "pct": 4.9,
+     "alias_ko": [
+      "믹스견",
+      "잡종 (믹스)"
+     ]
+    },
+    {
+     "ko": "닥스훈트",
+     "en": "Dachshund",
+     "pct": 4.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "진돗개",
+     "en": "Jindo Dog",
+     "pct": 3.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "비글",
+     "en": "Beagle",
+     "pct": 2.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "아무개나 작은 강아지",
+     "en": "Any Small Puppy",
+     "pct": 1.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "요크셔 테리어",
+     "en": "Yorkshire Terrier",
+     "pct": 1.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "치와와",
+     "en": "Chihuahua",
+     "pct": 0.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "아무개나 큰 강아지",
+     "en": "Any Large Dog",
+     "pct": 0.8,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타",
+    "기타 품종"
+   ],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "푸들",
+      "en": "Poodle",
+      "pct": 23.7
+     },
+     {
+      "ko": "몰티즈",
+      "en": "Maltese",
+      "pct": 18.4
+     },
+     {
+      "ko": "비숑프리제",
+      "en": "Bichon Frise",
+      "pct": 9.2
+     },
+     {
+      "ko": "진돗개",
+      "en": "Jindo Dog",
+      "pct": 9.2
+     },
+     {
+      "ko": "포메라니안",
+      "en": "Pomeranian",
+      "pct": 7.9
+     },
+     {
+      "ko": "시츄",
+      "en": "Shih Tzu",
+      "pct": 6.6
+     },
+     {
+      "ko": "리트리버",
+      "en": "Retriever",
+      "pct": 5.0
+     },
+     {
+      "ko": "치와와",
+      "en": "Chihuahua",
+      "pct": 4.3
+     },
+     {
+      "ko": "요크셔테리어",
+      "en": "Yorkshire Terrier",
+      "pct": 2.1
+     },
+     {
+      "ko": "미니어처슈나우저",
+      "en": "Miniature Schnauzer",
+      "pct": 1.6
+     },
+     {
+      "ko": "시베리안허스키",
+      "en": "Siberian Husky",
+      "pct": 1.3
+     },
+     {
+      "ko": "시바이누",
+      "en": "Shiba Inu",
+      "pct": 1.3
+     }
+    ],
+    "none_pct": 24,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24-11",
+   "question_ko": "만약 고양이를 기른다면 어떤 고양이를 가장 길러보고 싶습니까?",
+   "question_en": "If you were to own a cat, which breed would you most like to have?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "스코티시 폴드",
+     "en": "Scottish Fold",
+     "pct": 20.5,
+     "alias_ko": [
+      "Scottish Fold"
+     ],
+     "reality_ko": "스코티시폴드"
+    },
+    {
+     "ko": "페르시안",
+     "en": "Persian",
+     "pct": 13.0,
+     "alias_ko": [
+      "Persian"
+     ],
+     "reality_ko": "페르시안"
+    },
+    {
+     "ko": "Ragdoll",
+     "en": "Ragdoll",
+     "pct": 12.4,
+     "alias_ko": [
+      "랙돌"
+     ],
+     "reality_ko": "랙돌"
+    },
+    {
+     "ko": "샴",
+     "en": "Siamese",
+     "pct": 10.5,
+     "alias_ko": [
+      "Siamese"
+     ],
+     "reality_ko": "샴"
+    },
+    {
+     "ko": "British Shorthair",
+     "en": "British Shorthair",
+     "pct": 9.0,
+     "alias_ko": [
+      "브리티시 쇼트헤어"
+     ],
+     "reality_ko": "브리티시숏헤어"
+    },
+    {
+     "ko": "뱅갈",
+     "en": "Bengal",
+     "pct": 8.1,
+     "alias_ko": [
+      "Bengal",
+      "벵골"
+     ],
+     "reality_ko": "벵갈"
+    },
+    {
+     "ko": "러시안 블루",
+     "en": "Russian Blue",
+     "pct": 7.4,
+     "alias_ko": [],
+     "reality_ko": "러시안블루"
+    },
+    {
+     "ko": "메인쿤",
+     "en": "Maine Coon",
+     "pct": 7.3,
+     "alias_ko": [
+      "Maine Coon"
+     ],
+     "reality_ko": null
+    },
+    {
+     "ko": "집고양이(잡종)",
+     "en": "Domestic shorthair (mixed breed)",
+     "pct": 3.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "먼치킨",
+     "en": "Munchkin",
+     "pct": 3.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "아비시니안",
+     "en": "Abyssinian",
+     "pct": 2.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "노르웨이 숲",
+     "en": "Norwegian Forest Cat",
+     "pct": 2.4,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타"
+   ],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "페르시안",
+      "en": "Persian",
+      "pct": 19.6
+     },
+     {
+      "ko": "샴",
+      "en": "Siamese",
+      "pct": 15.7
+     },
+     {
+      "ko": "러시안블루",
+      "en": "Russian Blue",
+      "pct": 15.7
+     },
+     {
+      "ko": "먼치킨",
+      "en": "Munchkin",
+      "pct": 11.8
+     },
+     {
+      "ko": "벵갈",
+      "en": "Bengal",
+      "pct": 9.8
+     },
+     {
+      "ko": "코리안숏헤어",
+      "en": "Korean Shorthair",
+      "pct": 8.2
+     },
+     {
+      "ko": "랙돌",
+      "en": "Ragdoll",
+      "pct": 7.3
+     },
+     {
+      "ko": "스핑크스",
+      "en": "Sphynx",
+      "pct": 3.3
+     },
+     {
+      "ko": "노르웨이숲",
+      "en": "Norwegian Forest Cat",
+      "pct": 3.1
+     },
+     {
+      "ko": "스코티시폴드",
+      "en": "Scottish Fold",
+      "pct": 1.2
+     },
+     {
+      "ko": "브리티시숏헤어",
+      "en": "British Shorthair",
+      "pct": 1.2
+     }
+    ],
+    "none_pct": 49,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24n-0",
+   "question_ko": "가장 좋아하는 숫자는 무엇입니까?",
+   "question_en": "What is your favorite number?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "7",
+     "en": "7",
+     "pct": 19.1,
+     "alias_ko": [],
+     "reality_ko": "7"
+    },
+    {
+     "ko": "3",
+     "en": "3",
+     "pct": 13.9,
+     "alias_ko": [],
+     "reality_ko": "3"
+    },
+    {
+     "ko": "8",
+     "en": "8",
+     "pct": 11.6,
+     "alias_ko": [],
+     "reality_ko": "8"
+    },
+    {
+     "ko": "9",
+     "en": "9",
+     "pct": 9.4,
+     "alias_ko": [],
+     "reality_ko": "9"
+    },
+    {
+     "ko": "1",
+     "en": "1",
+     "pct": 7.9,
+     "alias_ko": [],
+     "reality_ko": "1"
+    },
+    {
+     "ko": "5",
+     "en": "5",
+     "pct": 6.7,
+     "alias_ko": [],
+     "reality_ko": "5"
+    },
+    {
+     "ko": "2",
+     "en": "2",
+     "pct": 5.3,
+     "alias_ko": [],
+     "reality_ko": "2"
+    },
+    {
+     "ko": "11",
+     "en": "11",
+     "pct": 4.8,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "6",
+     "en": "6",
+     "pct": 4.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "4",
+     "en": "4",
+     "pct": 3.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "10",
+     "en": "10",
+     "pct": 3.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "13",
+     "en": "13",
+     "pct": 3.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "12",
+     "en": "12",
+     "pct": 2.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "15",
+     "en": "15",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "0",
+     "en": "0",
+     "pct": 0.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "100",
+     "en": "100",
+     "pct": 0.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "20",
+     "en": "20",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "17",
+     "en": "17",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "7",
+      "en": "Seven",
+      "pct": 34.0
+     },
+     {
+      "ko": "3",
+      "en": "Three",
+      "pct": 18.0
+     },
+     {
+      "ko": "5",
+      "en": "Five",
+      "pct": 12.0
+     },
+     {
+      "ko": "1",
+      "en": "One",
+      "pct": 11.0
+     },
+     {
+      "ko": "8",
+      "en": "Eight",
+      "pct": 5.0
+     },
+     {
+      "ko": "6",
+      "en": "Six",
+      "pct": 3.0
+     },
+     {
+      "ko": "4",
+      "en": "Four",
+      "pct": 2.0
+     },
+     {
+      "ko": "10",
+      "en": "Ten",
+      "pct": 2.0
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": [
+    "2",
+    "9"
+   ]
+  },
+  {
+   "id": "g24n-1",
+   "question_ko": "1월부터 12월 중 가장 좋아하는 월은 몇 월입니까?",
+   "question_en": "Which month from January to December do you like best?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "5월",
+     "en": "May",
+     "pct": 16.2,
+     "alias_ko": [],
+     "reality_ko": "5월"
+    },
+    {
+     "ko": "4월",
+     "en": "April",
+     "pct": 15.6,
+     "alias_ko": [],
+     "reality_ko": "4월"
+    },
+    {
+     "ko": "3월",
+     "en": "March",
+     "pct": 12.1,
+     "alias_ko": [],
+     "reality_ko": "3월"
+    },
+    {
+     "ko": "10월",
+     "en": "October",
+     "pct": 11.6,
+     "alias_ko": [],
+     "reality_ko": "10월"
+    },
+    {
+     "ko": "9월",
+     "en": "September",
+     "pct": 9.0,
+     "alias_ko": [],
+     "reality_ko": "9월"
+    },
+    {
+     "ko": "12월",
+     "en": "December",
+     "pct": 7.4,
+     "alias_ko": [],
+     "reality_ko": "12월"
+    },
+    {
+     "ko": "6월",
+     "en": "June",
+     "pct": 7.0,
+     "alias_ko": [],
+     "reality_ko": "6월"
+    },
+    {
+     "ko": "11월",
+     "en": "November",
+     "pct": 6.1,
+     "alias_ko": [],
+     "reality_ko": "11월"
+    },
+    {
+     "ko": "7월",
+     "en": "July",
+     "pct": 5.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "8월",
+     "en": "August",
+     "pct": 4.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "1월",
+     "en": "January",
+     "pct": 4.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "2월",
+     "en": "February",
+     "pct": 1.4,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "5월",
+      "en": "May",
+      "pct": 21.0
+     },
+     {
+      "ko": "10월",
+      "en": "October",
+      "pct": 20.0
+     },
+     {
+      "ko": "4월",
+      "en": "April",
+      "pct": 12.0
+     },
+     {
+      "ko": "3월",
+      "en": "March",
+      "pct": 10.0
+     },
+     {
+      "ko": "9월",
+      "en": "September",
+      "pct": 10.0
+     },
+     {
+      "ko": "12월",
+      "en": "December",
+      "pct": 6.0
+     },
+     {
+      "ko": "7월",
+      "en": "July",
+      "pct": 5.0
+     },
+     {
+      "ko": "11월",
+      "en": "November",
+      "pct": 5.0
+     },
+     {
+      "ko": "6월",
+      "en": "June",
+      "pct": 4.0
+     },
+     {
+      "ko": "8월",
+      "en": "August",
+      "pct": 4.0
+     },
+     {
+      "ko": "1월",
+      "en": "January",
+      "pct": 3.0
+     },
+     {
+      "ko": "2월",
+      "en": "February",
+      "pct": 1.0
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24n-2",
+   "question_ko": "일주일 중 가장 좋아하는 요일은 무엇입니까?",
+   "question_en": "What is your favorite day of the week?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "금요일",
+     "en": "Friday",
+     "pct": 29.0,
+     "alias_ko": [],
+     "reality_ko": "금요일"
+    },
+    {
+     "ko": "토요일",
+     "en": "Saturday",
+     "pct": 25.8,
+     "alias_ko": [
+      "주말"
+     ],
+     "reality_ko": "토요일"
+    },
+    {
+     "ko": "일요일",
+     "en": "Sunday",
+     "pct": 16.5,
+     "alias_ko": [],
+     "reality_ko": "일요일"
+    },
+    {
+     "ko": "목요일",
+     "en": "Thursday",
+     "pct": 9.3,
+     "alias_ko": [],
+     "reality_ko": "목요일"
+    },
+    {
+     "ko": "수요일",
+     "en": "Wednesday",
+     "pct": 8.4,
+     "alias_ko": [],
+     "reality_ko": "수요일"
+    },
+    {
+     "ko": "화요일",
+     "en": "Tuesday",
+     "pct": 5.2,
+     "alias_ko": [],
+     "reality_ko": "화요일"
+    },
+    {
+     "ko": "월요일",
+     "en": "Monday",
+     "pct": 4.8,
+     "alias_ko": [],
+     "reality_ko": "월요일"
+    },
+    {
+     "ko": "평일",
+     "en": "Weekday",
+     "pct": 1.0,
+     "alias_ko": [],
+     "reality_ko": null
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1478",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "금요일",
+      "en": "Friday",
+      "pct": 34.0
+     },
+     {
+      "ko": "토요일",
+      "en": "Saturday",
+      "pct": 33.0
+     },
+     {
+      "ko": "일요일",
+      "en": "Sunday",
+      "pct": 11.0
+     },
+     {
+      "ko": "수요일",
+      "en": "Wednesday",
+      "pct": 8.0
+     },
+     {
+      "ko": "목요일",
+      "en": "Thursday",
+      "pct": 8.0
+     },
+     {
+      "ko": "월요일",
+      "en": "Monday",
+      "pct": 4.0
+     },
+     {
+      "ko": "화요일",
+      "en": "Tuesday",
+      "pct": 2.0
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g24n-3",
+   "question_ko": "운동/스포츠 중에서 직접 관람 또는 TV나 인터넷 등으로 가장 즐겨 관전하는 종목은 무엇입니까?",
+   "question_en": "Which sport do you enjoy watching most, either live or via TV/internet?",
+   "target_ko": "2024년 3~4월 한국 전국(제주 제외) 만 13세 이상 1,777명에게 면접원이",
+   "prior": [
+    {
+     "ko": "축구",
+     "en": "Soccer",
+     "pct": 23.6,
+     "alias_ko": [],
+     "reality_ko": "축구"
+    },
+    {
+     "ko": "야구",
+     "en": "Baseball",
+     "pct": 22.5,
+     "alias_ko": [],
+     "reality_ko": "야구"
+    },
+    {
+     "ko": "농구",
+     "en": "Basketball",
+     "pct": 13.2,
+     "alias_ko": [],
+     "reality_ko": "농구"
+    },
+    {
+     "ko": "배구",
+     "en": "Volleyball",
+     "pct": 9.5,
+     "alias_ko": [],
+     "reality_ko": "배구"
+    },
+    {
+     "ko": "골프",
+     "en": "Golf",
+     "pct": 6.0,
+     "alias_ko": [],
+     "reality_ko": "골프"
+    },
+    {
+     "ko": "e스포츠",
+     "en": "Esports",
+     "pct": 4.9,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "배드민턴",
+     "en": "Badminton",
+     "pct": 4.2,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "피겨스케이팅",
+     "en": "Figure skating",
+     "pct": 3.2,
+     "alias_ko": [],
+     "reality_ko": "스케이팅"
+    },
+    {
+     "ko": "수영",
+     "en": "Swimming",
+     "pct": 2.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "테니스",
+     "en": "Tennis",
+     "pct": 2.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "모터스포츠",
+     "en": "Motorsport",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "태권도",
+     "en": "Taekwondo",
+     "pct": 1.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "탁구",
+     "en": "Table tennis",
+     "pct": 1.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "육상",
+     "en": "Track and field",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "복싱",
+     "en": "Boxing",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "스키/스노보드",
+     "en": "Ski/snowboard",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "유도",
+     "en": "Judo",
+     "pct": 0.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "동계스포츠",
+     "en": "Winter sports",
+     "pct": 0.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "럭비",
+     "en": "Rugby",
+     "pct": 0.2,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타"
+   ],
+   "source": {
+    "name": "Gallup Korea, 'What Koreans Like' 2024",
+    "year": 2024,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1481",
+    "sample": "1,777 people 13+, face-to-face, open-ended"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "축구",
+      "en": "Soccer",
+      "pct": 49.0
+     },
+     {
+      "ko": "야구",
+      "en": "Baseball",
+      "pct": 20.0
+     },
+     {
+      "ko": "골프",
+      "en": "Golf",
+      "pct": 5.3
+     },
+     {
+      "ko": "농구",
+      "en": "Basketball",
+      "pct": 4.3
+     },
+     {
+      "ko": "배구",
+      "en": "Volleyball",
+      "pct": 1.8
+     },
+     {
+      "ko": "스케이팅",
+      "en": "Skating",
+      "pct": 1.1
+     }
+    ],
+    "none_pct": 0,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g26-0",
+   "question_ko": "가장 좋아하는 국내 프로야구팀은 어디입니까?",
+   "question_en": "What is your favorite domestic professional baseball team?",
+   "target_ko": "2026년 3월 한국 전국 만 18세 이상 1,000명에게 조사원이",
+   "prior": [
+    {
+     "ko": "두산 베어스",
+     "en": "Doosan Bears",
+     "pct": 16.0,
+     "alias_ko": [
+      "Doosan Bears"
+     ],
+     "reality_ko": "두산 베어스"
+    },
+    {
+     "ko": "KIA 타이거즈",
+     "en": "KIA Tigers",
+     "pct": 15.0,
+     "alias_ko": [
+      "KIA Tigers"
+     ],
+     "reality_ko": "KIA 타이거즈"
+    },
+    {
+     "ko": "LG 트윈스",
+     "en": "LG Twins",
+     "pct": 14.9,
+     "alias_ko": [
+      "LG Twins"
+     ],
+     "reality_ko": "LG 트윈스"
+    },
+    {
+     "ko": "삼성 라이온즈",
+     "en": "Samsung Lions",
+     "pct": 12.6,
+     "alias_ko": [
+      "Samsung Lions"
+     ],
+     "reality_ko": "삼성 라이온즈"
+    },
+    {
+     "ko": "롯데 자이언츠",
+     "en": "Lotte Giants",
+     "pct": 9.4,
+     "alias_ko": [
+      "Lotte Giants"
+     ],
+     "reality_ko": "롯데 자이언츠"
+    },
+    {
+     "ko": "NC 다이노스",
+     "en": "NC Dinos",
+     "pct": 9.1,
+     "alias_ko": [
+      "NC Dinos"
+     ],
+     "reality_ko": "NC 다이노스"
+    },
+    {
+     "ko": "KT 위즈",
+     "en": "KT Wiz",
+     "pct": 6.9,
+     "alias_ko": [
+      "KT Wiz"
+     ],
+     "reality_ko": "KT 위즈"
+    },
+    {
+     "ko": "키움 히어로즈",
+     "en": "Kiwoom Heroes",
+     "pct": 6.0,
+     "alias_ko": [
+      "Kiwoom Heroes"
+     ],
+     "reality_ko": "키움 히어로즈"
+    },
+    {
+     "ko": "한화 이글스",
+     "en": "Hanwha Eagles",
+     "pct": 5.3,
+     "alias_ko": [
+      "Hanwha Eagles"
+     ]
+    },
+    {
+     "ko": "SSG 랜더스",
+     "en": "SSG Landers",
+     "pct": 4.9,
+     "alias_ko": [
+      "SSG Landers"
+     ]
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea",
+    "year": 2026,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1630",
+    "sample": "1,000 adults 18+, phone interview"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "KIA 타이거즈",
+      "en": "KIA Tigers",
+      "pct": 24.1
+     },
+     {
+      "ko": "한화 이글스",
+      "en": "Hanwha Eagles",
+      "pct": 18.5
+     },
+     {
+      "ko": "삼성 라이온즈",
+      "en": "Samsung Lions",
+      "pct": 16.7
+     },
+     {
+      "ko": "롯데 자이언츠",
+      "en": "Lotte Giants",
+      "pct": 16.7
+     },
+     {
+      "ko": "LG 트윈스",
+      "en": "LG Twins",
+      "pct": 9.3
+     },
+     {
+      "ko": "두산 베어스",
+      "en": "Doosan Bears",
+      "pct": 5.6
+     },
+     {
+      "ko": "NC 다이노스",
+      "en": "NC Dinos",
+      "pct": 3.7
+     },
+     {
+      "ko": "SSG 랜더스",
+      "en": "SSG Landers",
+      "pct": 1.9
+     },
+     {
+      "ko": "키움 히어로즈",
+      "en": "Kiwoom Heroes",
+      "pct": 1.9
+     },
+     {
+      "ko": "KT 위즈",
+      "en": "KT Wiz",
+      "pct": 1.9
+     }
+    ],
+    "none_pct": 46,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "g26-1",
+   "question_ko": "'인공지능, AI' 기술 측면에서 가장 앞서 있는 기업은 어디라고 생각하십니까?",
+   "question_en": "Which company do you think is leading in artificial intelligence technology?",
+   "target_ko": "2026년 5~6월 한국 전국(제주 제외) 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "구글",
+     "en": "Google",
+     "pct": 19.0,
+     "alias_ko": [],
+     "reality_ko": "구글/제미나이"
+    },
+    {
+     "ko": "마이크로소프트",
+     "en": "Microsoft",
+     "pct": 14.8,
+     "alias_ko": [],
+     "reality_ko": "마이크로소프트"
+    },
+    {
+     "ko": "삼성전자",
+     "en": "Samsung Electronics",
+     "pct": 13.5,
+     "alias_ko": [],
+     "reality_ko": "삼성전자"
+    },
+    {
+     "ko": "애플",
+     "en": "Apple",
+     "pct": 10.3,
+     "alias_ko": [],
+     "reality_ko": "애플"
+    },
+    {
+     "ko": "네이버",
+     "en": "Naver",
+     "pct": 9.7,
+     "alias_ko": [],
+     "reality_ko": "네이버"
+    },
+    {
+     "ko": "카카오",
+     "en": "Kakao",
+     "pct": 6.9,
+     "alias_ko": [],
+     "reality_ko": "카카오"
+    },
+    {
+     "ko": "아마존",
+     "en": "Amazon",
+     "pct": 4.8,
+     "alias_ko": [],
+     "reality_ko": null
+    },
+    {
+     "ko": "테슬라",
+     "en": "Tesla",
+     "pct": 4.8,
+     "alias_ko": [],
+     "reality_ko": "테슬라"
+    },
+    {
+     "ko": "IBM",
+     "en": "IBM",
+     "pct": 3.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "엔비디아",
+     "en": "NVIDIA",
+     "pct": 3.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "메타",
+     "en": "Meta",
+     "pct": 2.8,
+     "alias_ko": [
+      "메타(페이스북)"
+     ]
+    },
+    {
+     "ko": "오픈AI",
+     "en": "OpenAI",
+     "pct": 1.7,
+     "alias_ko": [
+      "OpenAI"
+     ]
+    },
+    {
+     "ko": "LG전자",
+     "en": "LG Electronics",
+     "pct": 1.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "SK텔레콤",
+     "en": "SK Telecom",
+     "pct": 1.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "현대자동차",
+     "en": "Hyundai Motor",
+     "pct": 1.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "LG",
+     "en": "LG",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": {
+    "name": "Gallup Korea",
+    "year": 2026,
+    "url": "https://www.gallup.co.kr/gallupdb/reportContent.asp?seqNo=1649",
+    "sample": "1,700 people 13+, face-to-face"
+   },
+   "reality": {
+    "items": [
+     {
+      "ko": "삼성전자",
+      "en": "Samsung Electronics",
+      "pct": 38.5
+     },
+     {
+      "ko": "구글/제미나이",
+      "en": "Google/Gemini",
+      "pct": 15.6
+     },
+     {
+      "ko": "네이버",
+      "en": "Naver",
+      "pct": 6.9
+     },
+     {
+      "ko": "오픈AI/챗GPT",
+      "en": "OpenAI/ChatGPT",
+      "pct": 6.6
+     },
+     {
+      "ko": "SK하이닉스",
+      "en": "SK Hynix",
+      "pct": 5.1
+     },
+     {
+      "ko": "엔비디아",
+      "en": "NVIDIA",
+      "pct": 5.1
+     },
+     {
+      "ko": "LG전자",
+      "en": "LG Electronics",
+      "pct": 5.0
+     },
+     {
+      "ko": "현대자동차",
+      "en": "Hyundai Motor",
+      "pct": 4.8
+     },
+     {
+      "ko": "애플",
+      "en": "Apple",
+      "pct": 3.2
+     },
+     {
+      "ko": "테슬라",
+      "en": "Tesla",
+      "pct": 2.9
+     },
+     {
+      "ko": "마이크로소프트",
+      "en": "Microsoft",
+      "pct": 2.1
+     },
+     {
+      "ko": "KT",
+      "en": "KT",
+      "pct": 0.9
+     },
+     {
+      "ko": "카카오",
+      "en": "Kakao",
+      "pct": 0.6
+     }
+    ],
+    "none_pct": 4,
+    "basis": "people who gave an answer (none/don't-know removed); items without published % omitted"
+   },
+   "reality_unpublished": []
+  },
+  {
+   "id": "ai-0",
+   "question_ko": "야식으로 가장 자주 먹는 음식은 무엇입니까?",
+   "question_en": "What food do you eat most often as a late-night snack?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "치킨",
+     "en": "Chicken",
+     "pct": 19.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "라면",
+     "en": "Ramen",
+     "pct": 19.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "피자",
+     "en": "Pizza",
+     "pct": 13.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "떡볶이",
+     "en": "Tteokbokki",
+     "pct": 10.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "김밥",
+     "en": "Gimbap",
+     "pct": 7.5,
+     "alias_ko": [
+      "김밥/삼각김밥"
+     ]
+    },
+    {
+     "ko": "순대",
+     "en": "Sundae",
+     "pct": 4.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "햄버거",
+     "en": "Hamburger",
+     "pct": 4.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "과일",
+     "en": "Fruit",
+     "pct": 3.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "핫도그",
+     "en": "Hot Dog",
+     "pct": 2.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "아이스크림",
+     "en": "Ice Cream",
+     "pct": 2.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "과자",
+     "en": "Snack",
+     "pct": 2.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "빵/제과",
+     "en": "Bread/Pastry",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "닭갈비",
+     "en": "Dakgalbi",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "삼겹살",
+     "en": "Samgyeopsal",
+     "pct": 1.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "우유/요거트",
+     "en": "Milk/Yogurt",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "족발",
+     "en": "Jokbal",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "보쌈",
+     "en": "Bossam",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "만두",
+     "en": "Mandu",
+     "pct": 1.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "계란말이",
+     "en": "Tamagoyaki",
+     "pct": 1.1,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-1",
+   "question_ko": "비 오는 날 가장 먹고 싶은 음식은 무엇입니까?",
+   "question_en": "What food do you want to eat on a rainy day?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "파전",
+     "en": "Green onion pancake",
+     "pct": 15.0,
+     "alias_ko": [
+      "전 (파전/해물전)",
+      "해물파전"
+     ]
+    },
+    {
+     "ko": "김치전",
+     "en": "Kimchi pancake",
+     "pct": 13.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "라면",
+     "en": "Ramen noodles",
+     "pct": 9.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "떡볶이",
+     "en": "Spicy rice cake",
+     "pct": 8.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "칼국수",
+     "en": "Knife-cut wheat noodle soup",
+     "pct": 7.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "김치찌개",
+     "en": "Kimchi stew",
+     "pct": 6.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "순대",
+     "en": "Blood sausage",
+     "pct": 6.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "된장찌개",
+     "en": "Soybean paste stew",
+     "pct": 6.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "피자",
+     "en": "Pizza",
+     "pct": 3.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "치킨",
+     "en": "Fried chicken",
+     "pct": 3.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "순두부찌개",
+     "en": "Soft tofu stew",
+     "pct": 3.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "핫도그",
+     "en": "Hot dog",
+     "pct": 3.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "수제비",
+     "en": "Hand-pulled dough soup",
+     "pct": 2.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "삼겹살",
+     "en": "Grilled pork belly",
+     "pct": 2.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "우동",
+     "en": "Udon noodles",
+     "pct": 2.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "만두",
+     "en": "Dumplings",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "닭갈비",
+     "en": "Stir-fried spicy chicken",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "김밥",
+     "en": "Seaweed rice roll",
+     "pct": 1.1,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-2",
+   "question_ko": "편의점에서 가장 자주 사는 것은 무엇입니까?",
+   "question_en": "What do you buy most often at convenience stores?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "생수",
+     "en": "Bottled water",
+     "pct": 17.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "삼각김밥",
+     "en": "Triangle kimbap",
+     "pct": 14.1,
+     "alias_ko": [
+      "김밥/삼각김밥",
+      "김밥"
+     ]
+    },
+    {
+     "ko": "탄산음료",
+     "en": "Carbonated drink",
+     "pct": 11.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "컵라면",
+     "en": "Cup ramen",
+     "pct": 10.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "과자",
+     "en": "Snack",
+     "pct": 9.9,
+     "alias_ko": [
+      "초콜릿/과자"
+     ]
+    },
+    {
+     "ko": "아이스크림",
+     "en": "Ice cream",
+     "pct": 6.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "담배",
+     "en": "Cigarette",
+     "pct": 6.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "캔커피",
+     "en": "Can coffee",
+     "pct": 4.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "빵/샌드위치",
+     "en": "Bread/Sandwich",
+     "pct": 3.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "에너지 드링크",
+     "en": "Energy drink",
+     "pct": 3.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "음료",
+     "en": "Drink",
+     "pct": 3.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "우유/요거트",
+     "en": "Milk/Yogurt",
+     "pct": 2.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "초콜릿/사탕",
+     "en": "Chocolate/Candy",
+     "pct": 2.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "편의점 도시락",
+     "en": "Convenience store meal",
+     "pct": 1.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "핫도그/분식",
+     "en": "Hot dog/Snack",
+     "pct": 1.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "핫바",
+     "en": "Hot bar",
+     "pct": 1.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "핫도그/떡볶이",
+     "en": "Hot dog/Tteokbokki",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-3",
+   "question_ko": "스트레스를 받을 때 가장 먼저 하는 일은 무엇입니까?",
+   "question_en": "What do you do first when stressed?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "음악 듣기",
+     "en": "Listen to music",
+     "pct": 15.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "깊은 숨을 쉬기",
+     "en": "Take deep breath",
+     "pct": 11.5,
+     "alias_ko": [
+      "깊은 호흡하기",
+      "깊은 호흡/명상"
+     ]
+    },
+    {
+     "ko": "친구/가족과 대화",
+     "en": "Talk with friends/family",
+     "pct": 11.3,
+     "alias_ko": [
+      "가족·친구와 대화하기"
+     ]
+    },
+    {
+     "ko": "간식 먹기",
+     "en": "Eat snack",
+     "pct": 10.9,
+     "alias_ko": [
+      "먹기/간식"
+     ]
+    },
+    {
+     "ko": "산책/운동",
+     "en": "Walk/exercise",
+     "pct": 10.9,
+     "alias_ko": [
+      "산책하거나 가벼운 운동하기",
+      "산책하거나 운동하기"
+     ]
+    },
+    {
+     "ko": "스마트폰/소셜미디어 보기",
+     "en": "View smartphone/social media",
+     "pct": 8.4,
+     "alias_ko": [
+      "스마트폰으로 SNS 보기"
+     ]
+    },
+    {
+     "ko": "게임하기",
+     "en": "Play games",
+     "pct": 7.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "잠자기/낮잠",
+     "en": "Sleep/nap",
+     "pct": 7.1,
+     "alias_ko": [
+      "휴식하거나 잠자기"
+     ]
+    },
+    {
+     "ko": "물 마시기",
+     "en": "Drink water",
+     "pct": 5.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "울기",
+     "en": "Cry",
+     "pct": 4.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "흡연",
+     "en": "Smoke",
+     "pct": 3.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "TV/영상 시청",
+     "en": "Watch TV/video",
+     "pct": 3.0,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-4",
+   "question_ko": "월급날 가장 먼저 하고 싶은 일은 무엇입니까?",
+   "question_en": "What do you want to do first on payday?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "저축하기",
+     "en": "Save money",
+     "pct": 19.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "쇼핑하기",
+     "en": "Go shopping",
+     "pct": 13.1,
+     "alias_ko": [
+      "옷 쇼핑"
+     ]
+    },
+    {
+     "ko": "부모님께 드리기",
+     "en": "Give to parents",
+     "pct": 9.6,
+     "alias_ko": [
+      "부모님께 용돈 드리기"
+     ]
+    },
+    {
+     "ko": "맛있는 음식 먹기",
+     "en": "Eat delicious food",
+     "pct": 8.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "친구와 외식하기",
+     "en": "Dine out with friends",
+     "pct": 8.4,
+     "alias_ko": [
+      "친구랑 외식하기"
+     ]
+    },
+    {
+     "ko": "빚 갚기",
+     "en": "Pay off debt",
+     "pct": 7.9,
+     "alias_ko": [
+      "대출 상환"
+     ]
+    },
+    {
+     "ko": "영화 보기",
+     "en": "Watch a movie",
+     "pct": 6.0,
+     "alias_ko": [
+      "영화/콘서트 보기"
+     ]
+    },
+    {
+     "ko": "집세/공과금 납부",
+     "en": "Pay rent/utilities",
+     "pct": 4.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "여행 계획 세우기",
+     "en": "Plan a trip",
+     "pct": 4.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "게임 아이템 구매",
+     "en": "Buy game items",
+     "pct": 4.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "카페에서 음료 마시기",
+     "en": "Have a drink at a cafe",
+     "pct": 3.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "운동하기",
+     "en": "Exercise",
+     "pct": 3.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "가족 선물 사기",
+     "en": "Buy a family gift",
+     "pct": 3.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "게임하기",
+     "en": "Play games",
+     "pct": 2.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "휴식하기",
+     "en": "Rest",
+     "pct": 2.0,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-5",
+   "question_ko": "로또 1등에 당첨되면 가장 먼저 할 일은 무엇입니까?",
+   "question_en": "What would you do first if you won the lottery?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "빚 갚기",
+     "en": "Pay off debt",
+     "pct": 18.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "집 사기",
+     "en": "Buy a house",
+     "pct": 17.9,
+     "alias_ko": [
+      "집 구매하기"
+     ]
+    },
+    {
+     "ko": "해외여행 가기",
+     "en": "Go on overseas travel",
+     "pct": 14.8,
+     "alias_ko": [
+      "여행 가기"
+     ]
+    },
+    {
+     "ko": "부모님께 효도",
+     "en": "Be filial to parents",
+     "pct": 11.4,
+     "alias_ko": [
+      "부모님께 효도/선물하기"
+     ]
+    },
+    {
+     "ko": "저축/투자",
+     "en": "Save/invest",
+     "pct": 10.6,
+     "alias_ko": [
+      "저축/투자하기",
+      "저축/예금하기"
+     ]
+    },
+    {
+     "ko": "기부하기",
+     "en": "Donate",
+     "pct": 6.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "가족에게 돈 주기",
+     "en": "Give money to family",
+     "pct": 5.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "직장 그만두기",
+     "en": "Quit job",
+     "pct": 3.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "자녀 교육비",
+     "en": "Children's education expenses",
+     "pct": 2.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "자녀 교육비 마련하기",
+     "en": "Start a business/entrepreneurship",
+     "pct": 1.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "창업/사업 시작하기",
+     "en": "Start a business / entrepreneurship",
+     "pct": 1.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "사업 시작하기",
+     "en": "Start a business",
+     "pct": 1.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "명품 구매",
+     "en": "Buy luxury goods",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "차 사기",
+     "en": "Buy a car",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "친구들과 파티",
+     "en": "Party with friends",
+     "pct": 1.5,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-6",
+   "question_ko": "명절에 친척에게 가장 듣기 싫은 말은 무엇입니까?",
+   "question_en": "What do you least want to hear from relatives during holidays?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "결혼은 언제 할 거야?",
+     "en": "When will you get married?",
+     "pct": 22.7,
+     "alias_ko": [
+      "결혼 언제 할 거야?",
+      "결혼 언제 할 거니?"
+     ]
+    },
+    {
+     "ko": "애는 언제 낳을 거야?",
+     "en": "When will you have a baby?",
+     "pct": 17.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "살 좀 빼라",
+     "en": "Lose some weight",
+     "pct": 11.9,
+     "alias_ko": [
+      "살 좀 빼라 / 살찌었네"
+     ]
+    },
+    {
+     "ko": "취업은 언제 할 거야?",
+     "en": "When will you get a job?",
+     "pct": 9.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "연봉은 얼마나 돼?",
+     "en": "How much is your salary?",
+     "pct": 8.5,
+     "alias_ko": [
+      "연봉은 얼마나 받아?"
+     ]
+    },
+    {
+     "ko": "왜 아직도 혼자야?",
+     "en": "Why are you still single?",
+     "pct": 6.9,
+     "alias_ko": [
+      "너 아직도 혼자야?"
+     ]
+    },
+    {
+     "ko": "돈 많이 벌어라",
+     "en": "Earn more money",
+     "pct": 4.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "취업은 잘 되니?",
+     "en": "Is your job going well?",
+     "pct": 3.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "공부 더 해야 해",
+     "en": "You should study more",
+     "pct": 3.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "성적은 어때?",
+     "en": "How are your grades?",
+     "pct": 2.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "형제 자매 비교",
+     "en": "Comparing siblings",
+     "pct": 2.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "대학은 어디 가?",
+     "en": "Which university are you going to?",
+     "pct": 2.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "건강 챙겨라",
+     "en": "Take care of your health",
+     "pct": 1.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "네가 그렇게 공부해도 뭐가 되겠냐?",
+     "en": "Even if you study like that, what will you become?",
+     "pct": 1.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "집 장만은?",
+     "en": "When will you buy a house?",
+     "pct": 1.6,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타"
+   ],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-7",
+   "question_ko": "엄마에게 가장 많이 듣는 잔소리는 무엇입니까?",
+   "question_en": "What do you hear your mom nag about the most?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "공부해",
+     "en": "Study",
+     "pct": 26.4,
+     "alias_ko": [
+      "공부해라",
+      "숙제 먼저 해라"
+     ]
+    },
+    {
+     "ko": "시간 맞춰 들어와",
+     "en": "Come home on time",
+     "pct": 17.9,
+     "alias_ko": [
+      "시간 지켜",
+      "늦게 들어오지 마",
+      "늦게 들어오지 마라"
+     ]
+    },
+    {
+     "ko": "청소해",
+     "en": "Clean up",
+     "pct": 14.8,
+     "alias_ko": [
+      "방 청소해라"
+     ]
+    },
+    {
+     "ko": "핸드폰 좀 내려놔",
+     "en": "Put down your phone",
+     "pct": 13.6,
+     "alias_ko": [
+      "핸드폰 그만 봐",
+      "핸드폰 보지 마"
+     ]
+    },
+    {
+     "ko": "옷 입어",
+     "en": "Wear clothes",
+     "pct": 9.9,
+     "alias_ko": [
+      "옷을 단정하게 입어라"
+     ]
+    },
+    {
+     "ko": "식사 제때 챙겨 먹어라",
+     "en": "Eat meals on time",
+     "pct": 9.9,
+     "alias_ko": [
+      "식사 제때 해",
+      "밥 먹어"
+     ]
+    },
+    {
+     "ko": "잠 더 자라",
+     "en": "Sleep more",
+     "pct": 3.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "친구랑 안 만나",
+     "en": "Don't meet friends",
+     "pct": 2.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "말을 예쁘게 해라",
+     "en": "Speak nicely",
+     "pct": 2.0,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-8",
+   "question_ko": "가장 가 보고 싶은 해외 여행지는 어디입니까?",
+   "question_en": "Which foreign country would you most like to visit?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "일본",
+     "en": "Japan",
+     "pct": 21.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "미국",
+     "en": "United States",
+     "pct": 17.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "프랑스",
+     "en": "France",
+     "pct": 10.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "이탈리아",
+     "en": "Italy",
+     "pct": 9.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "호주",
+     "en": "Australia",
+     "pct": 5.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "스페인",
+     "en": "Spain",
+     "pct": 5.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "태국",
+     "en": "Thailand",
+     "pct": 5.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "영국",
+     "en": "United Kingdom",
+     "pct": 5.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "캐나다",
+     "en": "Canada",
+     "pct": 4.3,
+     "alias_ko": []
+    },
+    {
+     "ko": "베트남",
+     "en": "Vietnam",
+     "pct": 4.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "필리핀",
+     "en": "Philippines",
+     "pct": 2.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "싱가포르",
+     "en": "Singapore",
+     "pct": 2.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "독일",
+     "en": "Germany",
+     "pct": 1.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "뉴질랜드",
+     "en": "New Zealand",
+     "pct": 1.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "스위스",
+     "en": "Switzerland",
+     "pct": 0.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "말레이시아",
+     "en": "Malaysia",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "인도네시아",
+     "en": "Indonesia",
+     "pct": 0.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "중국",
+     "en": "China",
+     "pct": 0.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-9",
+   "question_ko": "출퇴근길이나 등하굣길에 주로 하는 일은 무엇입니까?",
+   "question_en": "What do you usually do on your commute or way to school?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "스마트폰 사용 (SNS, 메신저, 영상 시청)",
+     "en": "Using smartphone (SNS, messenger, video)",
+     "pct": 26.7,
+     "alias_ko": [
+      "스마트폰 사용 (SNS, 게임, 동영상 시청)",
+      "스마트폰 사용 (SNS, 게임, 동영상 등)"
+     ]
+    },
+    {
+     "ko": "음악 듣기",
+     "en": "Listening to music",
+     "pct": 21.8,
+     "alias_ko": [
+      "음악/팟캐스트 듣기"
+     ]
+    },
+    {
+     "ko": "책/만화 읽기",
+     "en": "Reading books/comics",
+     "pct": 11.8,
+     "alias_ko": [
+      "책 또는 전자책 읽기"
+     ]
+    },
+    {
+     "ko": "공부/숙제하기",
+     "en": "Studying/homework",
+     "pct": 8.8,
+     "alias_ko": [
+      "공부 또는 숙제"
+     ]
+    },
+    {
+     "ko": "잠자기/휴식",
+     "en": "Sleeping/resting",
+     "pct": 8.4,
+     "alias_ko": [
+      "잠자기 또는 휴식"
+     ]
+    },
+    {
+     "ko": "전화 통화",
+     "en": "Phone call",
+     "pct": 6.5,
+     "alias_ko": [
+      "대화하기 (친구·가족 통화)"
+     ]
+    },
+    {
+     "ko": "창밖 구경하기",
+     "en": "Looking out the window",
+     "pct": 5.0,
+     "alias_ko": []
+    },
+    {
+     "ko": "생각하기/멍때리기",
+     "en": "Thinking/daydreaming",
+     "pct": 3.8,
+     "alias_ko": []
+    },
+    {
+     "ko": "먹거리/음료 섭취",
+     "en": "Eating/drinking food or beverage",
+     "pct": 2.7,
+     "alias_ko": [
+      "간식 먹기"
+     ]
+    },
+    {
+     "ko": "운동/걷기 (스트레칭 등)",
+     "en": "Exercise/walking (stretching etc.)",
+     "pct": 1.9,
+     "alias_ko": []
+    },
+    {
+     "ko": "하루 계획 생각하기",
+     "en": "Thinking about daily plans",
+     "pct": 1.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "기도/종교 활동",
+     "en": "Prayer/religious activity",
+     "pct": 1.1,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타"
+   ],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-10",
+   "question_ko": "치킨을 시킬 때 가장 좋아하는 메뉴는 무엇입니까?",
+   "question_en": "What is your favorite menu when ordering chicken?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "후라이드 치킨",
+     "en": "Fried Chicken",
+     "pct": 25.3,
+     "alias_ko": [
+      "후라이드"
+     ]
+    },
+    {
+     "ko": "양념치킨",
+     "en": "Seasoned Chicken",
+     "pct": 24.3,
+     "alias_ko": [
+      "양념",
+      "양념 치킨"
+     ]
+    },
+    {
+     "ko": "간장치킨",
+     "en": "Soy Garlic Chicken",
+     "pct": 14.3,
+     "alias_ko": [
+      "간장 치킨",
+      "간장"
+     ]
+    },
+    {
+     "ko": "허니버터 치킨",
+     "en": "Honey Butter Chicken",
+     "pct": 10.0,
+     "alias_ko": [
+      "허니버터치킨",
+      "허니버터"
+     ]
+    },
+    {
+     "ko": "마늘 치킨",
+     "en": "Garlic Chicken",
+     "pct": 7.2,
+     "alias_ko": [
+      "마늘"
+     ]
+    },
+    {
+     "ko": "매운치킨",
+     "en": "Spicy Chicken",
+     "pct": 5.9,
+     "alias_ko": [
+      "매운 치킨"
+     ]
+    },
+    {
+     "ko": "반반",
+     "en": "Half Half",
+     "pct": 4.8,
+     "alias_ko": [
+      "반반 치킨"
+     ]
+    },
+    {
+     "ko": "치즈 치킨",
+     "en": "Cheese Chicken",
+     "pct": 3.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "파닭",
+     "en": "Pa Dak",
+     "pct": 2.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "순살치킨",
+     "en": "Boneless Chicken",
+     "pct": 2.4,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [
+    "기타"
+   ],
+   "source": null,
+   "reality": null
+  },
+  {
+   "id": "ai-11",
+   "question_ko": "잠들기 전에 마지막으로 하는 일은 무엇입니까?",
+   "question_en": "What do you usually do last before going to sleep?",
+   "target_ko": "한국 전국 만 13세 이상 1,700명에게 면접원이",
+   "prior": [
+    {
+     "ko": "스마트폰 확인",
+     "en": "Check smartphone",
+     "pct": 23.2,
+     "alias_ko": [
+      "휴대폰 확인하기",
+      "스마트폰 SNS/메시지",
+      "스마트폰 뉴스/영상"
+     ]
+    },
+    {
+     "ko": "양치질",
+     "en": "Brush teeth",
+     "pct": 19.2,
+     "alias_ko": []
+    },
+    {
+     "ko": "책 읽기",
+     "en": "Read book",
+     "pct": 10.8,
+     "alias_ko": [
+      "독서"
+     ]
+    },
+    {
+     "ko": "알람 설정",
+     "en": "Set alarm",
+     "pct": 9.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "세안/얼굴 씻기",
+     "en": "Wash face",
+     "pct": 9.5,
+     "alias_ko": [
+      "세수/얼굴 씻기"
+     ]
+    },
+    {
+     "ko": "기도/명상",
+     "en": "Prayer/Meditation",
+     "pct": 6.9,
+     "alias_ko": [
+      "기도 또는 명상"
+     ]
+    },
+    {
+     "ko": "물 마시기",
+     "en": "Drink water",
+     "pct": 5.6,
+     "alias_ko": []
+    },
+    {
+     "ko": "내일 계획 생각하기",
+     "en": "Think about tomorrow's plan",
+     "pct": 3.8,
+     "alias_ko": [
+      "내일 계획 생각"
+     ]
+    },
+    {
+     "ko": "스트레칭/요가",
+     "en": "Stretching/Yoga",
+     "pct": 3.4,
+     "alias_ko": []
+    },
+    {
+     "ko": "하루 회고",
+     "en": "Reflect on the day",
+     "pct": 2.5,
+     "alias_ko": []
+    },
+    {
+     "ko": "음악 듣기",
+     "en": "Listen to music",
+     "pct": 2.1,
+     "alias_ko": []
+    },
+    {
+     "ko": "만화/웹툰 보기",
+     "en": "Watch comics/webtoons",
+     "pct": 1.7,
+     "alias_ko": []
+    },
+    {
+     "ko": "불 끄기",
+     "en": "Turn off lights",
+     "pct": 1.7,
+     "alias_ko": []
+    }
+   ],
+   "board_size": 8,
+   "dropped_junk": [],
+   "source": null,
+   "reality": null
+  }
+ ]
+}

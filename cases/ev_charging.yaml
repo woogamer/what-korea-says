@@ -1,0 +1,54 @@
+# 예시 의사결정 과제 (개발 루프용). 시연 사례(F12)는 별도 결정. 수치·명제는 전부 임시 [가].
+name: ev_charging_entry
+title: 전기차 충전 서비스 — 어느 고객층에 먼저 진입할 것인가
+problem: 신규 충전 서비스 사업자가 2027년 상반기 진입을 검토 중. 집 충전 가능 여부에 따라 고객 니즈가 갈리는데 어느 층을 먼저 잡을지 정해지지 않았다.
+decision: 첫 타겟 세그먼트와 충전 상품 형태(홈충전 패키지 vs 공용 급속 구독)를 정한다.
+target_population: 한국 성인 중 2년 내 승용차 구매를 검토하는 사람
+options:
+  - {id: home_first, text: 집 충전 가능층(아파트·단독) 우선, 완속 홈충전 패키지}
+  - {id: public_first, text: 집 충전 불가층 우선, 공용 급속 구독}
+  - {id: defer, text: 진입 연기, 공용 인프라 확충 후 재검토}
+
+research_questions:
+  - id: rq1
+    text: 집 충전 불가층의 전기차 구매 의향은 공용 충전 접근성이 개선되면 얼마나 오르는가?
+    information_needs: [in2, in3]
+    implications:
+      - {if: 접근성 개선 시 의향 상승폭이 큼(20%p 이상), then: public_first}
+      - {if: 상승폭이 작음, then: home_first}
+  - id: rq2
+    text: 집 충전 가능층과 불가층의 규모와 수도권 집중도는 어느 정도인가?
+    information_needs: [in1]
+    implications:
+      - {if: 불가층이 가능층보다 크고 수도권 집중, then: public_first}
+      - {if: 가능층이 더 크거나 지방 분산, then: home_first}
+  - id: rq3
+    text: 두 층이 충전 상품에 지불할 의사가 있는 월 금액은 얼마인가?
+    information_needs: [in4]
+    implications:
+      - {if: 두 층 모두 손익분기 이하, then: defer}
+      - {if: 한 층이라도 손익분기 이상, then: home_first}
+
+information_needs:
+  - {id: in1, text: 주거 형태별 집 충전 가능 비율과 수도권 비중}
+  - {id: in2, text: 충전 접근성별 전기차 구매 의향}
+  - {id: in3, text: 공용 충전기 보급 추이(최근 3년)}
+  - {id: in4, text: 충전 상품 월 지불의사 분포}
+
+evidence_map:
+  in1: {beliefs: [charging]}                       # 팩 belief (주거 형태 → 충전 가능)
+  in2: {primary_research: FGI 가설 확인 후 설문(의향 5점 척도, 접근성 조건 제시)}
+  in3: {search: 한국 전기차 공용 충전기 보급 대수 연도별 통계}
+  in4: {primary_research: 설문 PSM(가격 민감도) 문항}
+
+world:
+  pack: domains/ev_charging.yaml
+  market_scope: "age >= 20"
+
+controllable: [price, channel, product_form, subscription_term]
+
+environment:
+  - {id: env_policy, dimension: P, proposition: 전기차 보조금은 2026년 이후 축소 추세, grade: "[가]", source_ref: 임시}
+  - {id: env_infra, dimension: T, proposition: 공용 급속 충전기 보급은 연 30% 이상 증가, grade: "[가]", source_ref: 임시}
+  - {id: env_energy, dimension: E, proposition: 전기 요금 인상 압력이 지속, grade: "[가]", source_ref: 임시}
+  - {id: env_housing, dimension: S, proposition: 아파트 거주 비중이 높아 공동 주차장 충전 갈등이 쟁점, grade: "[가]", source_ref: 임시}

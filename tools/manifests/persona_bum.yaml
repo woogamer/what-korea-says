@@ -1,0 +1,20 @@
+tool: persona_bum
+title: 페르소나 · 구매자 효용지도 (템플릿 B)
+requires: [g1_adopt_axes, g2_target]   # STP 결정을 상속
+steps:
+  - {id: s0_target_sample, kind: query, fn: target_sample}
+  - {id: beliefs, kind: query, fn: beliefs}
+  - id: s1_persona_cards
+    kind: model
+    role: synthesize
+    in: [s0_target_sample]
+    prompt: bum_s1
+    out_schema: PersonaCards
+  - id: s2_bum
+    kind: model
+    role: synthesize
+    in: [s1_persona_cards, beliefs, case]
+    prompt: bum_s2
+    out_schema: BUM
+    forbid_fields: [recommended, recommendation, chosen, selected]
+  - {id: g1_needs, kind: gate, decision_schema: NeedsDecision, show: [s2_bum]}

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Korea Says</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Bungee&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1230; --panel:#141d45; --tile:#1d2a66; --gold:#f3b928; --ink:#f4f6ff; --muted:#a9b2d9;
+  --red:#ff5a5f; --green:#3ddc97; --ai:#7aa2ff; --line:#2a3878; --dark:#1a1300;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 48px}
+header{text-align:center;padding:28px 0 8px}
+.logo{font-family:Bungee,sans-serif;font-size:clamp(28px,7vw,48px);color:var(--gold);text-shadow:0 3px 0 #a8770a;margin:0;cursor:pointer}
+.tag{color:var(--muted);margin:4px 0 0}
+.card{background:var(--panel);border:2px solid var(--gold);border-radius:18px;padding:18px;margin-top:18px}
+.meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.pill.g{border-color:var(--gold);color:var(--gold)}
+.q{font-size:clamp(20px,5vw,28px);font-weight:800;margin:10px 0 4px}
+.hint{color:var(--muted);margin:0 0 12px;font-size:14px}
+.board{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.slot{display:flex;align-items:center;gap:10px;background:var(--tile);border-radius:10px;padding:10px 12px;min-height:50px;font-weight:700}
+.slot .n{width:28px;height:28px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-family:Bungee,sans-serif;font-size:14px;flex:none}
+.slot .l{flex:1;min-width:0;overflow-wrap:anywhere}
+.slot .p{font-family:Bungee,sans-serif}
+.slot.open{background:var(--gold);color:var(--dark);animation:flip .35s}
+.slot.open .n{background:var(--dark);color:var(--gold)}
+.slot.late{background:#3a466f}
+@keyframes flip{from{transform:rotateX(90deg)}to{transform:none}}
+form.row{display:flex;gap:8px}
+input,select{font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+form.row input{flex:1}
+button{font:inherit;font-weight:800;padding:11px 18px;border-radius:10px;border:0;background:var(--gold);color:var(--dark);cursor:pointer}
+button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:600}
+button:disabled{opacity:.5;cursor:wait}
+.status{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;min-height:34px;flex-wrap:wrap}
+.x{color:var(--red);font-family:Bungee,sans-serif;font-size:24px;letter-spacing:4px}
+.msg{color:var(--muted)}
+.score{font-family:Bungee,sans-serif;color:var(--gold);font-size:22px}
+.about{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0;font-size:14px;color:var(--muted);align-items:center}
+.mix{margin:6px 0 14px}
+.mixbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--tile)}
+.mixbar .a{background:var(--ai)} .mixbar .h{background:var(--green)}
+.mixlbl{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:right}
+th:nth-child(2),td:nth-child(2){text-align:left}
+th{color:var(--muted);font-weight:600;font-size:12px}
+td.r{font-family:Bungee,sans-serif;color:var(--gold);text-align:center;width:34px}
+.gallup{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line)}
+.big{font-family:Bungee,sans-serif;font-size:26px;color:var(--gold)}
+.miss{color:var(--muted);font-size:14px}
+a{color:var(--ai)}
+.mine{background:var(--bg);border-radius:10px;padding:10px 12px;margin:10px 0}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
+.hidden{display:none}
+@media (max-width:560px){.board{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="logo" id="home">WHAT KOREA SAYS</p>
+  <p class="tag">AI guessed first. Real people are correcting it. Can you read Korea's mind?</p>
+</header>
+
+<!-- 1. my answer -->
+<div class="card hidden" id="s1">
+  <div class="meta"><span id="m1"></span><span id="g1"></span></div>
+  <p class="q" id="q1"></p>
+  <p class="hint">First, <b>your own answer</b>. If you live in Korea, it's added to the board after your round — for the next players.</p>
+  <form class="row" id="f1" autocomplete="off"><input id="mine" maxlength="40" placeholder="Your answer (English or 한국어)"><button>Answer</button></form>
+  <div class="about">
+    <label><input type="checkbox" id="kr"> I live in Korea</label>
+    <select id="age"><option value="">Age</option><option>10s</option><option>20s</option><option>30s</option><option>40s</option><option>50s</option><option>60+</option></select>
+    <select id="sex"><option value="">Gender</option><option value="F">Female</option><option value="M">Male</option><option value="X">Other</option></select>
+    <button class="ghost" type="button" id="skip">Skip</button>
+  </div>
+</div>
+
+<!-- 2. guess -->
+<div class="card hidden" id="s2">
+  <div class="meta"><span id="m2"></span><span>Score <b class="score" id="sc">0</b></span></div>
+  <p class="q" id="q2"></p>
+  <p class="hint">Name the most popular answers in Korea. Three strikes and you're out.</p>
+  <div class="board" id="board"></div>
+  <form class="row" id="f2" autocomplete="off"><input id="guess" maxlength="40" placeholder="Your guess"><button id="gb">Guess</button></form>
+  <div class="status"><span class="x" id="x"></span><span class="msg" id="msg"></span><button class="ghost" type="button" id="give">Reveal board</button></div>
+</div>
+
+<!-- 3. reveal -->
+<div class="card hidden" id="s3">
+  <div class="meta"><span id="m3"></span><span>Score <b class="score" id="sc3">0</b></span></div>
+  <p class="q" id="q3"></p>
+  <div class="mix">
+    <div class="mixbar"><div class="a" id="mixa"></div><div class="h" id="mixh"></div></div>
+    <div class="mixlbl"><span id="mixal"></span><span id="mixhl"></span></div>
+  </div>
+  <div class="mine" id="mineBox"></div>
+  <table><thead><tr><th></th><th>Answer</th><th>Board</th><th>AI guess</th><th id="gth">Gallup</th></tr></thead><tbody id="rows"></tbody></table>
+  <div class="gallup hidden" id="gal"></div>
+  <div class="status"><span class="msg">AI guess = NVIDIA Nemotron on Nebius Token Factory. Board = AI guess updated by players (Bayesian).</span><button id="next">Next question →</button></div>
+</div>
+
+<footer>Real survey data: Gallup Korea "What Koreans Like" 2024, Gallup Korea 2026 · Answers from people outside Korea are saved but not counted · Prototype</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const store = {get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} }};
+const api = async (path, body) => {
+  const r = await fetch("api" + path, body ? {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)} : {});
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+};
+let Q = [], cur = null, info = null, mine = null, opened = {}, strikes = 0, score = 0, busy = false, finished = false;
+
+function show(id) { ["s1", "s2", "s3"].forEach(s => $(s).classList.toggle("hidden", s !== id)); }
+function pick() {
+  const played = store.get("played", []);
+  let pool = Q.filter(q => !played.includes(q.id));
+  if (!pool.length) { store.set("played", []); pool = Q; }
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+function metaText() { return `${info.n} player${info.n === 1 ? "" : "s"} so far · AI ${Math.round(100 * info.ai_weight)}%`; }
+
+async function start(q) {
+  cur = q || pick(); mine = null; opened = {}; strikes = 0; score = 0; finished = false;
+  info = await api(`/q/${cur.id}`);
+  $("q1").textContent = $("q2").textContent = $("q3").textContent = info.q;
+  $("m1").textContent = metaText();
+  $("g1").innerHTML = info.gallup ? '<span class="pill g">real survey to compare</span>' : '<span class="pill">AI + players only</span>';
+  $("mine").value = ""; show("s1"); $("mine").focus();
+}
+async function toGuess() {
+  info = await api(`/q/${cur.id}`);
+  $("m2").textContent = metaText();
+  renderBoard(); $("x").textContent = ""; $("msg").textContent = ""; $("sc").textContent = "0";
+  show("s2"); $("guess").focus();
+}
+function renderBoard(final) {
+  $("board").innerHTML = Array.from({length: info.slots}, (_, i) => {
+    const o = opened[i], f = final && final[i];
+    const cls = o ? "open" : f ? "late" : "";
+    const s = o || f;
+    return `<div class="slot ${cls}"><span class="n">${i + 1}</span><span class="l">${s ? esc(s.label) : ""}</span><span class="p">${s ? Math.round(s.now) : ""}</span></div>`;
+  }).join("");
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+$("f1").onsubmit = async e => {
+  e.preventDefault();
+  const t = $("mine").value.trim(); if (!t || busy) return;
+  busy = true;
+  // 내 답은 판이 끝난 뒤 저장(내가 맞힐 정답판에 내 답이 들어가 힌트가 되지 않게)
+  mine = {text: t, kr: $("kr").checked, age: $("age").value || null, sex: $("sex").value || null};
+  store.set("about", {kr: mine.kr, age: mine.age, sex: mine.sex});
+  busy = false;
+  toGuess();
+};
+$("skip").onclick = () => toGuess();
+
+$("f2").onsubmit = async e => {
+  e.preventDefault();
+  const t = $("guess").value.trim(); if (!t || busy) return;
+  busy = true; $("gb").disabled = true; $("guess").value = "";
+  try {
+    const r = await api(`/q/${cur.id}/guess`, {text: t});
+    if (r.rank >= 0 && !opened[r.rank]) {
+      opened[r.rank] = r; score += Math.round(r.now);
+      $("msg").textContent = `Top answer #${r.rank + 1}!`; $("sc").textContent = score;
+      renderBoard();
+      if (Object.keys(opened).length === info.slots) return finish();
+    } else {
+      strikes++; $("x").textContent = "✕".repeat(strikes);
+      $("msg").textContent = r.rank >= 0 ? "Already on the board" : `"${t}" is not on the board`;
+      if (strikes >= 3) return finish();
+    }
+  } finally { busy = false; $("gb").disabled = false; $("guess").focus(); }
+};
+$("give").onclick = () => finish();
+
+async function finish() {
+  if (finished) return;
+  finished = true;   // 한 판에 한 번만(정답판 다 열기·세 번째 X가 겹쳐도 내 답이 두 번 저장되지 않게)
+  const key = mine ? (await api(`/q/${cur.id}/answer`, mine)).key : null;
+  const r = await api(`/q/${cur.id}/reveal${key ? "?mine=" + encodeURIComponent(key) : ""}`);
+  store.set("played", [...new Set([...store.get("played", []), cur.id])]);
+  renderBoard(r.board);
+  await new Promise(res => setTimeout(res, 900));
+  $("m3").textContent = `${r.n} player${r.n === 1 ? "" : "s"} · AI counts as ${r.kappa} people`;
+  $("sc3").textContent = score;
+  const a = Math.round(100 * r.ai_weight);
+  $("mixa").style.width = a + "%"; $("mixh").style.width = (100 - a) + "%";
+  $("mixal").textContent = `AI guess ${a}%`; $("mixhl").textContent = `Players ${100 - a}%`;
+  const m = r.mine;
+  $("mineBox").innerHTML = !m ? "You skipped your own answer." :
+    m.rank >= 0 ? `Your answer <b>${esc(m.label)}</b> is <b>#${m.rank + 1}</b> on the board.` :
+    `Your answer <b>${esc(m.label)}</b> isn't on the board yet${m.count ? ` (${m.count} player${m.count === 1 ? "" : "s"} said it)` : ""}. More players saying it will push it on.`;
+  $("gth").classList.toggle("hidden", !r.gallup);
+  $("rows").innerHTML = r.board.map((s, i) => `<tr><td class="r">${i + 1}</td><td>${esc(s.label)}${opened[i] ? " ✓" : ""}</td><td><b>${Math.round(s.now)}</b></td><td>${Math.round(s.ai)}</td>${r.gallup ? `<td>${s.gallup == null ? "–" : s.gallup === "n/a" ? "listed" : Math.round(s.gallup)}</td>` : ""}</tr>`).join("");
+  if (r.gallup) {
+    const missed = r.gallup.items.filter(x => !x.on_board).slice(0, 4);
+    $("gal").innerHTML = `<p><b>Reality check:</b> ${esc(r.gallup.name)} asked ${esc(r.gallup.sample)}.</p>
+      <p>Match with the real survey — AI alone <span class="big">${r.gallup.overlap_ai.toFixed(2)}</span> → board now <span class="big">${r.gallup.overlap_now.toFixed(2)}</span> <span class="miss">(1.00 = identical)</span></p>
+      ${missed.length ? `<p class="miss">Real answers missing from the board: ${missed.map(x => `${esc(x.label)} ${Math.round(x.pct)}%`).join(", ")}</p>` : ""}
+      <p class="miss"><a href="${esc(r.gallup.url)}" target="_blank" rel="noopener">Source</a> · % among people who gave an answer</p>`;
+    $("gal").classList.remove("hidden");
+  } else $("gal").classList.add("hidden");
+  show("s3");
+}
+$("next").onclick = () => start();
+$("home").onclick = () => start();
+
+(async () => {
+  const about = store.get("about", {});
+  $("kr").checked = !!about.kr; $("age").value = about.age || ""; $("sex").value = about.sex || "";
+  Q = await api("/questions");
+  start();
+})();
+</script>
+</body>
+</html>

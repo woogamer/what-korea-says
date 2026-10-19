@@ -1,0 +1,374 @@
+name: 전기차 충전 · 서울 성인 (서울서베이 2024 실측 검증)
+market_scope: province = '서울' AND age >= 20
+axes_default:
+- charging_access
+- age_band
+beliefs:
+- id: charging
+  proposition: 집에서 충전 가능 여부는 주거 형태에 크게 좌우된다
+  grade: '[가]'
+  source_ref: 수업 S1 데모 — 충전 여건 축
+  variables:
+    target: charging_access
+    by:
+    - housing_type
+- id: ev_plan_survey
+  proposition: '서울 성인의 친환경차 구매 계획: 전기차 0.146, 하이브리드 0.16, 수소 0.035, 없음 0.659 (가중, 2024)'
+  grade: '[공]'
+  source_ref: https://data.seoul.go.kr/dataList/OA-15564/F/1/datasetView.do
+  n: 17482
+  sample_condition: 서울서베이 2024 가구원 조사 split A(50%). 만 20세+ 서울 거주자. 표준화 가중치 wtb2
+  variables:
+    target: ev_plan
+    by:
+    - housing_type
+    - age_band
+attributes:
+- name: charging_access
+  method: impute_stat
+  by:
+  - housing_type
+  seed: 11
+  belief: charging
+  table:
+  - by:
+      housing_type: 아파트
+    p:
+      home: 0.55
+      public_only: 0.45
+  - by:
+      housing_type: 단독주택
+    p:
+      home: 0.7
+      public_only: 0.3
+  - by:
+      housing_type: 다세대주택
+    p:
+      home: 0.2
+      public_only: 0.8
+  - by:
+      housing_type: 연립주택
+    p:
+      home: 0.25
+      public_only: 0.75
+  - by:
+      housing_type: 주택 이외의 거처
+    p:
+      home: 0.1
+      public_only: 0.9
+  - by:
+      housing_type: 비주거용 건물 내 주택
+    p:
+      home: 0.1
+      public_only: 0.9
+  checks:
+  - type: variance
+    attr: charging_access
+validation_attributes:
+- name: ev_plan
+  method: impute_stat
+  by:
+  - housing_type
+  - age_band
+  seed: 5
+  belief: ev_plan_survey
+  table:
+  - by:
+      housing_type: 다세대주택
+      age_band: 19-29
+    p:
+      ev: 0.1502
+      hybrid: 0.1514
+      hydrogen: 0.0346
+      none: 0.6638
+  - by:
+      housing_type: 다세대주택
+      age_band: 30-39
+    p:
+      ev: 0.1954
+      hybrid: 0.2498
+      hydrogen: 0.052
+      none: 0.5028
+  - by:
+      housing_type: 다세대주택
+      age_band: 40-49
+    p:
+      ev: 0.1634
+      hybrid: 0.1849
+      hydrogen: 0.0346
+      none: 0.6171
+  - by:
+      housing_type: 다세대주택
+      age_band: 50-59
+    p:
+      ev: 0.1261
+      hybrid: 0.1857
+      hydrogen: 0.0507
+      none: 0.6375
+  - by:
+      housing_type: 다세대주택
+      age_band: 60-69
+    p:
+      ev: 0.0813
+      hybrid: 0.1302
+      hydrogen: 0.0364
+      none: 0.7521
+  - by:
+      housing_type: 다세대주택
+      age_band: 70+
+    p:
+      ev: 0.0279
+      hybrid: 0.0752
+      hydrogen: 0.0524
+      none: 0.8445
+  - by:
+      housing_type: 단독주택
+      age_band: 19-29
+    p:
+      ev: 0.1628
+      hybrid: 0.177
+      hydrogen: 0.072
+      none: 0.5882
+  - by:
+      housing_type: 단독주택
+      age_band: 30-39
+    p:
+      ev: 0.2531
+      hybrid: 0.176
+      hydrogen: 0.0463
+      none: 0.5246
+  - by:
+      housing_type: 단독주택
+      age_band: 40-49
+    p:
+      ev: 0.1598
+      hybrid: 0.1727
+      hydrogen: 0.0359
+      none: 0.6316
+  - by:
+      housing_type: 단독주택
+      age_band: 50-59
+    p:
+      ev: 0.1499
+      hybrid: 0.1834
+      hydrogen: 0.0512
+      none: 0.6155
+  - by:
+      housing_type: 단독주택
+      age_band: 60-69
+    p:
+      ev: 0.0741
+      hybrid: 0.1115
+      hydrogen: 0.039
+      none: 0.7754
+  - by:
+      housing_type: 단독주택
+      age_band: 70+
+    p:
+      ev: 0.0368
+      hybrid: 0.0535
+      hydrogen: 0.0109
+      none: 0.8988
+  - by:
+      housing_type: 아파트
+      age_band: 19-29
+    p:
+      ev: 0.1794
+      hybrid: 0.1502
+      hydrogen: 0.0412
+      none: 0.6292
+  - by:
+      housing_type: 아파트
+      age_band: 30-39
+    p:
+      ev: 0.2005
+      hybrid: 0.2278
+      hydrogen: 0.0279
+      none: 0.5438
+  - by:
+      housing_type: 아파트
+      age_band: 40-49
+    p:
+      ev: 0.2036
+      hybrid: 0.2042
+      hydrogen: 0.028
+      none: 0.5642
+  - by:
+      housing_type: 아파트
+      age_band: 50-59
+    p:
+      ev: 0.1617
+      hybrid: 0.1826
+      hydrogen: 0.0361
+      none: 0.6196
+  - by:
+      housing_type: 아파트
+      age_band: 60-69
+    p:
+      ev: 0.1006
+      hybrid: 0.1355
+      hydrogen: 0.0198
+      none: 0.7441
+  - by:
+      housing_type: 아파트
+      age_band: 70+
+    p:
+      ev: 0.0386
+      hybrid: 0.0465
+      hydrogen: 0.0182
+      none: 0.8967
+  - by:
+      housing_type: 연립주택
+      age_band: 19-29
+    p:
+      ev: 0.2219
+      hybrid: 0.1015
+      hydrogen: 0.0086
+      none: 0.668
+  - by:
+      housing_type: 연립주택
+      age_band: 30-39
+    p:
+      ev: 0.2098
+      hybrid: 0.1845
+      hydrogen: 0.045
+      none: 0.5607
+  - by:
+      housing_type: 연립주택
+      age_band: 40-49
+    p:
+      ev: 0.1327
+      hybrid: 0.1853
+      hydrogen: 0.0168
+      none: 0.6652
+  - by:
+      housing_type: 연립주택
+      age_band: 50-59
+    p:
+      ev: 0.1712
+      hybrid: 0.1449
+      hydrogen: 0.0427
+      none: 0.6412
+  - by:
+      housing_type: 연립주택
+      age_band: 60-69
+    p:
+      ev: 0.0927
+      hybrid: 0.0984
+      hydrogen: 0.0346
+      none: 0.7743
+  - by:
+      housing_type: 연립주택
+      age_band: 70+
+    p:
+      ev: 0.0273
+      hybrid: 0.025
+      hydrogen: 0.0023
+      none: 0.9454
+  - by:
+      housing_type: 주택 이외의 거처
+      age_band: 19-29
+    p:
+      ev: 0.3107
+      hybrid: 0.2088
+      hydrogen: 0.0324
+      none: 0.4481
+  - by:
+      housing_type: 주택 이외의 거처
+      age_band: 30-39
+    p:
+      ev: 0.1541
+      hybrid: 0.233
+      hydrogen: 0.0467
+      none: 0.5662
+  - by:
+      housing_type: 주택 이외의 거처
+      age_band: 40-49
+    p:
+      ev: 0.1381
+      hybrid: 0.1727
+      hydrogen: 0.0284
+      none: 0.6608
+  - by:
+      housing_type: 주택 이외의 거처
+      age_band: 50-59
+    p:
+      ev: 0.1154
+      hybrid: 0.1355
+      hydrogen: 0.0331
+      none: 0.716
+  - by:
+      housing_type: 주택 이외의 거처
+      age_band: 60-69
+    p:
+      ev: 0.0596
+      hybrid: 0.0724
+      hydrogen: 0.0943
+      none: 0.7737
+  - by:
+      housing_type: 주택 이외의 거처
+      age_band: 70+
+    p:
+      ev: 0.043
+      hybrid: 0.0324
+      none: 0.9246
+  checks:
+  - type: variance
+    attr: ev_plan
+calibration_questions:
+- id: cal_ev_plan
+  text: 2년 안에 친환경 자동차를 살 계획이 있습니까?
+  answer_schema: choice
+  options:
+  - 전기차
+  - 하이브리드
+  - 수소차
+  - 없음
+  observed_attr: ev_plan
+  value_map:
+    전기차: ev
+    하이브리드: hybrid
+    수소차: hydrogen
+    없음: none
+agent_attributes:
+- name: commute_car
+  description: 주로 이용하는 교통수단이 승용차인가 (car = 승용차 단독 또는 승용차+대중교통, other = 그 외)
+  domain:
+  - car
+  - other
+  by:
+  - age_band
+  query_hint: 서울시민 연령대별 주 교통수단 승용차 이용 비율 서울서베이
+reference_distributions:
+  source_ref: https://data.seoul.go.kr/dataList/OA-15564/F/1/datasetView.do
+  sample_condition: 서울서베이 2024 가구원 split B(50%), 만 20세+, 가중치 wtb2
+  axes:
+    sex:
+      남자: 0.4769
+      여자: 0.5231
+    age_band:
+      19-29: 0.1565
+      30-39: 0.1726
+      40-49: 0.1774
+      50-59: 0.1843
+      60-69: 0.186
+      70+: 0.1233
+    housing_type:
+      다세대주택: 0.1775
+      단독주택: 0.2152
+      아파트: 0.4956
+      연립주택: 0.0708
+      주택 이외의 거처: 0.0408
+    education_level:
+      2~3년제 전문대학: 0.1475
+      4년제 대학교: 0.457
+      고등학교: 0.2867
+      대학원: 0.009
+      무학: 0.0025
+      중학교: 0.077
+      초등학교: 0.0204
+    marital_status:
+      미혼: 0.2614
+      배우자있음: 0.599
+      사별: 0.0781
+      이혼: 0.0615

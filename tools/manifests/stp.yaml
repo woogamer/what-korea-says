@@ -1,0 +1,36 @@
+tool: stp
+title: 세분화·타겟팅 (템플릿 A)
+steps:
+  - {id: s0_eligibility, kind: query, fn: eligibility}
+  - {id: beliefs, kind: query, fn: beliefs}
+  - id: s1_axis_candidates
+    kind: model
+    role: synthesize
+    in: [s0_eligibility, case]
+    prompt: stp_s1
+    out_schema: AxisCandidates
+    forbid_fields: [recommended, recommendation, adopted, best, chosen]
+  - {id: g1_adopt_axes, kind: gate, decision_schema: AdoptAxes, show: [s0_eligibility, s1_axis_candidates]}
+  - {id: s2_cells, kind: query, fn: cells, in: [g1_adopt_axes]}
+  - id: s3_compare_table
+    kind: model
+    role: synthesize
+    in: [s2_cells, beliefs, case]
+    prompt: stp_s3
+    out_schema: CompareTable
+    forbid_fields: [recommended, recommendation, target, best]
+  - id: s4_critique
+    kind: model
+    role: critique
+    in: [s3_compare_table, beliefs]
+    prompt: stp_s4
+    out_schema: Critique
+    forbid_fields: [recommended, recommendation, target, best]
+  - {id: g2_target, kind: gate, decision_schema: TargetDecision, show: [s2_cells, s3_compare_table, s4_critique]}
+  - {id: target_cell_rows, kind: query, fn: target_cell_rows, in: [g1_adopt_axes, g2_target]}
+  - id: s5_target_brief
+    kind: model
+    role: synthesize
+    in: [target_cell_rows, beliefs, case, decisions]
+    prompt: stp_s5
+    out_schema: TargetBrief

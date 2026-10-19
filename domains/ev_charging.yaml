@@ -1,0 +1,40 @@
+# 예시 도메인 팩 2 — 전기차 구매 검토(수업 S1 데모 사례). 코어가 업종 독립임을 보이는 용도.
+# 수치는 전부 [가] 임시값. 실제로 쓰려면 Tavily로 출처를 붙일 것.
+name: 전기차 · 한국 성인 승용차 구매 검토
+market_scope: "age >= 20"
+axes_default: [tech_adoption, charging_access]
+
+beliefs:
+  - id: charging
+    proposition: "집에서 충전 가능 여부는 주거 형태에 크게 좌우된다 (아파트·단독 vs 다세대·오피스텔)"
+    grade: "[가]"
+    source_ref: "수업 S1 데모 — 충전 여건 축"
+    variables: {target: charging_access, by: [housing_type]}
+
+attributes:
+  - name: charging_access
+    method: impute_stat
+    by: [housing_type]
+    seed: 11
+    belief: charging
+    table:
+      - {by: {housing_type: 아파트},              p: {home: 0.55, public_only: 0.45}}
+      - {by: {housing_type: 단독주택},            p: {home: 0.70, public_only: 0.30}}
+      - {by: {housing_type: 다세대주택},          p: {home: 0.20, public_only: 0.80}}
+      - {by: {housing_type: 연립주택},            p: {home: 0.25, public_only: 0.75}}
+      - {by: {housing_type: 주택 이외의 거처},     p: {home: 0.10, public_only: 0.90}}
+      - {by: {housing_type: 비주거용 건물 내 주택}, p: {home: 0.10, public_only: 0.90}}
+    checks:
+      - {type: variance, attr: charging_access}
+  - name: metro
+    method: impute_rule
+    grade: "[도]"
+    expr: "CASE WHEN province IN ('서울','경기','인천') THEN 'capital' ELSE 'regional' END"
+  - {name: tech_adoption, method: extend, domain: [early, mainstream, late]}
+
+agent_attributes:   # 근거 수집 에이전트(C8)가 공개 통계로 채울 빈 열
+  - name: ev_intent
+    description: 향후 전기차 구매를 고려하는가 (considering = 구매 의향·고려 있음, not_considering = 없음)
+    domain: [considering, not_considering]
+    by: [age_band]
+    query_hint: 연령대별 전기차 구매 의향 조사 결과 비율

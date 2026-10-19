@@ -1,0 +1,7 @@
+tool: evidence_agent
+title: 근거 수집 에이전트 — 빈 열을 공개 통계로 채운다 (제안 → 검사 → 승인 → 임퓨트)
+steps:
+  - {id: s0_collect, kind: agent, fn: agent_collect}
+  - {id: g1_approve, kind: gate, decision_schema: ApproveEvidence, show: [s0_collect]}
+  - {id: s1_apply, kind: query, fn: agent_apply, in: [g1_approve]}
+  - {id: s2_l0_card, kind: query, fn: l0_card}

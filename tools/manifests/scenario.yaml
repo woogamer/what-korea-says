@@ -1,0 +1,24 @@
+tool: scenario
+title: "시나리오 플래닝 (PESTEL → Wilson → 축 → 2×2)"
+steps:
+  - {id: s0_drivers, kind: query, fn: drivers}
+  - id: s1_pestel
+    kind: model
+    role: synthesize
+    in: [s0_drivers]
+    prompt: scen_s1
+    out_schema: PestelTable
+  - id: s2_axis_pairs
+    kind: model
+    role: synthesize
+    in: [s1_pestel, s0_drivers]
+    prompt: scen_s2
+    out_schema: AxisPairs
+    forbid_fields: [recommended, recommendation, adopted, best, chosen]
+  - {id: g1_axes, kind: gate, decision_schema: AdoptScenarioAxes, show: [s1_pestel, s2_axis_pairs]}
+  - id: s3_matrix
+    kind: model
+    role: synthesize
+    in: [case, decisions]
+    prompt: scen_s3
+    out_schema: ScenarioMatrix

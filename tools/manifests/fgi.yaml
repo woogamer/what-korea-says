@@ -1,0 +1,19 @@
+tool: fgi
+title: 가상 FGI (템플릿 C) — 응답자 = 월드의 실제 행, 독립 요청
+requires: [g1_adopt_axes, g2_target, g1_needs]
+steps:
+  - {id: s0_spec, kind: query, fn: fgi_spec}
+  - {id: s1_run, kind: sim, fn: fgi_run}
+  - id: s2_findings
+    kind: model
+    role: synthesize
+    in: [s1_run]
+    prompt: fgi_s2
+    out_schema: FGIFindings
+  - id: s3_critique
+    kind: model
+    role: critique
+    in: [s2_findings, s1_run]
+    prompt: fgi_s3
+    out_schema: FGICritique
+  - {id: g1_hypotheses, kind: gate, decision_schema: HypothesesDecision, show: [s2_findings, s3_critique]}

@@ -1,0 +1,11 @@
+tool: research_plan
+title: 조사 설계 (마케팅조사 워크시트 STEP 8~13) — 가상 분석의 주장을 실제로 확인할 계획
+requires: [g2_target, g1_hypotheses]
+steps:
+  - {id: s0_context, kind: query, fn: plan_context}
+  - id: s1_plan
+    kind: model
+    role: synthesize
+    in: [s0_context]
+    prompt: plan_s1
+    out_schema: ResearchPlan
