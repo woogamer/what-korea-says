@@ -19,12 +19,12 @@ What Korea Says is a survey quiz game with 30 questions, such as favorite Korean
 - **The reveal** puts three things side by side:
   - the board today
   - what Nemotron originally predicted
-  - for 18 questions, what Gallup Korea measured in a 1,777-person face-to-face survey
+  - for 18 questions, what Gallup Korea measured (16 from its 2024 face-to-face survey of 1,777 people, 2 from 2026 releases)
 
   A bar shows how much of the board is still AI and how much is players.
 
 The board is a Bayesian posterior: `(κ · AI + player counts) / (κ + players)`.
-- **κ ≈ 8** was fit to 30 Gallup question–survey pairs. The AI prediction is worth about 8 real respondents.
+- **κ ≈ 8** was fit to 30 Gallup question–survey pairs (2019, 2024 and 2026 releases; the game shows the latest 18). The AI prediction is worth about 8 real respondents.
 - **The first players** move the board a lot, and later players move it less.
 - **New answers** the AI missed appear once two players give them.
 - **Who counts:** only players living in Korea count.
@@ -52,7 +52,7 @@ The board is a Bayesian posterior: `(κ · AI + player counts) / (κ + players)`
 
 ## Accomplishments
 
-In a simulation against Gallup, overlap with the real survey (1.0 = identical) rises with players:
+In a simulation against Gallup, overlap with the real survey (1.0 = identical) rises with players. κ and every number below are leave-one-out: κ was fit only on the other questions, and the 2019 and 2024 versions of the same question were held out together, so no question is scored with a κ it helped fit.
 
 | Players | Board overlap |
 |---|---|

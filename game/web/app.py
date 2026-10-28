@@ -1,9 +1,10 @@
 """What Korea Says — 웹 서버. 실행: .venv/bin/uvicorn game.web.app:app --port 8077"""
+import hashlib
 import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
@@ -44,9 +45,11 @@ def question(qid: str):
 
 
 @app.post("/api/q/{qid}/answer")
-async def answer(qid: str, body: Text):
+async def answer(qid: str, body: Text, request: Request):
     q_or_404(qid)
-    return {"key": await game.answer(qid, body.text, body.age, body.sex, body.kr)}
+    ip = request.headers.get("cf-connecting-ip") or (request.client and request.client.host) or ""
+    who = hashlib.sha256(f"wks|{ip}".encode()).hexdigest()[:16] if ip else None   # IP 원문은 저장 안 함
+    return {"key": await game.answer(qid, body.text, body.age, body.sex, body.kr, who)}
 
 
 @app.post("/api/q/{qid}/guess")

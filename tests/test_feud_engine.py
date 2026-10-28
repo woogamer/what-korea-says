@@ -87,9 +87,18 @@ def test_non_korea_answers_not_counted(game):
     assert g.board("q")[1] == 1
 
 
+def test_one_answer_per_player(game):
+    g = game(FakeLLM(-1))
+    asyncio.run(g.answer("q", "장마철", who="a"))
+    asyncio.run(g.answer("q", "장마철", who="a"))   # 같은 사람이 두 번 → 한 표
+    assert next(s["count"] for s in g.slots("q")[0] if s["key"] == "n:장마철") == 1
+    asyncio.run(g.answer("q", "장마철", who="b"))
+    assert next(s["count"] for s in g.slots("q")[0] if s["key"] == "n:장마철") == 2
+
+
 def test_alias_key_survives_rebuild(game, tmp_path):
     g = game(NoLLM())
-    g.db.execute("INSERT INTO answers VALUES ('q','벚꽃','p:벚꽃 피는 봄',NULL,NULL,1,0)")   # 예전 빌드에서 따로 칸이던 답
+    g.db.execute("INSERT INTO answers VALUES ('q','벚꽃','p:벚꽃 피는 봄',NULL,NULL,1,0,NULL)")   # 예전 빌드에서 따로 칸이던 답
     g.db.commit()
     spring = next(s for s in g.board("q")[0] if s["label"] == "Spring")
     assert spring["count"] == 1

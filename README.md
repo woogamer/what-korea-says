@@ -18,14 +18,14 @@ Every board starts as a **prior**: NVIDIA Nemotron 3 Super's direct estimate of 
 board_k = (κ · AI_k + players_k) / (κ + n)
 ```
 
-- **κ ≈ 8** means the AI estimate is trusted like 8 real respondents. We did not pick it by hand. We fit it by empirical Bayes (Dirichlet-multinomial marginal likelihood) on 30 Gallup question–survey pairs.
+- **κ ≈ 8** means the AI estimate is trusted like 8 real respondents. We did not pick it by hand. We fit it by empirical Bayes (Dirichlet-multinomial marginal likelihood) on 30 Gallup question–survey pairs (2019, 2024 and 2026 releases; the game shows the latest 18).
 - With no players the board is 100% AI. At 8 players it is half and half; at 30 players it is about 80% people.
 - A brand-new answer that the AI never predicted needs at least 2 matching players before it can appear on the board.
 - Only players who say they live in Korea are counted, because the board claims to be Korean opinion.
 
 ## Does it work? (simulated against Gallup)
 
-We drew simulated players from the real Gallup distributions and scored each board by overlap with the survey (Σ min(board, survey) / Σ survey; 1.0 = identical).
+We drew simulated players from the real Gallup distributions and scored each board by overlap with the survey (Σ min(board, survey) / Σ survey; 1.0 = identical). κ and every number below are leave-one-out: κ was fit only on the other questions, and the 2019 and 2024 versions of the same question were held out together, so no question is scored with a κ it helped fit. Simulated players are a representative sample; real players are self-selected (see Data and limits).
 
 | Players per question | AI only | Players only | **AI + players** |
 |---|---|---|---|

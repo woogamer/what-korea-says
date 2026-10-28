@@ -33,6 +33,8 @@ class Game:
             CREATE TABLE IF NOT EXISTS resolved (qid TEXT, text TEXT, key TEXT, PRIMARY KEY (qid, text));
             CREATE TABLE IF NOT EXISTS gallup_map (qid TEXT, key TEXT, item TEXT, PRIMARY KEY (qid, key));
         """)
+        if "who" not in {r[1] for r in self.db.execute("PRAGMA table_info(answers)")}:
+            self.db.execute("ALTER TABLE answers ADD COLUMN who TEXT")   # 플레이어 IP 해시: 한 사람 한 문항 한 표
 
     # ---------- 정답판 ----------
     def _counts(self, qid):
@@ -97,12 +99,16 @@ class Game:
         self.db.commit()
         return menu[i]["key"]
 
-    async def answer(self, qid, text, age=None, sex=None, kr=None):
-        """플레이어 자기 답 저장. 기존 칸과 같으면 그 칸, 아니면 새 칸 후보."""
+    async def answer(self, qid, text, age=None, sex=None, kr=None, who=None):
+        """플레이어 자기 답 저장. 기존 칸과 같으면 그 칸, 아니면 새 칸 후보. 같은 사람(who)이 이 문항에 이미 답했으면 그 답만 돌려줌."""
+        if who:
+            hit = self.db.execute("SELECT key FROM answers WHERE qid=? AND who=? LIMIT 1", (qid, who)).fetchone()
+            if hit:
+                return hit[0]
         text = text.strip()[:MAX_LEN]
         ss, _ = self.slots(qid)
         key = await self.resolve(qid, text, ss[:MENU]) or f"n:{norm(text)}"
-        self.db.execute("INSERT INTO answers VALUES (?,?,?,?,?,?,?)", (qid, text, key, age, sex, kr, time.time()))
+        self.db.execute("INSERT INTO answers VALUES (?,?,?,?,?,?,?,?)", (qid, text, key, age, sex, kr, time.time(), who))
         self.db.commit()
         return key
 
