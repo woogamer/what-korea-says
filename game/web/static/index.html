@@ -60,54 +60,58 @@ a{color:var(--ai)}
 footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
 .hidden{display:none}
 @media (max-width:560px){.board{grid-template-columns:1fr}}
+.lang{display:flex;justify-content:center;gap:6px}
+.lang button{padding:5px 12px;font-size:13px}
+.lang button.on{border-color:var(--gold);color:var(--gold)}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
+  <div class="lang"><button class="ghost" type="button" data-lang="en">English</button><button class="ghost" type="button" data-lang="ko">한국어</button></div>
   <p class="logo" id="home">WHAT KOREA SAYS</p>
-  <p class="tag">AI guessed first. Real people are correcting it. Can you read Korea's mind?</p>
+  <p class="tag" data-t="tag"></p>
 </header>
 
 <!-- 1. my answer -->
 <div class="card hidden" id="s1">
   <div class="meta"><span id="m1"></span><span id="g1"></span></div>
   <p class="q" id="q1"></p>
-  <p class="hint">First, <b>your own answer</b>. If you live in Korea, it's added to the board after your round — for the next players.</p>
-  <form class="row" id="f1" autocomplete="off"><input id="mine" maxlength="40" placeholder="Your answer (English or 한국어)"><button>Answer</button></form>
+  <p class="hint" data-t="hint1"></p>
+  <form class="row" id="f1" autocomplete="off"><input id="mine" maxlength="40" data-ph="mine"><button data-t="answer"></button></form>
   <div class="about">
-    <label><input type="checkbox" id="kr"> I live in Korea</label>
-    <select id="age"><option value="">Age</option><option>10s</option><option>20s</option><option>30s</option><option>40s</option><option>50s</option><option>60+</option></select>
-    <select id="sex"><option value="">Gender</option><option value="F">Female</option><option value="M">Male</option><option value="X">Other</option></select>
-    <button class="ghost" type="button" id="skip">Skip</button>
+    <label><input type="checkbox" id="kr"> <span data-t="kr"></span></label>
+    <select id="age"><option value="" data-t="age"></option><option value="10s" data-t="10s"></option><option value="20s" data-t="20s"></option><option value="30s" data-t="30s"></option><option value="40s" data-t="40s"></option><option value="50s" data-t="50s"></option><option value="60+" data-t="60+"></option></select>
+    <select id="sex"><option value="" data-t="sex"></option><option value="F" data-t="F"></option><option value="M" data-t="M"></option><option value="X" data-t="X"></option></select>
+    <button class="ghost" type="button" id="skip" data-t="skip"></button>
   </div>
 </div>
 
 <!-- 2. guess -->
 <div class="card hidden" id="s2">
-  <div class="meta"><span id="m2"></span><span>Score <b class="score" id="sc">0</b></span></div>
+  <div class="meta"><span id="m2"></span><span><span data-t="score"></span> <b class="score" id="sc">0</b></span></div>
   <p class="q" id="q2"></p>
-  <p class="hint">Name the most popular answers in Korea. Three strikes and you're out.</p>
+  <p class="hint" data-t="hint2"></p>
   <div class="board" id="board"></div>
-  <form class="row" id="f2" autocomplete="off"><input id="guess" maxlength="40" placeholder="Your guess"><button id="gb">Guess</button></form>
-  <div class="status"><span class="x" id="x"></span><span class="msg" id="msg"></span><button class="ghost" type="button" id="give">Reveal board</button></div>
+  <form class="row" id="f2" autocomplete="off"><input id="guess" maxlength="40" data-ph="guess"><button id="gb" data-t="guessb"></button></form>
+  <div class="status"><span class="x" id="x"></span><span class="msg" id="msg"></span><button class="ghost" type="button" id="give" data-t="give"></button></div>
 </div>
 
 <!-- 3. reveal -->
 <div class="card hidden" id="s3">
-  <div class="meta"><span id="m3"></span><span>Score <b class="score" id="sc3">0</b></span></div>
+  <div class="meta"><span id="m3"></span><span><span data-t="score"></span> <b class="score" id="sc3">0</b></span></div>
   <p class="q" id="q3"></p>
   <div class="mix">
     <div class="mixbar"><div class="a" id="mixa"></div><div class="h" id="mixh"></div></div>
     <div class="mixlbl"><span id="mixal"></span><span id="mixhl"></span></div>
   </div>
   <div class="mine" id="mineBox"></div>
-  <table><thead><tr><th></th><th>Answer</th><th>Board</th><th>AI guess</th><th id="gth">Gallup</th></tr></thead><tbody id="rows"></tbody></table>
+  <table><thead><tr><th></th><th data-t="thA"></th><th data-t="thB"></th><th data-t="thAI"></th><th id="gth" data-t="thG"></th></tr></thead><tbody id="rows"></tbody></table>
   <div class="gallup hidden" id="gal"></div>
-  <div class="status"><span class="msg">AI guess = NVIDIA Nemotron on Nebius Token Factory. Board = AI guess updated by players (Bayesian).</span><button id="next">Next question →</button></div>
+  <div class="status"><span class="msg" data-t="how"></span><button id="next" data-t="next"></button></div>
 </div>
 
-<footer>Real survey data: Gallup Korea "What Koreans Like" 2024, Gallup Korea 2026 · Answers from people outside Korea are saved but not counted · Prototype</footer>
+<footer data-t="foot"></footer>
 </div>
 
 <script>
@@ -118,7 +122,76 @@ const api = async (path, body) => {
   if (!r.ok) throw new Error(await r.text());
   return r.json();
 };
-let Q = [], cur = null, info = null, mine = null, opened = {}, strikes = 0, score = 0, busy = false, finished = false;
+const T = {
+  en: {
+    tag: "AI guessed first. Real people are correcting it. Can you read Korea's mind?",
+    hint1: "First, <b>your own answer</b>. If you live in Korea, it's added to the board after your round — for the next players.",
+    mine: "Your answer (English or 한국어)", answer: "Answer", kr: "I live in Korea",
+    age: "Age", "10s": "10s", "20s": "20s", "30s": "30s", "40s": "40s", "50s": "50s", "60+": "60+",
+    sex: "Gender", F: "Female", M: "Male", X: "Other", skip: "Skip", score: "Score",
+    hint2: "Name the most popular answers in Korea. Three strikes and you're out.",
+    guess: "Your guess", guessb: "Guess", give: "Reveal board",
+    thA: "Answer", thB: "Board", thAI: "AI guess", thG: "Gallup",
+    how: "AI guess = NVIDIA Nemotron on Nebius Token Factory. Board = AI guess updated by players (Bayesian).",
+    next: "Next question →",
+    foot: "Real survey data: Gallup Korea \"What Koreans Like\" 2024, Gallup Korea 2026 · Answers from people outside Korea are saved but not counted · Prototype",
+    meta: (n, a) => `${n} player${n === 1 ? "" : "s"} so far · AI ${a}%`,
+    meta3: (n, k) => `${n} player${n === 1 ? "" : "s"} · AI counts as ${k} people`,
+    real: "real survey to compare", aionly: "AI + players only",
+    top: r => `Top answer #${r}!`, already: "Already on the board", notOn: t => `"${t}" is not on the board`,
+    mixA: a => `AI guess ${a}%`, mixH: h => `Players ${h}%`,
+    skipped: "You skipped your own answer.",
+    mineOn: (l, r) => `Your answer <b>${l}</b> is <b>#${r}</b> on the board.`,
+    mineOff: (l, c) => `Your answer <b>${l}</b> isn't on the board yet${c ? ` (${c} player${c === 1 ? "" : "s"} said it)` : ""}. More players saying it will push it on.`,
+    listed: "listed",
+    check: (name, sample) => `<b>Reality check:</b> ${name} asked ${sample}.`,
+    match: (a, n) => `Match with the real survey — AI alone <span class="big">${a}</span> → board now <span class="big">${n}</span> <span class="miss">(1.00 = identical)</span>`,
+    missing: "Real answers missing from the board: ", src: "Source", pct: "% among people who gave an answer",
+  },
+  ko: {
+    tag: "AI가 먼저 추측했고, 진짜 사람들이 고쳐 가는 중. 한국인의 마음을 맞혀 보세요!",
+    hint1: "먼저 <b>내 답</b>을 적어 주세요. 한국에 살고 있다면, 판이 끝난 뒤 다음 사람을 위한 정답판에 더해져요.",
+    mine: "내 답 (한국어로 적어도 돼요)", answer: "답하기", kr: "한국에 살아요",
+    age: "나이", "10s": "10대", "20s": "20대", "30s": "30대", "40s": "40대", "50s": "50대", "60+": "60대 이상",
+    sex: "성별", F: "여성", M: "남성", X: "기타", skip: "건너뛰기", score: "점수",
+    hint2: "한국인이 가장 많이 한 답을 맞혀 보세요. 세 번 틀리면 끝!",
+    guess: "추측해 보세요", guessb: "맞히기", give: "정답판 보기",
+    thA: "답", thB: "정답판", thAI: "AI 추측", thG: "갤럽",
+    how: "AI 추측 = Nebius Token Factory의 NVIDIA Nemotron. 정답판 = 플레이어 답으로 고쳐 가는 AI 추측(베이즈).",
+    next: "다음 문제 →",
+    foot: "실제 조사: 한국갤럽 '한국인이 좋아하는 것' 2024, 한국갤럽 2026 · 한국 밖에 사는 분의 답은 저장만 하고 세지 않아요 · 프로토타입",
+    meta: (n, a) => `지금까지 ${n}명 참여 · AI ${a}%`,
+    meta3: (n, k) => `${n}명 참여 · AI는 ${k}명 몫`,
+    real: "실제 조사와 비교", aionly: "AI + 플레이어만",
+    top: r => `${r}위 정답!`, already: "이미 열린 답이에요", notOn: t => `"${t}" → 정답판에 없어요`,
+    mixA: a => `AI 추측 ${a}%`, mixH: h => `플레이어 ${h}%`,
+    skipped: "내 답은 건너뛰었어요.",
+    mineOn: (l, r) => `내 답 <b>${l}</b> → 정답판 <b>${r}위</b>`,
+    mineOff: (l, c) => `내 답 <b>${l}</b> → 아직 정답판에 없어요${c ? ` (${c}명이 같은 답)` : ""}. 같은 답이 늘면 정답판에 올라가요.`,
+    listed: "있음",
+    check: (name, sample) => `<b>실제와 비교:</b> ${name} (${sample})`,
+    match: (a, n) => `실제 조사와 일치도 — AI만 <span class="big">${a}</span> → 지금 정답판 <span class="big">${n}</span> <span class="miss">(1.00 = 똑같음)</span>`,
+    missing: "정답판에 없는 실제 답: ", src: "출처", pct: "응답한 사람 중 %",
+  },
+};
+let L = store.get("lang", null) || ((navigator.language || "").toLowerCase().startsWith("ko") ? "ko" : "en");
+const t = k => T[L][k];
+const lbl = s => L === "ko" ? (s.ko || s.label) : s.label;
+let Q = [], cur = null, info = null, mine = null, opened = {}, strikes = 0, score = 0, busy = false, finished = false, last = null;
+
+function applyLang() {
+  document.documentElement.lang = L;
+  document.querySelectorAll("[data-t]").forEach(e => e.innerHTML = t(e.dataset.t));
+  document.querySelectorAll("[data-ph]").forEach(e => e.placeholder = t(e.dataset.ph));
+  document.querySelectorAll("[data-lang]").forEach(b => b.classList.toggle("on", b.dataset.lang === L));
+  if (!info) return;
+  $("q1").textContent = $("q2").textContent = $("q3").textContent = L === "ko" ? info.q_ko : info.q;
+  $("m1").textContent = $("m2").textContent = metaText();
+  $("g1").innerHTML = info.gallup ? `<span class="pill g">${t("real")}</span>` : `<span class="pill">${t("aionly")}</span>`;
+  if (!$("s2").classList.contains("hidden")) renderBoard();
+  if (last && !$("s3").classList.contains("hidden")) renderReveal(last);
+}
+document.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { L = b.dataset.lang; store.set("lang", L); applyLang(); });
 
 function show(id) { ["s1", "s2", "s3"].forEach(s => $(s).classList.toggle("hidden", s !== id)); }
 function pick() {
@@ -127,19 +200,17 @@ function pick() {
   if (!pool.length) { store.set("played", []); pool = Q; }
   return pool[Math.floor(Math.random() * pool.length)];
 }
-function metaText() { return `${info.n} player${info.n === 1 ? "" : "s"} so far · AI ${Math.round(100 * info.ai_weight)}%`; }
+function metaText() { return t("meta")(info.n, Math.round(100 * info.ai_weight)); }
 
 async function start(q) {
-  cur = q || pick(); mine = null; opened = {}; strikes = 0; score = 0; finished = false;
+  cur = q || pick(); mine = null; opened = {}; strikes = 0; score = 0; finished = false; last = null;
   info = await api(`/q/${cur.id}`);
-  $("q1").textContent = $("q2").textContent = $("q3").textContent = info.q;
-  $("m1").textContent = metaText();
-  $("g1").innerHTML = info.gallup ? '<span class="pill g">real survey to compare</span>' : '<span class="pill">AI + players only</span>';
+  applyLang();
   $("mine").value = ""; show("s1"); $("mine").focus();
 }
 async function toGuess() {
   info = await api(`/q/${cur.id}`);
-  $("m2").textContent = metaText();
+  applyLang();
   renderBoard(); $("x").textContent = ""; $("msg").textContent = ""; $("sc").textContent = "0";
   show("s2"); $("guess").focus();
 }
@@ -148,7 +219,7 @@ function renderBoard(final) {
     const o = opened[i], f = final && final[i];
     const cls = o ? "open" : f ? "late" : "";
     const s = o || f;
-    return `<div class="slot ${cls}"><span class="n">${i + 1}</span><span class="l">${s ? esc(s.label) : ""}</span><span class="p">${s ? Math.round(s.now) : ""}</span></div>`;
+    return `<div class="slot ${cls}"><span class="n">${i + 1}</span><span class="l">${s ? esc(lbl(s)) : ""}</span><span class="p">${s ? Math.round(s.now) : ""}</span></div>`;
   }).join("");
 }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
@@ -167,18 +238,18 @@ $("skip").onclick = () => toGuess();
 
 $("f2").onsubmit = async e => {
   e.preventDefault();
-  const t = $("guess").value.trim(); if (!t || busy) return;
+  const g = $("guess").value.trim(); if (!g || busy) return;
   busy = true; $("gb").disabled = true; $("guess").value = "";
   try {
-    const r = await api(`/q/${cur.id}/guess`, {text: t});
+    const r = await api(`/q/${cur.id}/guess`, {text: g});
     if (r.rank >= 0 && !opened[r.rank]) {
       opened[r.rank] = r; score += Math.round(r.now);
-      $("msg").textContent = `Top answer #${r.rank + 1}!`; $("sc").textContent = score;
+      $("msg").textContent = t("top")(r.rank + 1); $("sc").textContent = score;
       renderBoard();
       if (Object.keys(opened).length === info.slots) return finish();
     } else {
       strikes++; $("x").textContent = "✕".repeat(strikes);
-      $("msg").textContent = r.rank >= 0 ? "Already on the board" : `"${t}" is not on the board`;
+      $("msg").textContent = r.rank >= 0 ? t("already") : t("notOn")(g);
       if (strikes >= 3) return finish();
     }
   } finally { busy = false; $("gb").disabled = false; $("guess").focus(); }
@@ -193,31 +264,35 @@ async function finish() {
   store.set("played", [...new Set([...store.get("played", []), cur.id])]);
   renderBoard(r.board);
   await new Promise(res => setTimeout(res, 900));
-  $("m3").textContent = `${r.n} player${r.n === 1 ? "" : "s"} · AI counts as ${r.kappa} people`;
+  last = r;
+  renderReveal(r);
+  show("s3");
+}
+function renderReveal(r) {
+  $("m3").textContent = t("meta3")(r.n, r.kappa);
   $("sc3").textContent = score;
   const a = Math.round(100 * r.ai_weight);
   $("mixa").style.width = a + "%"; $("mixh").style.width = (100 - a) + "%";
-  $("mixal").textContent = `AI guess ${a}%`; $("mixhl").textContent = `Players ${100 - a}%`;
+  $("mixal").textContent = t("mixA")(a); $("mixhl").textContent = t("mixH")(100 - a);
   const m = r.mine;
-  $("mineBox").innerHTML = !m ? "You skipped your own answer." :
-    m.rank >= 0 ? `Your answer <b>${esc(m.label)}</b> is <b>#${m.rank + 1}</b> on the board.` :
-    `Your answer <b>${esc(m.label)}</b> isn't on the board yet${m.count ? ` (${m.count} player${m.count === 1 ? "" : "s"} said it)` : ""}. More players saying it will push it on.`;
+  $("mineBox").innerHTML = !m ? t("skipped") :
+    m.rank >= 0 ? t("mineOn")(esc(lbl(m)), m.rank + 1) : t("mineOff")(esc(lbl(m)), m.count);
   $("gth").classList.toggle("hidden", !r.gallup);
-  $("rows").innerHTML = r.board.map((s, i) => `<tr><td class="r">${i + 1}</td><td>${esc(s.label)}${opened[i] ? " ✓" : ""}</td><td><b>${Math.round(s.now)}</b></td><td>${Math.round(s.ai)}</td>${r.gallup ? `<td>${s.gallup == null ? "–" : s.gallup === "n/a" ? "listed" : Math.round(s.gallup)}</td>` : ""}</tr>`).join("");
+  $("rows").innerHTML = r.board.map((s, i) => `<tr><td class="r">${i + 1}</td><td>${esc(lbl(s))}${opened[i] ? " ✓" : ""}</td><td><b>${Math.round(s.now)}</b></td><td>${Math.round(s.ai)}</td>${r.gallup ? `<td>${s.gallup == null ? "–" : s.gallup === "n/a" ? t("listed") : Math.round(s.gallup)}</td>` : ""}</tr>`).join("");
   if (r.gallup) {
     const missed = r.gallup.items.filter(x => !x.on_board).slice(0, 4);
-    $("gal").innerHTML = `<p><b>Reality check:</b> ${esc(r.gallup.name)} asked ${esc(r.gallup.sample)}.</p>
-      <p>Match with the real survey — AI alone <span class="big">${r.gallup.overlap_ai.toFixed(2)}</span> → board now <span class="big">${r.gallup.overlap_now.toFixed(2)}</span> <span class="miss">(1.00 = identical)</span></p>
-      ${missed.length ? `<p class="miss">Real answers missing from the board: ${missed.map(x => `${esc(x.label)} ${Math.round(x.pct)}%`).join(", ")}</p>` : ""}
-      <p class="miss"><a href="${esc(r.gallup.url)}" target="_blank" rel="noopener">Source</a> · % among people who gave an answer</p>`;
+    $("gal").innerHTML = `<p>${t("check")(esc(r.gallup.name), esc(r.gallup.sample))}</p>
+      <p>${t("match")(r.gallup.overlap_ai.toFixed(2), r.gallup.overlap_now.toFixed(2))}</p>
+      ${missed.length ? `<p class="miss">${t("missing")}${missed.map(x => `${esc(lbl(x))} ${Math.round(x.pct)}%`).join(", ")}</p>` : ""}
+      <p class="miss"><a href="${esc(r.gallup.url)}" target="_blank" rel="noopener">${t("src")}</a> · ${t("pct")}</p>`;
     $("gal").classList.remove("hidden");
   } else $("gal").classList.add("hidden");
-  show("s3");
 }
 $("next").onclick = () => start();
 $("home").onclick = () => start();
 
 (async () => {
+  applyLang();
   const about = store.get("about", {});
   $("kr").checked = !!about.kr; $("age").value = about.age || ""; $("sex").value = about.sex || "";
   Q = await api("/questions");

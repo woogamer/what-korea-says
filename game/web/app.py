@@ -34,14 +34,14 @@ def q_or_404(qid):
 
 @app.get("/api/questions")
 def questions():
-    return [{"id": q["id"], "q": q["question_en"], "gallup": bool(q["reality"])} for q in game.qs.values()]
+    return [{"id": q["id"], "q": q["question_en"], "q_ko": q["question_ko"], "gallup": bool(q["reality"])} for q in game.qs.values()]
 
 
 @app.get("/api/q/{qid}")
 def question(qid: str):
     q = q_or_404(qid)
     b, n = game.board(qid)
-    return {"id": qid, "q": q["question_en"], "slots": len(b), "n": n, "ai_weight": round(game.ai_weight(n), 3), "gallup": bool(q["reality"])}
+    return {"id": qid, "q": q["question_en"], "q_ko": q["question_ko"], "slots": len(b), "n": n, "ai_weight": round(game.ai_weight(n), 3), "gallup": bool(q["reality"])}
 
 
 @app.post("/api/q/{qid}/answer")
@@ -56,7 +56,7 @@ async def answer(qid: str, body: Text, request: Request):
 async def guess(qid: str, body: Text):
     q_or_404(qid)
     rank, s = await game.guess(qid, body.text)
-    return {"rank": rank, "label": s and s["label"], "now": s and round(s["now"], 1)}
+    return {"rank": rank, "label": s and s["label"], "ko": s and s["ko"], "now": s and round(s["now"], 1)}
 
 
 @app.get("/api/q/{qid}/reveal")

@@ -147,15 +147,15 @@ class Game:
         slots = []
         for s in b:
             item = await self.gallup_item(qid, s)
-            slots.append({"key": s["key"], "label": s["label"], "now": round(s["now"], 1), "ai": round(s["ai"], 1), "count": s["count"],
-                          "gallup": item and (real[item]["pct"] if item in real else "n/a"), "gallup_item": item and (real[item]["en"] if item in real else item)})
-        out = {"id": qid, "q": q["question_en"], "n": n, "ai_weight": round(self.ai_weight(n), 3), "kappa": self.kappa, "board": slots}
+            slots.append({"key": s["key"], "label": s["label"], "ko": s["ko"], "now": round(s["now"], 1), "ai": round(s["ai"], 1), "count": s["count"],
+                          "gallup": item and (real[item]["pct"] if item in real else "n/a"), "gallup_item": item and (real[item]["en"] if item in real else item), "gallup_item_ko": item})
+        out = {"id": qid, "q": q["question_en"], "q_ko": q["question_ko"], "n": n, "ai_weight": round(self.ai_weight(n), 3), "kappa": self.kappa, "board": slots}
         if mine:
             ss, _ = self.slots(qid)
             s = next((s for s in ss if s["key"] == mine), None)
             rank = next((i for i, x in enumerate(b) if x["key"] == mine), -1)
             raw = self.db.execute("SELECT raw FROM answers WHERE qid=? AND key=? LIMIT 1", (qid, mine)).fetchone()
-            out["mine"] = {"label": s["label"] if s else (raw[0] if raw else None), "rank": rank, "count": s["count"] if s else 0}
+            out["mine"] = {"label": s["label"] if s else (raw[0] if raw else None), "ko": s["ko"] if s else (raw[0] if raw else None), "rank": rank, "count": s["count"] if s else 0}
         if q["reality"]:
             tot = sum(x["pct"] for x in q["reality"]["items"])
 
@@ -166,6 +166,6 @@ class Game:
                         got[s["gallup_item"]] = got.get(s["gallup_item"], 0) + s[col]
                 return round(sum(min(v, next(x["pct"] for x in q["reality"]["items"] if x["en"] == k)) for k, v in got.items()) / tot, 3)
             on_board = {s["gallup_item"] for s in slots}
-            out["gallup"] = {**q["source"], "items": [{"label": x["en"], "pct": x["pct"], "on_board": x["en"] in on_board} for x in q["reality"]["items"]],
+            out["gallup"] = {**q["source"], "items": [{"label": x["en"], "ko": x["ko"], "pct": x["pct"], "on_board": x["en"] in on_board} for x in q["reality"]["items"]],
                              "overlap_ai": overlap("ai"), "overlap_now": overlap("now")}
         return out
