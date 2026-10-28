@@ -24,12 +24,19 @@ class Text(BaseModel):
     age: str | None = Field(None, max_length=10)
     sex: str | None = Field(None, max_length=10)
     kr: bool | None = None
+    nth: int | None = Field(None, ge=1, le=50)   # 추측: 이 판에서 몇 번째
+    own: bool | None = None                      # 추측: 내 답을 첫 추측으로 넣은 것
 
 
 def q_or_404(qid):
     if qid not in game.qs:
         raise HTTPException(404, "no such question")
     return game.qs[qid]
+
+
+def player(request):
+    ip = request.headers.get("cf-connecting-ip") or (request.client and request.client.host) or ""
+    return hashlib.sha256(f"wks|{ip}".encode()).hexdigest()[:16] if ip else None   # IP 원문은 저장 안 함
 
 
 @app.get("/api/questions")
@@ -47,15 +54,14 @@ def question(qid: str):
 @app.post("/api/q/{qid}/answer")
 async def answer(qid: str, body: Text, request: Request):
     q_or_404(qid)
-    ip = request.headers.get("cf-connecting-ip") or (request.client and request.client.host) or ""
-    who = hashlib.sha256(f"wks|{ip}".encode()).hexdigest()[:16] if ip else None   # IP 원문은 저장 안 함
+    who = player(request)
     return {"key": await game.answer(qid, body.text, body.age, body.sex, body.kr, who)}
 
 
 @app.post("/api/q/{qid}/guess")
-async def guess(qid: str, body: Text):
+async def guess(qid: str, body: Text, request: Request):
     q_or_404(qid)
-    rank, s = await game.guess(qid, body.text)
+    rank, s = await game.guess(qid, body.text, body.nth, body.own, player(request))
     return {"rank": rank, "label": s and s["label"], "ko": s and s["ko"], "now": s and round(s["now"], 1)}
 
 

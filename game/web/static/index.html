@@ -220,7 +220,7 @@ async function toGuess() {
   applyLang();
   renderBoard(); $("x").textContent = ""; $("msg").textContent = ""; $("sc").textContent = "0";
   show("s2"); $("guess").focus();
-  if (mine) doGuess(mine.text);   // 내 답을 첫 추측으로 바로 넣음(같은 단어 다시 쓰지 않게)
+  if (mine) doGuess(mine.text, true);   // 내 답을 첫 추측으로 바로 넣음(같은 단어 다시 쓰지 않게)
 }
 function renderBoard(final) {
   $("board").innerHTML = Array.from({length: info.slots}, (_, i) => {
@@ -245,11 +245,11 @@ $("f1").onsubmit = async e => {
 $("skip").onclick = () => toGuess();
 
 $("f2").onsubmit = e => { e.preventDefault(); doGuess($("guess").value.trim()); };
-async function doGuess(g) {
+async function doGuess(g, own) {
   if (!g || busy) return;
   busy = true; $("gb").disabled = true; $("guess").value = "";
   try {
-    const r = await api(`/q/${cur.id}/guess`, {text: g});
+    const r = await api(`/q/${cur.id}/guess`, {text: g, nth: strikes + Object.keys(opened).length + 1, own: !!own});
     if (r.rank >= 0 && !opened[r.rank]) {
       opened[r.rank] = r; score += Math.round(r.now);
       $("msg").textContent = t("top")(r.rank + 1); $("sc").textContent = score;

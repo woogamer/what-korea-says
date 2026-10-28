@@ -32,6 +32,7 @@ class Game:
             CREATE TABLE IF NOT EXISTS answers (qid TEXT, raw TEXT, key TEXT, age TEXT, sex TEXT, kr INTEGER, ts REAL);
             CREATE TABLE IF NOT EXISTS resolved (qid TEXT, text TEXT, key TEXT, PRIMARY KEY (qid, text));
             CREATE TABLE IF NOT EXISTS gallup_map (qid TEXT, key TEXT, item TEXT, PRIMARY KEY (qid, key));
+            CREATE TABLE IF NOT EXISTS guesses (qid TEXT, raw TEXT, key TEXT, rank INTEGER, nth INTEGER, own INTEGER, who TEXT, ts REAL);
         """)
         if "who" not in {r[1] for r in self.db.execute("PRAGMA table_info(answers)")}:
             self.db.execute("ALTER TABLE answers ADD COLUMN who TEXT")   # 플레이어 IP 해시: 한 사람 한 문항 한 표
@@ -112,10 +113,14 @@ class Game:
         self.db.commit()
         return key
 
-    async def guess(self, qid, text):
+    async def guess(self, qid, text, nth=None, own=None, who=None):
         b, _ = self.board(qid)
-        key = await self.resolve(qid, text.strip()[:MAX_LEN], b)
+        text = text.strip()[:MAX_LEN]
+        key = await self.resolve(qid, text, b)
         rank = next((i for i, s in enumerate(b) if s["key"] == key), -1)
+        # 추측 순서 = '남들이 많이 할 것 같은 답'(기록만, 정답판 계산엔 안 씀)
+        self.db.execute("INSERT INTO guesses VALUES (?,?,?,?,?,?,?,?)", (qid, text, key, rank, nth, own, who, time.time()))
+        self.db.commit()
         return rank, (b[rank] if rank >= 0 else None)
 
     # ---------- 공개 ----------
