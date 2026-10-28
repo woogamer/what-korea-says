@@ -1,5 +1,7 @@
 # Devpost submission — What Korea Says
 
+Tagline: A Family Feud–style survey quiz where an AI writes the answer board and real players turn it into Korean public opinion.
+
 Track: Best Apps and Agents · Demo: https://nebius.woogamer.win/play/
 
 ## Inspiration
@@ -8,7 +10,7 @@ Ask an AI "What do Koreans like?" and you get a confident, plausible answer. But
 
 We had spent weeks building a synthetic-consumer research tool on NVIDIA's Korean persona data. The hardest lesson was that synthetic answers are a prior, not data. They become trustworthy only when real responses correct them.
 
-We wanted to make that lesson something anyone can feel in two minutes. So we built a quiz show where an AI writes the answer board, people play, and every round shows how far the AI was from reality.
+We wanted to make that lesson something anyone can feel in two minutes. So we built a Family Feud–style quiz show where an AI writes the answer board, people play, and every round shows how far the AI was from reality.
 
 ## What it does
 
@@ -71,7 +73,7 @@ We also report what failed:
 
 The interesting number is not how good the AI is. It is how many real people the AI is worth.
 
-For everyday preference questions, the answer is about 8. That is far fewer than in our earlier consumer-purchase study, where synthetic data stayed useful up to a few hundred respondents.
+For everyday preference questions, the answer is about 8.
 
 ## What's next
 

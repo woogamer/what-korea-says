@@ -1,6 +1,6 @@
 # What Korea Says
 
-**A survey quiz show whose answer board starts as an AI guess and becomes real public opinion as people play.**
+**A Family Feud–style survey quiz whose answer board starts as an AI guess and becomes real public opinion as people play.**
 
 Live demo: https://nebius.woogamer.win/play/ · License: MIT · Built on Nebius Token Factory + NVIDIA Nemotron
 
