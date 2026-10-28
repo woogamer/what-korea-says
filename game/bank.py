@@ -76,6 +76,10 @@ async def same_slot(router, q, menu, text):
     for i, m in enumerate(menu):
         if n and any(n == norm(part) for part in re.split(r"\s*/\s*", m) + [m]):
             return i
+    # 숫자 답('2', '4', '2월')은 AI 심판이 칸 번호와 헷갈려서(2 → 5월, 4 → 1) 숫자가 같은 칸만 인정
+    digits = set(re.findall(r"\d+", text))
+    if digits:
+        return next((i for i, m in enumerate(menu) if set(re.findall(r"\d+", m)) == digits), -1)
     listing = "\n".join(f"{i}: {m}" for i, m in enumerate(menu))
     r, _ = await router.acall("extract", [{"role": "user", "content":
         f"Quiz question: {q}\nBoard slots:\n{listing}\nAnswer typed: \"{text}\"\n"
