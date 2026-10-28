@@ -213,6 +213,7 @@ async function toGuess() {
   applyLang();
   renderBoard(); $("x").textContent = ""; $("msg").textContent = ""; $("sc").textContent = "0";
   show("s2"); $("guess").focus();
+  if (mine) doGuess(mine.text);   // 내 답을 첫 추측으로 바로 넣음(같은 단어 다시 쓰지 않게)
 }
 function renderBoard(final) {
   $("board").innerHTML = Array.from({length: info.slots}, (_, i) => {
@@ -236,9 +237,9 @@ $("f1").onsubmit = async e => {
 };
 $("skip").onclick = () => toGuess();
 
-$("f2").onsubmit = async e => {
-  e.preventDefault();
-  const g = $("guess").value.trim(); if (!g || busy) return;
+$("f2").onsubmit = e => { e.preventDefault(); doGuess($("guess").value.trim()); };
+async function doGuess(g) {
+  if (!g || busy) return;
   busy = true; $("gb").disabled = true; $("guess").value = "";
   try {
     const r = await api(`/q/${cur.id}/guess`, {text: g});
@@ -253,7 +254,7 @@ $("f2").onsubmit = async e => {
       if (strikes >= 3) return finish();
     }
   } finally { busy = false; $("gb").disabled = false; $("guess").focus(); }
-};
+}
 $("give").onclick = () => finish();
 
 async function finish() {
