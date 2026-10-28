@@ -105,6 +105,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
     <div class="mixbar"><div class="a" id="mixa"></div><div class="h" id="mixh"></div></div>
     <div class="mixlbl"><span id="mixal"></span><span id="mixhl"></span></div>
   </div>
+  <p class="miss" id="explain"></p>
   <div class="mine" id="mineBox"></div>
   <table><thead><tr><th></th><th data-t="thA"></th><th data-t="thB"></th><th data-t="thAI"></th><th id="gth" data-t="thG"></th></tr></thead><tbody id="rows"></tbody></table>
   <div class="gallup hidden" id="gal"></div>
@@ -146,6 +147,9 @@ const T = {
     listed: "listed",
     check: (name, sample) => `<b>Reality check:</b> ${name} asked ${sample}.`,
     match: (a, n) => `Match with the real survey — AI alone <span class="big">${a}</span> → board now <span class="big">${n}</span> <span class="miss">(1.00 = identical)</span>`,
+    ex: "The AI (Nemotron) made the first board. Every answer from someone in Korea pulls it toward what people really say — the bar shows how much is AI vs players now.",
+    exG: " Gallup really asked this one: the match score below shows whether players brought the board closer to the real survey.",
+    exN: " No real survey exists for this one — players' answers become the truth.",
     missing: "Real answers missing from the board: ", src: "Source", pct: "% among people who gave an answer",
   },
   ko: {
@@ -171,6 +175,9 @@ const T = {
     listed: "있음",
     check: (name, sample) => `<b>실제와 비교:</b> ${name} (${sample})`,
     match: (a, n) => `실제 조사와 일치도 — AI만 <span class="big">${a}</span> → 지금 정답판 <span class="big">${n}</span> <span class="miss">(1.00 = 똑같음)</span>`,
+    ex: "처음 정답판은 AI(Nemotron)가 추측해 만들었어요. 한국에 사는 사람이 답할 때마다 진짜 답 쪽으로 바뀌어요. 위 막대는 지금 정답판에서 AI와 사람이 각각 차지하는 비중이에요.",
+    exG: " 이 문제는 갤럽이 실제로 물어본 문제라, 아래 일치도로 사람들이 정답판을 실제 조사에 더 가깝게 만들었는지 볼 수 있어요.",
+    exN: " 이 문제는 실제 조사가 없어서, 사람들의 답이 곧 정답이 돼요.",
     missing: "정답판에 없는 실제 답: ", src: "출처", pct: "응답한 사람 중 %",
   },
 };
@@ -275,6 +282,7 @@ function renderReveal(r) {
   const a = Math.round(100 * r.ai_weight);
   $("mixa").style.width = a + "%"; $("mixh").style.width = (100 - a) + "%";
   $("mixal").textContent = t("mixA")(a); $("mixhl").textContent = t("mixH")(100 - a);
+  $("explain").textContent = t("ex") + t(r.gallup ? "exG" : "exN");
   const m = r.mine;
   $("mineBox").innerHTML = !m ? t("skipped") :
     m.rank >= 0 ? t("mineOn")(esc(lbl(m)), m.rank + 1) : t("mineOff")(esc(lbl(m)), m.count);
