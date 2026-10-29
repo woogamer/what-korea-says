@@ -59,9 +59,9 @@ def player(request):
 @app.get("/api/questions")
 def questions(request: Request):
     # done = 이 플레이어가 이미 답한 문제 → 브라우저 기록이 지워져도 같은 문제를 다시 안 냄.
-    # 쿠키 전(IP로 기록하던 때) 답도 포함 → 원래 하던 사람이 쿠키를 받아도 같은 문제가 다시 안 나옴
+    # IP로 기록된 답(쿠키 전·쿠키 받기 직전 요청)도 포함 → 원래 하던 사람이 쿠키를 받아도 같은 문제가 다시 안 나옴
     who, iph = player(request)
-    done = {r[0] for r in game.db.execute("SELECT DISTINCT qid FROM answers WHERE who=? OR (ip IS NULL AND who=?)", (who, iph))} if who else set()
+    done = {r[0] for r in game.db.execute("SELECT DISTINCT qid FROM answers WHERE who IN (?, ?)", (who, iph))} if who else set()
     return [{"id": q["id"], "q": q["question_en"], "q_ko": q["question_ko"], "gallup": bool(q["reality"]), "done": q["id"] in done} for q in game.qs.values()]
 
 
