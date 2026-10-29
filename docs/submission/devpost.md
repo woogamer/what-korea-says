@@ -55,7 +55,9 @@ The board is a Bayesian posterior: `(κ · AI + player counts) / (κ + players)`
 
 ## Accomplishments
 
-**126 real players in two days.** They gave 1,151 answers and 3,479 guesses (Oct 28–29, 2026). 22–32 Korea-resident players answered each Gallup question.
+**126 real players in two days, and they made the board better.** We only shared the link in group chats with friends and family, with no ads. Players stayed: they played 887 rounds, 9.5 questions each on average. 47 played 10 or more, and 11 played all 30. In total they gave 1,151 answers and 3,479 guesses (Oct 28–29, 2026), so 22–32 Korea-resident players answered each Gallup question.
+
+Their answers moved the board from the AI's 0.61 to 0.68 overlap with Gallup:
 
 | Board on the 18 Gallup questions | Overlap with Gallup (1.0 = identical) |
 |---|---|
