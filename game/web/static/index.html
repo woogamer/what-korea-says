@@ -313,6 +313,7 @@ $("home").onclick = () => start();
   const about = store.get("about", {});
   $("kr").checked = !!about.kr; $("age").value = about.age || ""; $("sex").value = about.sex || "";
   Q = await api("/questions");
+  Q.forEach(q => q.done && seen.add(q.id));   // 서버가 기억하는 이미 답한 문제(새로고침·기록 삭제에도)
   start();
 })();
 </script>

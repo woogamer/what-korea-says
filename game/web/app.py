@@ -40,8 +40,11 @@ def player(request):
 
 
 @app.get("/api/questions")
-def questions():
-    return [{"id": q["id"], "q": q["question_en"], "q_ko": q["question_ko"], "gallup": bool(q["reality"])} for q in game.qs.values()]
+def questions(request: Request):
+    # done = 이 플레이어(IP)가 이미 답한 문제 → 브라우저 기록이 지워져도 같은 문제를 다시 안 냄
+    who = player(request)
+    done = {r[0] for r in game.db.execute("SELECT DISTINCT qid FROM answers WHERE who=?", (who,))} if who else set()
+    return [{"id": q["id"], "q": q["question_en"], "q_ko": q["question_ko"], "gallup": bool(q["reality"]), "done": q["id"] in done} for q in game.qs.values()]
 
 
 @app.get("/api/q/{qid}")
