@@ -26,6 +26,6 @@
   "ai-7": "A nagging phrase, matched by meaning. 밥 = 식사 제때 챙겨 먹어라, 자라 = 잠 더 자라 only if it means sleep more; 결혼해라 is its own answer.",
   "ai-8": "A country. A city counts as its country (오사카 → 일본, 파리 → 프랑스).",
   "ai-9": "An activity. YouTube/SNS/phone = 스마트폰 사용. A means of transport (버스) alone is not what they do: new answer.",
-  "ai-10": "A chicken menu. 양념 = 양념치킨, 후라이드 = 후라이드 치킨. A brand menu (뿌링클, 맛쵸킹) is its own answer.",
+  "ai-10": "A chicken menu. 양념 = 양념치킨, 후라이드 = 후라이드 치킨. Half-and-half in any wording (반반, 양념 후라이드 반반, 양반) = 반반 — not the first flavour. A brand menu (뿌링클, 맛쵸킹, 허니콤보, 교촌) is its own answer, except when it is plainly one flavour slot (고추바사삭 → 매운치킨).",
   "ai-11": "The last action before sleep. YouTube/phone = 스마트폰 확인. 화장실 가기 ≠ 세안. A month or unrelated word is not an answer (-2)."
 }
