@@ -211,8 +211,8 @@ function pick() {
 function metaText() { return t("meta")(info.n, Math.round(100 * info.ai_weight)); }
 
 async function start(q) {
-  cur = q || pick(); mine = null;
-  seen.add(cur.id); store.set("played", [...seen]);   // 화면에 띄우는 순간 본 것으로(끝까지 안 해도 다시 안 나옴) opened = {}; strikes = 0; score = 0; finished = false; last = null;
+  cur = q || pick(); mine = null; opened = {}; strikes = 0; score = 0; finished = false; last = null;
+  seen.add(cur.id); store.set("played", [...seen]);   // 화면에 띄우는 순간 본 것으로(끝까지 안 해도 다시 안 나옴)
   info = await api(`/q/${cur.id}`);
   applyLang();
   $("mine").value = ""; show("s1"); $("mine").focus();

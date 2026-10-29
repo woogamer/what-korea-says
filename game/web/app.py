@@ -73,4 +73,5 @@ async def reveal(qid: str, mine: str | None = None):
 
 @app.get("/")
 def index():
-    return FileResponse(HERE / "static" / "index.html")
+    # 카톡 인앱 브라우저가 옛 페이지를 붙잡고 있어서(한국어 버튼 없음) 매번 새로 확인하게
+    return FileResponse(HERE / "static" / "index.html", headers={"Cache-Control": "no-cache"})
