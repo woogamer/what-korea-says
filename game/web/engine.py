@@ -5,6 +5,7 @@
 칸 키: AI 칸 "p:<한국어 답>"(은행을 다시 빌드해도 유지, 묶음이 바뀌면 별칭으로 새 대표 칸을 찾음), 플레이어가 새로 만든 칸 "n:<정규화 문자열>" (MIN_NEW명 이상이어야 정답판에 오름)
 답 → 칸 배정: 저장된 배정 → 글자 일치 → Super 판정(bank.same_slot). 맞힌 배정만 저장해 같은 답은 다시 묻지 않음.
 """
+import asyncio
 import json
 import re
 import sqlite3
@@ -37,6 +38,7 @@ class Game:
         # 'p:<한국어>' → AI 칸. 별칭도 대표 칸으로(재빌드로 묶음이 바뀌어도 저장된 답이 맞는 칸에 들어가게)
         self.home = {qid: {f"p:{a}": x for x in q["prior"] for a in [x["ko"], *x["alias_ko"]]} for qid, q in self.qs.items()}
         self.router = router
+        self._tasks = set()   # 뒤에서 도는 신중 판정(refine)
         self.db = sqlite3.connect(db_path, check_same_thread=False, timeout=15)   # 다른 쓰기가 잠깐 잡고 있어도 기다림
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript("""
@@ -100,28 +102,32 @@ class Game:
         r, _ = await self.router.acall("extract", [{"role": "user", "content":
             f"Survey question: {q['question_en']} / {q['question_ko']}\n" + (f"Rules for this question: {note}\n" if note else "") +
             f"Slots:\n{listing}\nPlayer typed: \"{text}\"\n"
-            "Return the slot number only if the typed answer means the same specific thing as that slot (translation, spelling variant, typo, "
-            "nickname, old name, extra adjective like 'snowy winter' = 'winter'). A different item of the same kind is NOT the same "
-            "(수제비 is not 칼국수, 필라테스 is not 헬스). A broader word that could cover several slots is NOT the same (국물음식 is not 라면), "
-            "but a short keyword that points to exactly one slot's topic is that slot (결혼 → 결혼은 언제 할 거야?, 유튜브 → 스마트폰). "
-            "If two things are named, use the first. Return -1 if it is a sincere answer that matches no slot. "
+            "You are the host of a Family Feud-style show: be generous, like a real host who says 'good answer!'. Return a slot number when "
+            "the typed answer is that slot's thing: a translation, spelling variant, typo, nickname, old name, a short keyword for it, "
+            "a different wording of the same idea, or a specific kind, brand or example that plainly belongs to it "
+            "(허니콤보 → 허니버터 치킨 because it is a honey chicken; 크로스핏 → 헬스; 회식 → 외식; 옷 사기 → 쇼핑; 커피 → 캔커피; "
+            "결혼 → 결혼은 언제 할 거야?; 유튜브 → 스마트폰; 골고루 먹어 → 밥 챙겨 먹어라; 정리해라 → 청소해). "
+            "Do NOT match: a different item at the same level (수제비 is not 칼국수, 유린기 is not 깐풍기, 2월 is not 12월), an opposite "
+            "(일어나라 is not 잠 더 자라), a broad word that could fit several slots (국물음식), or something only loosely related (잠 is not 운동). "
+            "If two things are named, use the first, except a half-and-half combo. Return -1 if it is a sincere answer that matches no slot. "
             "Return -2 only if it is clearly not an answer to this question: a person's name (e.g. 'seungyeon', 'Yeon', '홍승연', 'sy'), "
-            "test or random text, gibberish, or an answer to a different question (a month for a food question). An unusual but sincere answer is -1, not -2.\n"
+            "'몰라'/'없음'-style non-answers, test or random text, gibberish, or an answer to a different question (a month for a food question, "
+            "a mountain for a sport question). An unusual but sincere answer is -1, not -2.\n"
             "First write why (what the answer means), then slot."}],
             schema=Verdict, thinking=careful, max_tokens=4000 if careful else 250, temperature=0, retries=2, tag="game-judge")
         return r.slot if r and (0 <= r.slot < len(menu) or r.slot == JUNK) else -1
 
-    async def resolve(self, qid, text, careful=False):
+    async def resolve(self, qid, text, careful=False, skip=None):
         """text와 같은 답인 칸의 key, 새 답이면 None, 답이 아니면 'x:…'. 항상 모든 칸과 비교(정답판 8칸만 주면 AI가 가장 비슷한 칸에 억지로 붙임).
-        careful = 정답판에 들어갈 내 답: 추론 켜고 판정해 저장. 추측은 빠르게(추론 끔), 저장 안 함(급한 판정이 내 답 배정을 오염시키지 않게)."""
+        careful = 추론 켜고 판정해 저장(평균 2.4초, 시험 65/67). 끄면 0.8초지만 덜 정확(60/67) → 화면엔 빠른 판정, 뒤에서 refine 이 신중 판정."""
         t = norm(text)
         if not t:
             return None
-        menu = self.slots(qid)[0][:MENU]
+        menu = [s for s in self.slots(qid)[0] if s["key"] != skip][:MENU]   # skip = 방금 저장한 내 새 답 칸(자기 자신과 글자 일치 막기)
         keys = {s["key"] for s in menu}
         hit = self.db.execute("SELECT key FROM resolved WHERE qid=? AND text=?", (qid, t)).fetchone()
-        if hit and (hit[0] in keys or hit[0].startswith("x:")):
-            return hit[0]
+        if hit and (hit[0] in keys or hit[0][:2] in ("x:", "n:")):
+            return hit[0]   # n: = 신중 판정이 '새 답'이라고 한 것도 저장(다시 안 물음)
         for s in menu:
             if any(t == norm(p) for a in s["aliases"] for p in [a, *a.split("/")]):
                 return s["key"]
@@ -129,14 +135,29 @@ class Game:
             i = await self.judge(qid, menu, text, careful)
         except BudgetExceeded:
             return None   # 예산 초과 시 글자 일치만
-        if i == -1:
+        if i == -1 and not careful:
             return None
-        key = f"x:{t}" if i == JUNK else menu[i]["key"]
+        key = f"n:{t}" if i == -1 else f"x:{t}" if i == JUNK else menu[i]["key"]
         if not careful:
             return key
         self.db.execute("INSERT OR REPLACE INTO resolved VALUES (?,?,?)", (qid, t, key))
         self.db.commit()
         return key
+
+    def refine(self, qid, text, answer_key=None):
+        """빠른 판정을 돌려준 뒤 뒤에서 신중 판정해 저장(같은 글자는 다음부터 바로 신중 결과). 내 답이면 칸도 고침."""
+        async def run():
+            try:
+                skip = answer_key if answer_key and answer_key.startswith("n:") else None
+                k = await self.resolve(qid, text, careful=True, skip=skip) or f"n:{norm(text)}"
+                if answer_key and k != answer_key:
+                    self.db.execute("UPDATE answers SET key=? WHERE qid=? AND raw=? AND key=?", (k, qid, text, answer_key))
+                    self.db.commit()
+            except Exception:
+                pass   # 뒤 작업 실패는 무시(빠른 판정이 이미 저장됨)
+        task = asyncio.get_running_loop().create_task(run())
+        self._tasks.add(task)
+        task.add_done_callback(self._tasks.discard)
 
     async def answer(self, qid, text, age=None, sex=None, kr=None, who=None):
         """플레이어 자기 답 저장. 기존 칸과 같으면 그 칸, 아니면 새 칸 후보. 같은 사람(who)이 이 문항에 이미 답했으면 그 답만 돌려줌."""
@@ -145,15 +166,17 @@ class Game:
             if hit:
                 return hit[0]
         text = text.strip()[:MAX_LEN]
-        key = await self.resolve(qid, text, careful=True) or f"n:{norm(text)}"
+        key = await self.resolve(qid, text) or f"n:{norm(text)}"
         self.db.execute("INSERT INTO answers VALUES (?,?,?,?,?,?,?,?)", (qid, text, key, age, sex, kr, time.time(), who))
         self.db.commit()
+        self.refine(qid, text, key)
         return key
 
     async def guess(self, qid, text, nth=None, own=None, who=None):
         b, _ = self.board(qid)
         text = text.strip()[:MAX_LEN]
         key = await self.resolve(qid, text)
+        self.refine(qid, text)
         rank = next((i for i, s in enumerate(b) if s["key"] == key), -1)
         # 추측 순서 = '남들이 많이 할 것 같은 답'(기록만, 정답판 계산엔 안 씀)
         try:

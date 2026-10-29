@@ -143,8 +143,8 @@ const T = {
     mixA: a => `AI guess ${a}%`, mixH: h => `Players ${h}%`,
     skipped: "You skipped your own answer.",
     mineOn: (l, r) => `Your answer <b>${l}</b> is <b>#${r}</b> on the board.`,
-    mineOff: (l, c) => `Your answer <b>${l}</b> isn't on the board yet${c ? ` (${c} player${c === 1 ? "" : "s"} said it)` : ""}. More players saying it will push it on.`,
-    listed: "no %", oops: "Server hiccup — please try again.",
+    mineOff: (l, c) => c > 1 ? `Your answer <b>${l}</b> isn't on the board yet (${c} players said it). A few more and it climbs on.` : `Your answer <b>${l}</b> is new — nobody else has said it yet. One more player saying it makes it a board candidate.`,
+    listed: "no %", judging: "Checking…", oops: "Server hiccup — please try again.",
     check: (name, sample) => `<b>Reference, not the answer key:</b> ${name} asked ${sample}. Gallup publishes only its top answers with percentages, so it is a yardstick — '–' means not in Gallup's published list, not that nobody said it.`,
     match: (a, n) => `Similarity to Gallup — AI alone <span class="big">${a}</span> → board now <span class="big">${n}</span> <span class="miss">(1.00 = identical)</span>`,
     ex: "The AI (Nemotron) made the first board. Every answer from someone in Korea pulls it toward what people really say — the bar shows how much is AI vs players now.",
@@ -171,8 +171,8 @@ const T = {
     mixA: a => `AI 추측 ${a}%`, mixH: h => `플레이어 ${h}%`,
     skipped: "내 답은 건너뛰었어요.",
     mineOn: (l, r) => `내 답 <b>${l}</b> → 정답판 <b>${r}위</b>`,
-    mineOff: (l, c) => `내 답 <b>${l}</b> → 아직 정답판에 없어요${c ? ` (${c}명이 같은 답)` : ""}. 같은 답이 늘면 정답판에 올라가요.`,
-    listed: "% 없음", oops: "잠깐 오류가 났어요. 다시 눌러 주세요.",
+    mineOff: (l, c) => c > 1 ? `내 답 <b>${l}</b> → 아직 정답판에 없어요 (나 포함 ${c}명). 몇 명 더 같은 답을 하면 올라가요.` : `내 답 <b>${l}</b> → 처음 나온 답이에요. 한 명만 더 같은 답을 하면 정답판 후보가 돼요.`,
+    listed: "% 없음", judging: "채점 중…", oops: "잠깐 오류가 났어요. 다시 눌러 주세요.",
     check: (name, sample) => `<b>정답이 아니라 참고 자료예요:</b> ${name} (${sample}). 갤럽은 상위 답만 %와 함께 공개해서, '–'는 아무도 안 했다는 게 아니라 공개 목록에 없다는 뜻이에요.`,
     match: (a, n) => `갤럽과 비슷한 정도 — AI만 <span class="big">${a}</span> → 지금 정답판 <span class="big">${n}</span> <span class="miss">(1.00 = 똑같음)</span>`,
     ex: "처음 정답판은 AI(Nemotron)가 추측해 만들었어요. 한국에 사는 사람이 답할 때마다 진짜 답 쪽으로 바뀌어요. 위 막대는 지금 정답판에서 AI와 사람이 각각 차지하는 비중이에요.",
@@ -251,7 +251,7 @@ $("skip").onclick = () => toGuess();
 $("f2").onsubmit = e => { e.preventDefault(); doGuess($("guess").value.trim()); };
 async function doGuess(g, own) {
   if (!g || busy) return;
-  busy = true; $("gb").disabled = true; $("guess").value = "";
+  busy = true; $("gb").disabled = true; $("guess").value = ""; $("msg").textContent = t("judging");
   try {
     const r = await api(`/q/${cur.id}/guess`, {text: g, nth: strikes + Object.keys(opened).length + 1, own: !!own});
     if (r.rank >= 0 && !opened[r.rank]) {

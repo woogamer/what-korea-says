@@ -66,15 +66,34 @@ def test_new_slot_needs_two_players(game):
 
 
 def test_llm_resolution_is_cached(game):
-    # 내 답 판정은 저장해 다시 묻지 않음, 급한 추측 판정은 저장 안 함(내 답 배정을 오염시키지 않게)
+    # 화면엔 빠른 판정, 뒤에서 신중 판정(refine)이 저장 → 같은 글자는 다음부터 LLM 안 부름
     llm = FakeLLM(0)
     g = game(llm)
-    assert asyncio.run(g.answer("q", "cherry blossom season", who="a")) == "p:봄"
-    assert asyncio.run(g.answer("q", "cherry blossom season", who="b")) == "p:봄"
-    assert llm.calls == 1
-    assert asyncio.run(g.guess("q", "warm season"))[0] == 0
-    assert asyncio.run(g.guess("q", "warm season"))[0] == 0
-    assert llm.calls == 3
+
+    async def go():
+        assert await g.answer("q", "cherry blossom season", who="a") == "p:봄"
+        await asyncio.gather(*g._tasks)
+        assert llm.calls == 2
+        assert await g.answer("q", "cherry blossom season", who="b") == "p:봄"
+        assert (await g.guess("q", "cherry blossom season"))[0] == 0
+        await asyncio.gather(*g._tasks)
+        assert llm.calls == 2
+    asyncio.run(go())
+
+
+def test_refine_fixes_fast_verdict(game):
+    # 빠른 판정이 틀려도(새 답) 신중 판정이 칸을 고침
+    class TwoLLM(FakeLLM):
+        async def acall(self, *a, **k):
+            self.slot = 0 if k.get("thinking") else -1
+            return await super().acall(*a, **k)
+    g = game(TwoLLM(-1))
+
+    async def go():
+        assert (await g.answer("q", "cherry blossom season", who="a")).startswith("n:")
+        await asyncio.gather(*g._tasks)
+    asyncio.run(go())
+    assert g.db.execute("SELECT key FROM answers").fetchone()[0] == "p:봄"
 
 
 def test_junk_answer_not_counted(game):
