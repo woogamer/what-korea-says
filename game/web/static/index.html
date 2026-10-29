@@ -112,6 +112,13 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
   <div class="status"><span class="msg" data-t="how"></span><button id="next" data-t="next"></button></div>
 </div>
 
+<!-- 4. all done -->
+<div class="card hidden" id="s4">
+  <p class="q" data-t="alldone"></p>
+  <p class="hint" data-t="alldone2"></p>
+  <div class="status"><span></span><button class="ghost" type="button" id="again" data-t="again"></button></div>
+</div>
+
 <footer data-t="foot"></footer>
 </div>
 
@@ -135,6 +142,9 @@ const T = {
     thA: "Answer", thB: "Board", thAI: "AI guess", thG: "Gallup (ref.)",
     how: "AI guess = NVIDIA Nemotron on Nebius Token Factory. Board = AI guess updated by players (Bayesian).",
     next: "Next question →",
+    alldone: "You've played all 30 questions. Thank you!",
+    alldone2: "Your answers are already on the boards. Share the link so more people can correct the AI.",
+    again: "Play them again",
     foot: "Real survey data: Gallup Korea \"What Koreans Like\" 2024, Gallup Korea 2026 · Answers from people outside Korea are saved but not counted · Prototype",
     meta: (n, a) => `${n} player${n === 1 ? "" : "s"} so far · AI ${a}%`,
     meta3: (n, k) => `${n} player${n === 1 ? "" : "s"} · AI counts as ${k} people`,
@@ -163,6 +173,9 @@ const T = {
     thA: "답", thB: "정답판", thAI: "AI 추측", thG: "갤럽(참고)",
     how: "AI 추측 = Nebius Token Factory의 NVIDIA Nemotron. 정답판 = 플레이어 답으로 고쳐 가는 AI 추측(베이즈).",
     next: "다음 문제 →",
+    alldone: "30문제를 다 풀었어요. 고마워요!",
+    alldone2: "내 답은 이미 정답판에 들어갔어요. 링크를 주변에 공유해 주시면 AI를 더 많이 고칠 수 있어요.",
+    again: "처음부터 다시 풀기",
     foot: "실제 조사: 한국갤럽 '한국인이 좋아하는 것' 2024, 한국갤럽 2026 · 한국 밖에 사는 분의 답은 저장만 하고 세지 않아요 · 프로토타입",
     meta: (n, a) => `지금까지 ${n}명 참여 · AI ${a}%`,
     meta3: (n, k) => `${n}명 참여 · AI는 ${k}명 몫`,
@@ -202,18 +215,19 @@ function applyLang() {
 }
 document.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { L = b.dataset.lang; store.set("lang", L); applyLang(); });
 
-function show(id) { ["s1", "s2", "s3"].forEach(s => $(s).classList.toggle("hidden", s !== id)); }
+function show(id) { ["s1", "s2", "s3", "s4"].forEach(s => $(s).classList.toggle("hidden", s !== id)); }
 // 본 문제는 메모리에도 둠(카톡 등 인앱 브라우저에서 localStorage가 막히면 매번 처음부터라 같은 문제가 반복됨)
 const seen = new Set(store.get("played", []));
 function pick() {
   let pool = Q.filter(q => !seen.has(q.id));
-  if (!pool.length) { seen.clear(); pool = Q.filter(q => q.id !== cur?.id); }
-  return pool[Math.floor(Math.random() * pool.length)];
+  return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;   // 다 풀었으면 같은 문제를 다시 내지 않고 끝 화면
 }
 function metaText() { return t("meta")(info.n, Math.round(100 * info.ai_weight)); }
 
 async function start(q) {
-  cur = q || pick(); mine = null; opened = {}; strikes = 0; score = 0; finished = false; last = null;
+  const nx = q || pick();
+  if (!nx) { show("s4"); return; }
+  cur = nx; mine = null; opened = {}; strikes = 0; score = 0; finished = false; last = null;
   seen.add(cur.id); store.set("played", [...seen]);   // 화면에 띄우는 순간 본 것으로(끝까지 안 해도 다시 안 나옴)
   info = await api(`/q/${cur.id}`);
   applyLang();
@@ -309,6 +323,7 @@ function renderReveal(r) {
 }
 $("next").onclick = () => start();
 $("home").onclick = () => start();
+$("again").onclick = () => { seen.clear(); store.set("played", []); start(); };
 
 (async () => {
   applyLang();

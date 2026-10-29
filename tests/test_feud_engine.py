@@ -130,9 +130,17 @@ def test_one_answer_per_player(game):
     assert next(s["count"] for s in g.slots("q")[0] if s["key"] == "n:장마철") == 2
 
 
+def test_same_wifi_family_each_counts_up_to_cap(game):
+    from game.web.engine import IP_CAP
+    g = game(FakeLLM(-1))
+    for i in range(IP_CAP + 2):   # 같은 IP, 브라우저(쿠키)는 각자
+        asyncio.run(g.answer("q", "장마철", who=f"c{i}", ip="home"))
+    assert next(s["count"] for s in g.slots("q")[0] if s["key"] == "n:장마철") == IP_CAP
+
+
 def test_alias_key_survives_rebuild(game, tmp_path):
     g = game(NoLLM())
-    g.db.execute("INSERT INTO answers VALUES ('q','벚꽃','p:벚꽃 피는 봄',NULL,NULL,1,0,NULL)")   # 예전 빌드에서 따로 칸이던 답
+    g.db.execute("INSERT INTO answers VALUES ('q','벚꽃','p:벚꽃 피는 봄',NULL,NULL,1,0,NULL,NULL)")   # 예전 빌드에서 따로 칸이던 답
     g.db.commit()
     spring = next(s for s in g.board("q")[0] if s["label"] == "Spring")
     assert spring["count"] == 1

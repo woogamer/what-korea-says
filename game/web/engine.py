@@ -21,6 +21,7 @@ BOARD = 8
 MIN_NEW = 2      # 플레이어가 만든 칸은 2명 이상 같은 답이어야 정답판 후보(장난 한 명이 칸을 못 만들게)
 MENU = 25        # 내 답 배정 시 비교할 후보 칸 수(사후 비율 상위)
 MAX_LEN = 40
+IP_CAP = 6   # 같은 IP 한 문항 최대 표(가족·사무실 와이파이)
 # 보기가 정해진 문제는 맞힐 칸을 줄임(12달 중 8칸이면 1월부터 다 넣으면 끝나서 "정답이 뭐죠?"가 됨). 결과 표·갤럽 비교는 전체 칸
 CAP = {"g24n-1": 4, "g24n-2": 3, "g24-6": 2}
 NOTES = json.loads((Path(__file__).parent / "judge_notes.json").read_text())   # 문항별 판정 규칙(실제 플레이어 답을 보고 씀)
@@ -50,7 +51,9 @@ class Game:
             CREATE TABLE IF NOT EXISTS guesses (qid TEXT, raw TEXT, key TEXT, rank INTEGER, nth INTEGER, own INTEGER, who TEXT, ts REAL);
         """)
         if "who" not in {r[1] for r in self.db.execute("PRAGMA table_info(answers)")}:
-            self.db.execute("ALTER TABLE answers ADD COLUMN who TEXT")   # 플레이어 IP 해시: 한 사람 한 문항 한 표
+            self.db.execute("ALTER TABLE answers ADD COLUMN who TEXT")   # 플레이어(쿠키 해시, 없으면 IP 해시): 한 사람 한 문항 한 표
+        if "ip" not in {r[1] for r in self.db.execute("PRAGMA table_info(answers)")}:
+            self.db.execute("ALTER TABLE answers ADD COLUMN ip TEXT")    # IP 해시: 같은 IP 한 문항 최대 IP_CAP표. NULL = 쿠키 전 기록(who가 IP 해시)
 
     # ---------- 정답판 ----------
     def _counts(self, qid):
@@ -163,15 +166,18 @@ class Game:
         self._tasks.add(task)
         task.add_done_callback(self._tasks.discard)
 
-    async def answer(self, qid, text, age=None, sex=None, kr=None, who=None):
-        """플레이어 자기 답 저장. 기존 칸과 같으면 그 칸, 아니면 새 칸 후보. 같은 사람(who)이 이 문항에 이미 답했으면 그 답만 돌려줌."""
+    async def answer(self, qid, text, age=None, sex=None, kr=None, who=None, ip=None):
+        """플레이어 자기 답 저장. 기존 칸과 같으면 그 칸, 아니면 새 칸 후보. 같은 사람(who)이 이 문항에 이미 답했으면 그 답만 돌려줌.
+        같은 IP(가족·사무실 와이파이)는 문항마다 IP_CAP표까지만 셈(쿠키 지우고 다시 하는 것 막기)."""
         if who:
             hit = self.db.execute("SELECT key FROM answers WHERE qid=? AND who=? LIMIT 1", (qid, who)).fetchone()
             if hit:
                 return hit[0]
         text = text.strip()[:MAX_LEN]
         key = await self.resolve(qid, text) or f"n:{norm(text)}"
-        self.db.execute("INSERT INTO answers VALUES (?,?,?,?,?,?,?,?)", (qid, text, key, age, sex, kr, time.time(), who))
+        if ip and self.db.execute("SELECT COUNT(*) FROM answers WHERE qid=? AND (ip=? OR (ip IS NULL AND who=?))", (qid, ip, ip)).fetchone()[0] >= IP_CAP:
+            return key
+        self.db.execute("INSERT INTO answers VALUES (?,?,?,?,?,?,?,?,?)", (qid, text, key, age, sex, kr, time.time(), who, ip))
         self.db.commit()
         self.refine(qid, text, key)
         return key
