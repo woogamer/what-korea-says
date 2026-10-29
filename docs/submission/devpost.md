@@ -2,7 +2,7 @@
 
 Tagline: A Family Feud–style survey quiz where an AI writes the answer board and real players turn it into Korean public opinion.
 
-Track: Best Apps and Agents · Demo: https://nebius.woogamer.win/play/
+Track: Best Apps and Agents · Demo: https://nebius.woogamer.win/play/?lang=en
 
 ## Inspiration
 
@@ -14,10 +14,10 @@ We wanted to make that lesson something anyone can feel in two minutes. So we bu
 
 ## What it does
 
-What Korea Says is a survey quiz game with 30 questions, such as favorite Korean food, a mom's most common nagging, or what you do on payday.
+What Korea Says is a survey quiz game with 30 questions, such as favorite Korean food, a mom's most common nagging, or what you do on payday. It runs in English and Korean.
 
-- **You answer first.** Your answer is saved after the round, so it never helps you.
-- **You guess the board.** Three strikes and you are out. Matching understands English and Korean, typos and synonyms.
+- **You answer first.** Your answer joins the board for the next players, and becomes your first guess.
+- **You guess the board.** Three strikes and you are out. Matching understands English and Korean, typos, synonyms and brand names.
 - **The reveal** puts three things side by side:
   - the board today
   - what Nemotron originally predicted
@@ -29,7 +29,7 @@ The board is a Bayesian posterior: `(κ · AI + player counts) / (κ + players)`
 - **κ ≈ 8** was fit to 30 Gallup question–survey pairs (2019, 2024 and 2026 releases; the game shows the latest 18). The AI prediction is worth about 8 real respondents.
 - **The first players** move the board a lot, and later players move it less.
 - **New answers** the AI missed appear once two players give them.
-- **Who counts:** only players living in Korea count.
+- **Who counts:** only players living in Korea, one vote per browser per question.
 
 ## How we built it
 
@@ -38,48 +38,61 @@ The board is a Bayesian posterior: `(κ · AI + player counts) / (κ + players)`
   - It writes each prior board as a direct estimate of the national answer distribution (reasoning on, three runs averaged).
   - It translates and merges answers while we build the bank.
   - It maps slots to Gallup categories.
-  - It judges player guesses in real time (reasoning off, about 0.5 s).
-- **NVIDIA Nemotron 3 Nano + Nemotron-Personas-Korea** powered the baseline we tested and rejected: sampling 200 synthetic Koreans per question.
-- **The server** is FastAPI and SQLite with a plain JavaScript front end. Confirmed matches are cached, so each distinct answer costs at most one model call. A budget cap falls back to exact text matching.
+  - It judges every answer and guess as a generous game-show host, following per-question rules we wrote after reading real player answers. The screen gets a fast verdict with reasoning off. A careful verdict with reasoning on runs in the background and corrects it.
+- **NVIDIA Nemotron 3 Nano + Nemotron-Personas-Korea** powered the baseline we tested and rejected: up to 1,000 synthetic Koreans per question.
+- **The server** is FastAPI and SQLite with a plain JavaScript front end. Confirmed matches are cached, so each distinct answer costs at most a few model calls. A budget cap falls back to exact text matching.
 
 ## Challenges
 
-- **Synthetic people collapse onto stereotypes.** With 200 personas, "Google" won the leading-AI-company question with 84% (Gallup: 15%, Samsung 37%). Asking Super directly for the national distribution scored higher on every held-out Gallup set: 0.66 vs 0.51 on 2024 questions, and 0.62 vs 0.26 on 2026 questions released after the model's training.
-- **Merging answers is where boards break.** One automatic merge pass put jajangmyeon, jjamppong and sweet-and-sour pork into a single 68% slot, so we threw it out. The final pipeline:
-  - exact match first
-  - a bilingual judge
-  - an alias re-check that sends wrongly merged answers back to the right slot
+- **Synthetic people collapse onto one answer, and more of them does not help.** We asked 1,000 personas all 18 Gallup questions. Overlap with Gallup went 0.49 (50 personas) → 0.51 (200) → 0.52 (1,000), and then stopped improving. The error is bias, not noise:
+  - Favorite tree: cherry 84% (Gallup: pine 36%).
+  - Leading AI company: Google 82% (Gallup: Samsung 37%).
+  - Favorite weekday: Saturday 75% (Gallup: Friday 34%, Saturday 33%).
+  - Favorite baseball team: one team 70% (Gallup: 46% have none). Personas never say "none".
+
+  Asking Super directly for the national distribution scored higher on every held-out Gallup set: 0.66 vs 0.51 on 2024 questions, and 0.62 vs 0.26 on 2026 questions released after the model's training.
+- **Merging answers is where boards break.** One automatic merge pass put jajangmyeon, jjamppong and sweet-and-sour pork into a single 68% slot, so we threw it out. Live play brought new traps: the judge read the guess "2" as slot #2, and merged look-alike mountain names. The fixes:
+  - exact match first, and numbers match only the same number
+  - a bilingual judge with per-question rules
+  - a careful second verdict in the background that sends wrongly merged answers back to the right slot
   - manual fixes keyed by Korean text, so rebuilds stay stable
-- **Your own answer was a hint.** Early builds counted your answer before you guessed, so it now saves only at the end of the round.
+- **Real players find real bugs.** In two days of live play we fixed:
+  - a frozen second round
+  - Kakao's in-app browser caching an old page
+  - questions repeating after all 30 were played
+  - family members on one Wi-Fi counting as one player
 
 ## Accomplishments
 
-In a simulation against Gallup, overlap with the real survey (1.0 = identical) rises with players. κ and every number below are leave-one-out: κ was fit only on the other questions, and the 2019 and 2024 versions of the same question were held out together, so no question is scored with a κ it helped fit.
+**126 real players in two days.** They gave 1,151 answers and 3,479 guesses (Oct 28–29, 2026). 22–32 Korea-resident players answered each Gallup question.
 
-| Players | Board overlap |
+| Board on the 18 Gallup questions | Overlap with Gallup (1.0 = identical) |
 |---|---|
-| 0 | 0.69 |
-| 10 | 0.76 |
-| 30 | 0.83 |
-| 100 | 0.90 |
+| 1,000 synthetic personas | 0.52 |
+| AI direct estimate (the first board) | 0.61 |
+| About 25 real players only | 0.65 |
+| **AI + real players (the live board)** | **0.68** |
 
-The combined board beat both AI-only and players-only at every player count.
+- **About 25 real people beat 1,000 synthetic ones.** The live board moved closer to Gallup on 12 of 18 questions. Pet went 0.56 → 0.90 and spectator sport 0.69 → 0.85.
+- **It also moved away on 6.** Favorite baseball team dropped 0.59 → 0.51, because a few fans of one team move a 25-person board.
+- **The same pattern held in simulation.** Overlap rose from 0.69 with no players to 0.76 with 10, 0.83 with 30 and 0.90 with 100, and the combined board beat both AI-only and players-only at every player count. κ and these numbers are leave-one-out: κ was fit only on the other questions.
 
 We also report what failed:
-- A global bias correction learned across questions gained only +0.02.
-- The AI prior is overconfident: its 80% intervals covered the truth only 65% of the time.
+- **Age reweighting.** Our players are mostly in their 30s and 40s. Reweighting them to Korea's adult population made the live board worse (0.68 → 0.63), because a few older players got very large weights. Older players did not answer more like Gallup than younger ones.
+- **Global bias correction.** One correction learned across questions gained only +0.02.
+- **Overconfidence.** The AI prior's 80% intervals covered the truth only 65% of the time.
 
 ## What we learned
 
 The interesting number is not how good the AI is. It is how many real people the AI is worth.
 
-For everyday preference questions, the answer is about 8.
+For everyday preference questions, the answer is about 8. A thousand synthetic people are worth less than 25 real ones, because they all make the same mistake. AI is a good first draft of public opinion. People are the correction.
 
 ## What's next
 
-- Collect real players and compare the live boards with Gallup.
-- Add age and gender reweighting of players. It already works in simulation.
+- Reach older and more representative players. Then test age reweighting again with enough players in each age group.
 - Let players submit their own questions, so the AI writes the first board instantly.
+- Publish the live boards as an open dataset of Korean everyday preferences.
 
 ## Built with
 
@@ -89,15 +102,16 @@ Nebius Token Factory · NVIDIA Nemotron 3 Super · NVIDIA Nemotron 3 Nano · NVI
 
 **Nebius Token Factory**
 - The OpenAI-compatible endpoint made integration a few lines.
-- The per-call token usage let us log the cost of every experiment. The whole research behind this game cost a few dollars.
+- The per-call token usage let us log the cost of every experiment. The whole research behind this game cost a few dollars. The 1,000-persona experiment, about 18,000 calls, cost $1.13.
 - `json_schema` response format worked on Nano but was not enforced for nested schemas on Super. We validate and retry in the application.
 - At about 50 concurrent connections we saw two process crashes during SSL handling. 25 was stable.
 
 **NVIDIA Nemotron**
-- Reasoning on/off (`chat_template_kwargs.enable_thinking`) changes behavior a lot. With reasoning on, synthetic respondents gave far more varied and realistic answers. With it off, the judge became fast enough for real-time play.
+- Reasoning on/off (`chat_template_kwargs.enable_thinking`) changes behavior a lot. With it off, the judge became fast enough for live play. With it on, its verdicts were more careful, so we use both: fast on screen, careful in the background.
 - Reasoning tokens count against `max_tokens`, so short answers need a generous budget.
 - Run-to-run variance in distribution estimates is large. Averaging three runs helped.
+- As a judge, the model sometimes read a bare number as a list index ("2" → slot #2). We match numbers without the model.
 
 **Nemotron-Personas-Korea**
 - It is a strong demographic scaffold.
-- Asking each persona independently still produced a stereotyped consensus. Guidance on when to sample personas versus asking for an aggregate estimate would help builders.
+- Asking each persona independently still produced a stereotyped consensus that did not improve from 200 to 1,000 personas. Guidance on when to sample personas versus asking for an aggregate estimate would help builders.
