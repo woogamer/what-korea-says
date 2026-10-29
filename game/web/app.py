@@ -62,7 +62,7 @@ async def answer(qid: str, body: Text, request: Request):
 async def guess(qid: str, body: Text, request: Request):
     q_or_404(qid)
     rank, s = await game.guess(qid, body.text, body.nth, body.own, player(request))
-    return {"rank": rank, "label": s and s["label"], "ko": s and s["ko"], "now": s and round(s["now"], 1)}
+    return {"rank": rank, "key": s and s["key"], "label": s and s["label"], "ko": s and s["ko"], "now": s and round(s["now"], 1)}
 
 
 @app.get("/api/q/{qid}/reveal")

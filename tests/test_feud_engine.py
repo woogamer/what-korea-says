@@ -66,11 +66,26 @@ def test_new_slot_needs_two_players(game):
 
 
 def test_llm_resolution_is_cached(game):
+    # 내 답 판정은 저장해 다시 묻지 않음, 급한 추측 판정은 저장 안 함(내 답 배정을 오염시키지 않게)
     llm = FakeLLM(0)
     g = game(llm)
-    assert asyncio.run(g.guess("q", "cherry blossom season"))[0] == 0
-    assert asyncio.run(g.guess("q", "cherry blossom season"))[0] == 0
+    assert asyncio.run(g.answer("q", "cherry blossom season", who="a")) == "p:봄"
+    assert asyncio.run(g.answer("q", "cherry blossom season", who="b")) == "p:봄"
     assert llm.calls == 1
+    assert asyncio.run(g.guess("q", "warm season"))[0] == 0
+    assert asyncio.run(g.guess("q", "warm season"))[0] == 0
+    assert llm.calls == 3
+
+
+def test_junk_answer_not_counted(game):
+    g = game(FakeLLM(-2))
+    assert asyncio.run(g.answer("q", "seungyeon", who="a")).startswith("x:")
+    assert g.board("q")[1] == 0
+
+
+def test_number_answer_never_asks_llm(game):
+    g = game(NoLLM())
+    assert asyncio.run(g.guess("q", "2"))[0] == -1
 
 
 def test_reveal_overlap(game):

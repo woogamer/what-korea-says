@@ -201,16 +201,18 @@ function applyLang() {
 document.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { L = b.dataset.lang; store.set("lang", L); applyLang(); });
 
 function show(id) { ["s1", "s2", "s3"].forEach(s => $(s).classList.toggle("hidden", s !== id)); }
+// 본 문제는 메모리에도 둠(카톡 등 인앱 브라우저에서 localStorage가 막히면 매번 처음부터라 같은 문제가 반복됨)
+const seen = new Set(store.get("played", []));
 function pick() {
-  const played = store.get("played", []);
-  let pool = Q.filter(q => !played.includes(q.id));
-  if (!pool.length) { store.set("played", []); pool = Q; }
+  let pool = Q.filter(q => !seen.has(q.id));
+  if (!pool.length) { seen.clear(); pool = Q.filter(q => q.id !== cur?.id); }
   return pool[Math.floor(Math.random() * pool.length)];
 }
 function metaText() { return t("meta")(info.n, Math.round(100 * info.ai_weight)); }
 
 async function start(q) {
-  cur = q || pick(); mine = null; opened = {}; strikes = 0; score = 0; finished = false; last = null;
+  cur = q || pick(); mine = null;
+  seen.add(cur.id); store.set("played", [...seen]);   // 화면에 띄우는 순간 본 것으로(끝까지 안 해도 다시 안 나옴) opened = {}; strikes = 0; score = 0; finished = false; last = null;
   info = await api(`/q/${cur.id}`);
   applyLang();
   $("mine").value = ""; show("s1"); $("mine").focus();
@@ -269,7 +271,9 @@ async function finish() {
   finished = true;   // 한 판에 한 번만(정답판 다 열기·세 번째 X가 겹쳐도 내 답이 두 번 저장되지 않게)
   const key = mine ? (await api(`/q/${cur.id}/answer`, mine)).key : null;
   const r = await api(`/q/${cur.id}/reveal${key ? "?mine=" + encodeURIComponent(key) : ""}`);
-  store.set("played", [...new Set([...store.get("played", []), cur.id])]);
+  // 내 답이 더해져 순위가 바뀔 수 있으니 맞힌 칸을 key로 다시 찾음(번호로 찾으면 다른 칸에 ✓)
+  const hit = new Set(Object.values(opened).map(o => o.key));
+  opened = {}; r.board.forEach((s, i) => { if (hit.has(s.key)) opened[i] = s; });
   renderBoard(r.board);
   await new Promise(res => setTimeout(res, 900));
   last = r;
