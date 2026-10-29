@@ -21,6 +21,8 @@ BOARD = 8
 MIN_NEW = 2      # 플레이어가 만든 칸은 2명 이상 같은 답이어야 정답판 후보(장난 한 명이 칸을 못 만들게)
 MENU = 25        # 내 답 배정 시 비교할 후보 칸 수(사후 비율 상위)
 MAX_LEN = 40
+# 보기가 정해진 문제는 맞힐 칸을 줄임(12달 중 8칸이면 1월부터 다 넣으면 끝나서 "정답이 뭐죠?"가 됨). 결과 표·갤럽 비교는 전체 칸
+CAP = {"g24n-1": 4, "g24n-2": 3, "g24-6": 2}
 NOTES = json.loads((Path(__file__).parent / "judge_notes.json").read_text())   # 문항별 판정 규칙(실제 플레이어 답을 보고 씀)
 JUNK = -2
 
@@ -80,11 +82,13 @@ class Game:
                             "now": 100 * c / (self.kappa + n)})
         return sorted(out, key=lambda s: -s["now"]), n
 
-    def board(self, qid):
+    def board(self, qid, full=False):
         q = self.qs[qid]
         ss, n = self.slots(qid)
         ok = [s for s in ss if not s["key"].startswith("n:") or s["count"] >= MIN_NEW]
         size = min(BOARD, max(q["board_size"], sum(s["now"] >= 1 for s in ok)))
+        if not full:
+            size = min(size, CAP.get(qid, size))
         return ok[:size], n
 
     def ai_weight(self, n):
@@ -210,7 +214,7 @@ class Game:
 
     async def reveal(self, qid, mine=None):
         q = self.qs[qid]
-        b, n = self.board(qid)
+        b, n = self.board(qid, full=True)
         real = {x["ko"]: x for x in q["reality"]["items"]} if q["reality"] else {}
         slots = []
         for s in b:
