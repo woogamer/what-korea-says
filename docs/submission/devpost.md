@@ -51,16 +51,7 @@ The board is a Bayesian posterior: `(κ · AI + player counts) / (κ + players)`
   - Favorite baseball team: one team 70% (Gallup: 46% have none). Personas never say "none".
 
   Asking Super directly for the national distribution scored higher on every held-out Gallup set: 0.66 vs 0.51 on 2024 questions, and 0.62 vs 0.26 on 2026 questions released after the model's training.
-- **Merging answers is where boards break.** One automatic merge pass put jajangmyeon, jjamppong and sweet-and-sour pork into a single 68% slot, so we threw it out. Live play brought new traps: the judge read the guess "2" as slot #2, and merged look-alike mountain names. The fixes:
-  - exact match first, and numbers match only the same number
-  - a bilingual judge with per-question rules
-  - a careful second verdict in the background that sends wrongly merged answers back to the right slot
-  - manual fixes keyed by Korean text, so rebuilds stay stable
-- **Real players find real bugs.** In two days of live play we fixed:
-  - a frozen second round
-  - Kakao's in-app browser caching an old page
-  - questions repeating after all 30 were played
-  - family members on one Wi-Fi counting as one player
+- **Merging answers is where boards break.** One automatic merge pass put jajangmyeon, jjamppong and sweet-and-sour pork into a single 68% slot. We now match exact text first and let the judge decide the rest, with a careful second verdict that moves wrongly merged answers back.
 
 ## Accomplishments
 
