@@ -144,7 +144,7 @@ const T = {
     skipped: "You skipped your own answer.",
     mineOn: (l, r) => `Your answer <b>${l}</b> is <b>#${r}</b> on the board.`,
     mineOff: (l, c) => `Your answer <b>${l}</b> isn't on the board yet${c ? ` (${c} player${c === 1 ? "" : "s"} said it)` : ""}. More players saying it will push it on.`,
-    listed: "no %",
+    listed: "no %", oops: "Server hiccup — please try again.",
     check: (name, sample) => `<b>Reference, not the answer key:</b> ${name} asked ${sample}. Gallup publishes only its top answers with percentages, so it is a yardstick — '–' means not in Gallup's published list, not that nobody said it.`,
     match: (a, n) => `Similarity to Gallup — AI alone <span class="big">${a}</span> → board now <span class="big">${n}</span> <span class="miss">(1.00 = identical)</span>`,
     ex: "The AI (Nemotron) made the first board. Every answer from someone in Korea pulls it toward what people really say — the bar shows how much is AI vs players now.",
@@ -172,7 +172,7 @@ const T = {
     skipped: "내 답은 건너뛰었어요.",
     mineOn: (l, r) => `내 답 <b>${l}</b> → 정답판 <b>${r}위</b>`,
     mineOff: (l, c) => `내 답 <b>${l}</b> → 아직 정답판에 없어요${c ? ` (${c}명이 같은 답)` : ""}. 같은 답이 늘면 정답판에 올라가요.`,
-    listed: "% 없음",
+    listed: "% 없음", oops: "잠깐 오류가 났어요. 다시 눌러 주세요.",
     check: (name, sample) => `<b>정답이 아니라 참고 자료예요:</b> ${name} (${sample}). 갤럽은 상위 답만 %와 함께 공개해서, '–'는 아무도 안 했다는 게 아니라 공개 목록에 없다는 뜻이에요.`,
     match: (a, n) => `갤럽과 비슷한 정도 — AI만 <span class="big">${a}</span> → 지금 정답판 <span class="big">${n}</span> <span class="miss">(1.00 = 똑같음)</span>`,
     ex: "처음 정답판은 AI(Nemotron)가 추측해 만들었어요. 한국에 사는 사람이 답할 때마다 진짜 답 쪽으로 바뀌어요. 위 막대는 지금 정답판에서 AI와 사람이 각각 차지하는 비중이에요.",
@@ -262,15 +262,19 @@ async function doGuess(g, own) {
       $("msg").textContent = r.rank >= 0 ? t("already") : t("notOn")(g);
       if (strikes >= 3) return finish();
     }
-  } finally { busy = false; $("gb").disabled = false; $("guess").focus(); }
+  } catch { $("msg").textContent = t("oops"); $("guess").value = g; }   // 서버 오류면 안내하고 글자 돌려줌(버튼이 안 먹는 것처럼 보이지 않게)
+  finally { busy = false; $("gb").disabled = false; $("guess").focus(); }
 }
 $("give").onclick = () => finish();
 
 async function finish() {
   if (finished) return;
   finished = true;   // 한 판에 한 번만(정답판 다 열기·세 번째 X가 겹쳐도 내 답이 두 번 저장되지 않게)
-  const key = mine ? (await api(`/q/${cur.id}/answer`, mine)).key : null;
-  const r = await api(`/q/${cur.id}/reveal${key ? "?mine=" + encodeURIComponent(key) : ""}`);
+  let key, r;
+  try {
+    key = mine ? (await api(`/q/${cur.id}/answer`, mine)).key : null;
+    r = await api(`/q/${cur.id}/reveal${key ? "?mine=" + encodeURIComponent(key) : ""}`);
+  } catch { finished = false; $("msg").textContent = t("oops"); return; }   // 다시 누를 수 있게
   // 내 답이 더해져 순위가 바뀔 수 있으니 맞힌 칸을 key로 다시 찾음(번호로 찾으면 다른 칸에 ✓)
   const hit = new Set(Object.values(opened).map(o => o.key));
   opened = {}; r.board.forEach((s, i) => { if (hit.has(s.key)) opened[i] = s; });

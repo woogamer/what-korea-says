@@ -37,7 +37,8 @@ class Game:
         # 'p:<한국어>' → AI 칸. 별칭도 대표 칸으로(재빌드로 묶음이 바뀌어도 저장된 답이 맞는 칸에 들어가게)
         self.home = {qid: {f"p:{a}": x for x in q["prior"] for a in [x["ko"], *x["alias_ko"]]} for qid, q in self.qs.items()}
         self.router = router
-        self.db = sqlite3.connect(db_path, check_same_thread=False)
+        self.db = sqlite3.connect(db_path, check_same_thread=False, timeout=15)   # 다른 쓰기가 잠깐 잡고 있어도 기다림
+        self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript("""
             CREATE TABLE IF NOT EXISTS answers (qid TEXT, raw TEXT, key TEXT, age TEXT, sex TEXT, kr INTEGER, ts REAL);
             CREATE TABLE IF NOT EXISTS resolved (qid TEXT, text TEXT, key TEXT, PRIMARY KEY (qid, text));
@@ -155,8 +156,11 @@ class Game:
         key = await self.resolve(qid, text)
         rank = next((i for i, s in enumerate(b) if s["key"] == key), -1)
         # 추측 순서 = '남들이 많이 할 것 같은 답'(기록만, 정답판 계산엔 안 씀)
-        self.db.execute("INSERT INTO guesses VALUES (?,?,?,?,?,?,?,?)", (qid, text, key, rank, nth, own, who, time.time()))
-        self.db.commit()
+        try:
+            self.db.execute("INSERT INTO guesses VALUES (?,?,?,?,?,?,?,?)", (qid, text, key, rank, nth, own, who, time.time()))
+            self.db.commit()
+        except sqlite3.Error:
+            self.db.rollback()   # 기록 실패가 게임을 막지 않게
         return rank, (b[rank] if rank >= 0 else None)
 
     # ---------- 공개 ----------
