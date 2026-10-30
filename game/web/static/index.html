@@ -194,9 +194,9 @@ const T = {
     missing: "정답판에 없는 갤럽 답: ", src: "출처", pct: "응답한 사람 중 %",
   },
 };
-// 기본 한국어(카톡 인앱 브라우저는 폰 언어를 영어로 알려 주기도 함). 심사용 링크는 ?lang=en
+// 기본 영어(심사용). 한국 플레이어 링크는 ?lang=ko
 const urlLang = new URLSearchParams(location.search).get("lang");
-let L = ["ko", "en"].includes(urlLang) ? urlLang : store.get("lang", null) || "ko";
+let L = ["ko", "en"].includes(urlLang) ? urlLang : store.get("lang", null) || "en";   // 심사 기간 기본 영어(?lang=ko 로 한국어)
 const t = k => T[L][k];
 const lbl = s => L === "ko" ? (s.ko || s.label) : s.label;
 let Q = [], cur = null, info = null, mine = null, opened = {}, strikes = 0, score = 0, busy = false, finished = false, last = null;
